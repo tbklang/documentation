@@ -1,0 +1,4 @@
+Journal
+=======
+
+{{ blog_content }}

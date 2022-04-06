@@ -1,12 +1,15 @@
-Dependency generation
-=====================
-
 ---
-title: "Dependency generation"
+title: Dependency generation
 date: 2021-08-11
 author: Tristan B. Kildaire
 tags: [typechecking, dependency, static, oop, tree]
 ---
+
+# d
+
+//#Dependency generation
+//=====================
+
 
 ## Working dependency generation (so far)
 

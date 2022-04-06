@@ -13,7 +13,11 @@ plugins:
     - tooltips
     - mknotebooks
 
-
+    - blogging:
+          dirs:
+            - journal
+          features:
+            tags: {}
 
     - print-site
 
