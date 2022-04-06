@@ -1,0 +1,43 @@
+site_name: Tristan Programming Language
+
+theme: material
+plugins:
+    - search
+    #- mermaid2
+
+    
+    - section-index
+    #- git-committers-2
+    - git-revision-date
+
+    - tooltips
+    - mknotebooks
+
+
+
+    - print-site
+
+#TODO: See if we can get git commit authors automatically on each page
+#TODO: See if we can ehnace material docs theme
+
+extra_css:
+  - css/hint.min.css
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+  - pymdownx.tabbed:
+      alternate_style: true 
+
+  - admonition
+  - pymdownx.details
+
+
