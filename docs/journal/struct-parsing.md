@@ -1,12 +1,11 @@
-Added support for structs to parser
-===================================
-
 ---
 title: Added support for structs to parser
 author: Tristan B. Kildaire
 date: 2021-05-31
 tags: [parser, structs, internals]
 ---
+
+# Added support for structs to parser
 
 # Struct support
 

@@ -1,12 +1,11 @@
-Parser update 1
-===============
-
 ---
 title: Parser update 1
 date: 2021-03-05
 tags: [parser]
 author: Tristan B. Kildaire
 ---
+
+# Parser update 1
 
 On `#programming` on BNET on the 5th of March 2021:
 

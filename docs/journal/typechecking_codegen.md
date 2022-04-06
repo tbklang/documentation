@@ -1,12 +1,11 @@
-Code generation and type checking
-=================================
-
 ---
 title: "Code generation and type checking"
 date: 2021-10-28
 author: Tristan B. Kildaire
 tags: [typechecking, dependency, tree, paths, codegeneration]
 ---
+
+# Code generation and type checking
 
 ## Introduction
 

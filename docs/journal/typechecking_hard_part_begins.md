@@ -1,12 +1,11 @@
-Type checking: The hard part begins
-===================================
-
 ---
 title: "Type checking: The hard part begins"
 date: 2021-06-04
 tags: [typechecking, dependancies, initialization-order, precedence, oop, typing]
 author: Tristan B. Kildaire 
 ---
+
+# Type checking: The hard part begins
 
 Update on this.
 

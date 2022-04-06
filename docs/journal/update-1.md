@@ -1,12 +1,11 @@
-Major update - grind of a week
-==============================
-
 ---
 title: Major update - grind of a week
 date: 2021-03-27
 tags: [parser]
 author: Tristan B. Kildaire
 ---
+
+# Major update - grind of a week
 
 The title makes no sense.
 

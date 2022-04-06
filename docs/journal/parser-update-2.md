@@ -1,12 +1,11 @@
-Parser update 2
-===============
-
 ---
 title: Parser update 2
 date: 2021-03-16
 tags: [parser]
 author: Tristan B. Kildaire
 ---
+
+# Parser update 2
 
 On BNET IRC on `#programming` on 16th of March 2021:
 

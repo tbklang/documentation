@@ -1,12 +1,11 @@
-Needing to add path-hopper
-==========================
-
 ---
 title: "Needing to add path-hopper"
 date: 2021-08-11
 author: Tristan B. Kildaire
 tags: [typechecking, dependency, static, oop, tree, paths, grandresolver]
 ---
+
+# Needing to add path-hopper
 
 ## Path hopper
 

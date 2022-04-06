@@ -1,12 +1,11 @@
-Parsing begins
-==============
-
 ---
 title: Parsing begins
 date: 2021-03-03
 tags: [parser]
 author: Tristan B. Kildaire
 ---
+
+# Parsing begins
 
 I begun working on the parser today, along with minor fixes
 and additions to the lexer and some test cases. I started

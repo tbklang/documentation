@@ -1,12 +1,11 @@
-Adding support for `static` to parser
-=====================================
-
 ---
 title: "Adding support for `static` to parser"
 date: 2021-06-06
 author: Tristan B. Kildaire
 tags: [typechecking, parser, static, oop, grandresolution]
 ---
+
+# Adding support for `static` to parser
 
 This article deals with things mentioned in [Type checking: The hard part begins](../typechecking_hard_part_begins)
 

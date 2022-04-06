@@ -1,12 +1,11 @@
-Why create TLang?
-=================
-
 ---
 title: Why create TLang?
 date: 2021-03-02
 tags: [parser]
 author: Tristan B. Kildaire
 ---
+
+# Why create TLang?
 
 **Question:** Why create the T programming language? Are there
 not already languages out there that do what you want?

@@ -1,6 +1,3 @@
-First day of work
-=================
-
 ---
 title: First day of work
 date: 2021-03-02
@@ -8,6 +5,8 @@ description: Basically finished the lexer today
 tags: [lexer]
 author: Tristan B. Kildaire
 ---
+
+# First day of work
 
 Basically finished the lexer today, it was the first day of
 coding for the project so I am pleased with this progress.
