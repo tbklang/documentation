@@ -168,7 +168,7 @@ Object-oriented programming
 
 \begin_layout Standard
 Object orientation allows the programmer to create user-defined types which
- encapsulte both data fields and methods which act upon said data.
+ encapsulate both data fields and methods which act upon said data.
  Tristan supports:
 \end_layout
 
@@ -218,7 +218,7 @@ Granularity of control
 \end_layout
 
 \begin_layout Standard
-TODO: Add this, such as regisuter control etc
+TODO: Add this, such as register control etc
 \end_layout
 
 \begin_layout Section
@@ -229,5 +229,137 @@ Weak typing
 TODO: Let you do what you want
 \end_layout
 
+\begin_layout Section
+Systems-level
+\end_layout
+
+\begin_layout Standard
+Tristan does not shy away from features which give you access to system-level
+ concepts such as memory addresses (via pointers), assembly (via the inline
+ assembler) and so on.
+ Such features are inherently unsafe but it is this sort of control that
+ I wish to give the user, the balance between what the compiler should do
+ and what the user should make sure they are doing is tipped quite heavily
+ in favor of the latter in my viewpoint and hence we support such features
+ as:
+\end_layout
+
+\begin_layout Itemize
+Weak typing
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+By default this is not the behavior when using 
+\backslash
+texttt{cast()}
+\end_layout
+
+\begin_layout Itemize
+Casting to an incompatible type is allowed - even when a runtime-type check
+ is invalid you can still force a cast with 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{castunsafe()}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+The user should be able to do what 
+\emph on
+he
+\emph default
+ wants if requested
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Pointers
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+TODO:
+\series default
+ Expand on this
+\end_layout
+
+\begin_layout Itemize
+The mere 
+\emph on
+support
+\emph default
+ of pointers allowing one to take a memory-level view of objects in memory
+ rather than the normal 
+\begin_inset Quotes eld
+\end_inset
+
+safe access
+\begin_inset Quotes erd
+\end_inset
+
+ means
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Inline assembly
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+TODO:
+\series default
+ Expand on this
+\end_layout
+
+\begin_layout Itemize
+Inserting of arbitrary assembler is allowed, providing the programmer with
+ access to systems level registers, interrupts/syscall instructions and
+ so on
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Custom byte-packing
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\series bold
+TODO:
+\series default
+ How will we go about this in the backend C compiler
+\end_layout
+
+\begin_layout Itemize
+Allowing the user to deviate from the normal struct packing structure in
+ favor of a tweaked packing technique
+\end_layout
+
+\begin_layout Itemize
+Custom packing on a system that doesn't agree with the alignment of your
+ data 
+\series bold
+is 
+\series default
+allowed but the default is to pack accordingly to the respective platform
+\end_layout
+
+\end_deeper
 \end_body
 \end_document
