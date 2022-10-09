@@ -26,3 +26,25 @@ void sayHello()
     return 1;
 }
 ```
+
+## Typed functions
+
+A typed function has a _return type_ and can return a value of said type, here we have such an example of a function defined to return a value of type `int`:
+
+```d
+int myFunction()
+{
+    return 2;
+}
+```
+
+## Parameters
+
+Functions can take in parameters of the form _`<type> arg1, <type> arg2, ...`_, below is an example of such a function which takes to integral parameters and returns the sum:
+
+```d
+int sum(int a, int b)
+{
+    return a+b;
+}
+```
