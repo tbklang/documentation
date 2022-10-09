@@ -1,13 +1,7 @@
----
-title: OOP
-description: Object-orientation support in T
-date: 2021-05-31
-tags: [oop, documentation]
----
+OOP
+===
 
-# OOP
-
-Interfaces mmm How da fuq they get those lekker offsets
+T supports object-oriented programming out of the box, specifically support for classes (with single inheritance) and interfaces.
 
 ## Classes
 
@@ -80,4 +74,12 @@ class B : A
 
 ## Interfaces
 
-TODO: Interfaces
+TODO: Add seciton on interfaces
+TODO: Also add support for this to TLang
+
+```d
+interface A
+{
+
+}
+```
