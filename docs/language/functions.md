@@ -48,3 +48,9 @@ int sum(int a, int b)
     return a+b;
 }
 ```
+
+Calling such a function is accomplished as such:
+
+```d
+sum(2,1)
+```
