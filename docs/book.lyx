@@ -139,5 +139,23 @@ filename "part1_1.lyx"
 
 \end_layout
 
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "part1_2.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+Users guide
+\end_layout
+
+\begin_layout Part
+Implementation
+\end_layout
+
 \end_body
 \end_document
