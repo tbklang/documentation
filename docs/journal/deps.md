@@ -5,10 +5,7 @@ author: Tristan B. Kildaire
 tags: [typechecking, dependency, static, oop, tree]
 ---
 
-# d
-
-//#Dependency generation
-//=====================
+# Dependency generation
 
 
 ## Working dependency generation (so far)

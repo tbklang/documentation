@@ -21,7 +21,7 @@ This page contains a description of the implementation details of the reference
 TLang compiler. Complete with a chapter per each stage and sub-stages of the so-called
 _"compilation pipieline"_ (the process from of compiling a program from start to finish).
 
-1. [Lexing](lexing/)
+1. [Lexing](lexing/index.md)
 2. [Parsing](parsing/)
 	1. [Tokens](parsing/tokens.md)
 	2. [Structures](parsing/structures/)
