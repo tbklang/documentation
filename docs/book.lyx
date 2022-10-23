@@ -35,6 +35,8 @@
 }
 
 \lstset{style=mystyle}
+
+\usepackage{tikz}  
 \end_preamble
 \use_default_options true
 \maintain_unincluded_children false
@@ -186,6 +188,36 @@ Users guide
 
 \begin_layout Part
 Implementation
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "part3_1.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "part3_2.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "part3_3.lyx"
+
+\end_inset
+
+
 \end_layout
 
 \end_body
