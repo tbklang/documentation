@@ -1,5 +1,8 @@
 site_name: Tristan Programming Language
 
+# TODO: We must host fonts locally
+# https://t.pxeger.com/mkdocs-material/setup/changing-the-fonts/
+
 repo_url: http://deavmi.assigned.network/git/tlang/tlang
 repo_name: tlang/tlang
 
