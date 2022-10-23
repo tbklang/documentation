@@ -1,6 +1,17 @@
 site_name: Tristan Programming Language
 
-theme: material
+repo_url: http://deavmi.assigned.network/git/tlang/tlang
+repo_name: tlang/tlang
+
+theme:
+  name: material
+  logo: logo.png
+  favicon: logo.png
+  features:
+    - search.highlight
+  palette:
+    primary: indigo
+
 plugins:
     - search
     #- mermaid2

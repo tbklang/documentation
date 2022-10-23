@@ -1,4 +1,9 @@
+<!--
+Old logo below (Deavmi's face)
 <img src="tbk.png" width=345 height=241.5 style="float:right">
+-->
+
+<img src="logo.png" width=300 style="float:right">
 
 # Tristan Programming Language
 
