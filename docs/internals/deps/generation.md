@@ -17,6 +17,8 @@ int y = x+1;
 
 #### Dependency tree
 
+**TODO:** Fix the VarAss-VarDec - they should be swapped around, check issue https://t.pxeger.com/mkdocs-material/setup/changing-the-fonts/ - once the issue is closed we can update this and probably the whole page
+
 ```mermaid
 flowchart TD
 	modName(moduleName moduleInit) ---> intXDec
