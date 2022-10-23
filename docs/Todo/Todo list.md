@@ -1,6 +1,8 @@
 Todo
 ====
 
+Remove this page, we have an issue tracker for a reason. @Tristan
+
 # Parsing
 
 ### Unary operators
