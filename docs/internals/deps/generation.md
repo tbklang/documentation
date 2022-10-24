@@ -1,6 +1,36 @@
 Dependency generation
 =====================
 
+The generation of the dependency tree is a rather involved process due to the fact that there are various different aspects fo the language, both syntatical and semantic, that need to be accounted for when building the tree. At the core, however, the process is relatively simple.
+
+All we have is a _dependency node_ which has a list of further dependencies. Dependencies have a flag for whether or not they have been visited and this prevents cycles (which are indeed possible). Another aspect is pooling - which is the mechanism used to map AST nodes to dependency nodes in a unique fashion.
+
+## Terminology
+
+### Dependency nodes
+
+A dependency nodes is effectively a structure of the following layout:
+
+```d linenums="1"
+class DNode
+{
+	bool isVisited = false;
+	DNode[] dependencies;
+	Statement node;
+}
+```
+
+1. The visitation status of the node is held in `isVisited` (line 3)
+2. The nodes which this node is _dependent **upon**_ are held in an ordered list called `dependencies` (line 4)
+3. The syntactical node that this dependency node stands in place for is held in the `node` field (line 5). This is optional but is normally used in most cases. The reason for this being optional is that sometimes a dependency node can be spawned in relation to another but does not necessarily encapuslate any AST node.
+
+
+
+
+## Generation
+
+TODO: Redo this section
+
 Generates nodes indicating the ordered initialization of data structures.
 
 The execution order is down furtherst left, then right.
