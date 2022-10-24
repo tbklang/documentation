@@ -1,7 +1,7 @@
 Dependency generation
 =====================
 
-The generation of the dependency tree is a rather involved process due to the fact that there are various different aspects fo the language, both syntatical and semantic, that need to be accounted for when building the tree. At the core, however, the process is relatively simple.
+The generation of the dependency tree is a rather involved process due to the fact that there are various different aspects of the language, both syntatical and semantic, that need to be accounted for when building the tree. At the core, however, the process is relatively simple.
 
 All we have is a _dependency node_ which has a list of further dependencies. Dependencies have a flag for whether or not they have been visited and this prevents cycles (which are indeed possible). Another aspect is pooling - which is the mechanism used to map AST nodes to dependency nodes in a unique fashion.
 
