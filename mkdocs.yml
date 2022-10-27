@@ -16,6 +16,7 @@ theme:
     primary: indigo
 
 plugins:
+    - blog
     - search
     #- mermaid2
 
@@ -42,6 +43,11 @@ extra_css:
   - css/hint.min.css
 
 markdown_extensions:
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+
+
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
