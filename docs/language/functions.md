@@ -39,7 +39,7 @@ int myFunction()
 ```
 
 !!! error
-	Currently `return` is not a supported keyword - work on adding it is coming soon.
+	Currently `return` is not a supported keyword - it is planned to be added as per [issue #7](http://deavmi.assigned.network/git/tlang/tlang/issues/7)
 
 ## Parameters
 
