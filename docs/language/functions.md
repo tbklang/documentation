@@ -38,6 +38,9 @@ int myFunction()
 }
 ```
 
+!!! error
+	Currently `return` is not a supported keyword - work on adding it is coming soon.
+
 ## Parameters
 
 Functions can take in parameters of the form _`<type> arg1, <type> arg2, ...`_, below is an example of such a function which takes to integral parameters and returns the sum:
