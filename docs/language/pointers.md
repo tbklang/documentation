@@ -11,6 +11,8 @@ A pointer type is written in the form of `<type>*` where this is read as "a poin
 
 One also gets untyped pointers, these are written as `void*`.
 
+All pointers are 64-bit values - the size of addresses on one's system.
+
 ## Usage
 
 Here we shall show you the use cases of pointers in the below example:
