@@ -1,5 +1,8 @@
 site_name: Tristan Programming Language
 
+# TODO: FIx the site url such that the blogging plugin shuts up
+site_url: bruh
+
 # TODO: We must host fonts locally
 # https://t.pxeger.com/mkdocs-material/setup/changing-the-fonts/
 
