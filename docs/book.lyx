@@ -186,6 +186,16 @@ filename "part1_2.lyx"
 Users guide
 \end_layout
 
+\begin_layout Standard
+\begin_inset CommandInset include
+LatexCommand include
+filename "part2_1.lyx"
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Part
 Implementation
 \end_layout
