@@ -1366,5 +1366,220 @@ texttt{true}
  add the offending spliter token and flush that as well.
 \end_layout
 
+\begin_layout Chapter
+Code emit
+\end_layout
+
+\begin_layout Standard
+The code emit process is the final process of the compiler whereby the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{initQueue}
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{codeQueue}
+\end_layout
+
+\end_inset
+
+ and all assorted auxilllary information is passed to an instance of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{CodeEmitter}
+\end_layout
+
+\end_inset
+
+ (in the case of the C backend this is sub-typed to the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{DGen}
+\end_layout
+
+\end_inset
+
+ class) such that the code can be written to a file.
+ At this stage all queues consist simpyl of instances of the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{Instruction}
+\end_layout
+
+\end_inset
+
+ class.
+\end_layout
+
+\begin_layout Section
+Custom code emits
+\end_layout
+
+\begin_layout Standard
+Every instance of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{Instruction}
+\end_layout
+
+\end_inset
+
+ has an 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{emit()}
+\end_layout
+
+\end_inset
+
+ method which is used to generate the coide string to be written or 
+\emph on
+emitted 
+\emph default
+to the output file.
+ This is normally overriden per instruction type as to suite its needs.
+ Some of these methods may be recursive (as in the case of nested instructions).
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+For example, within the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{VariableDeclaration}
+\end_layout
+
+\end_inset
+
+ class we have such an override which fetches the type of the variable being
+ declared and its name, then concatenates these toghether with spaces and
+ a trailing semi-colon:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[language=Java]
+\end_layout
+
+\begin_layout Plain Layout
+
+public override string emit()
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+	// TODO: This should 
+\end_layout
+
+\begin_layout Plain Layout
+
+	// TODO: We should be having a type pushed into this thing (lookup via
+ Context?)
+\end_layout
+
+\begin_layout Plain Layout
+
+	string type = "<type: TODO>
+\begin_inset Quotes erd
+\end_inset
+
+;
+\end_layout
+
+\begin_layout Plain Layout
+
+	string fullEntityName = context.tc.getResolver().generateName(context.getContainer(
+), context.tc.getResolver().resolveBest(context.getContainer(), varName));
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	return type~" "~fullEntityName~";";
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document
