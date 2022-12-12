@@ -1438,14 +1438,18 @@ texttt{Instruction}
 \end_inset
 
  class.
-\end_layout
+\begin_inset Newline newline
+\end_inset
 
-\begin_layout Section
-Custom code emits
-\end_layout
 
-\begin_layout Standard
-Every instance of 
+\begin_inset Newline newline
+\end_inset
+
+Our C backend or 
+\emph on
+custom code emitter
+\emph default
+, 
 \begin_inset ERT
 status open
 
@@ -1453,12 +1457,28 @@ status open
 
 
 \backslash
-texttt{Instruction}
+texttt{DGen}
 \end_layout
 
 \end_inset
 
- has an 
+, inherits from the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{CodeEmitter}
+\end_layout
+
+\end_inset
+
+ class which specifies that the following methods must be overriden/implemented:
+\end_layout
+
+\begin_layout Enumerate
 \begin_inset ERT
 status open
 
@@ -1471,21 +1491,117 @@ texttt{emit()}
 
 \end_inset
 
- method which is used to generate the coide string to be written or 
-\emph on
-emitted 
-\emph default
-to the output file.
- This is normally overriden per instruction type as to suite its needs.
- Some of these methods may be recursive (as in the case of nested instructions).
-\begin_inset Newline newline
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Begins the emit process
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{finalize()}
+\end_layout
+
 \end_inset
 
 
-\begin_inset Newline newline
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Finalizes the emitting process (only to be called after the `emit()` finishes)
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{transform(Instruction instruction)}
+\end_layout
+
 \end_inset
 
-For example, within the 
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Transforms or emits a single Instruction and returns the transformation
+ as a string
+\end_layout
+
+\end_deeper
+\begin_layout Section
+Custom code emits
+\end_layout
+
+\begin_layout Standard
+We override/implement the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{transform(Instruction instruction)}
+\end_layout
+
+\end_inset
+
+ in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{DGen}
+\end_layout
+
+\end_inset
+
+ to work somewhat as a big if-statement that matches the different sub-types
+ of Instructions that exist, then the respective code-emit (C code) is generated.
+ This method has the potential to be recursive as some instructions contain
+ nested instructions that must be transformed prior before the final transformat
+ion, in which case a recursive call to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{transform(Instruction)}
+\end_layout
+
+\end_inset
+
+ is made.
+\end_layout
+
+\begin_layout Subsection
+Code emit example: Variable declarations
+\end_layout
+
+\begin_layout Standard
+For example, with the 
 \begin_inset ERT
 status open
 
@@ -1498,9 +1614,9 @@ texttt{VariableDeclaration}
 
 \end_inset
 
- class we have such an override which fetches the type of the variable being
- declared and its name, then concatenates these toghether with spaces and
- a trailing semi-colon:
+ instruction we have such an emit which fetches the type of the variable
+ being declared and its name, then concatenates these toghether with spaces
+ and a trailing semi-colon:
 \begin_inset Newline newline
 \end_inset
 
@@ -1521,7 +1637,12 @@ begin{lstlisting}[language=Java]
 
 \begin_layout Plain Layout
 
-public override string emit()
+/* VariableDeclaration */
+\end_layout
+
+\begin_layout Plain Layout
+
+else if(cast(VariableDeclaration)instruction)
 \end_layout
 
 \begin_layout Plain Layout
@@ -1531,28 +1652,29 @@ public override string emit()
 
 \begin_layout Plain Layout
 
-	// TODO: This should 
+	VariableDeclaration varDecInstr = cast(VariableDeclaration)instruction;
 \end_layout
 
 \begin_layout Plain Layout
 
-	// TODO: We should be having a type pushed into this thing (lookup via
- Context?)
+	Context context = varDecInstr.getContext();
 \end_layout
 
 \begin_layout Plain Layout
 
-	string type = "<type: TODO>
-\begin_inset Quotes erd
-\end_inset
-
-;
+	
 \end_layout
 
 \begin_layout Plain Layout
 
-	string fullEntityName = context.tc.getResolver().generateName(context.getContainer(
-), context.tc.getResolver().resolveBest(context.getContainer(), varName));
+	auto typedEntityVariable = context.tc.getResolver().resolveBest(context.getContaine
+r(), varDecInstr.varName); //TODO: Remove `auto`
+\end_layout
+
+\begin_layout Plain Layout
+
+	string typedEntityVariableName = context.tc.getResolver().generateName(context.getC
+ontainer(), typedEntityVariable); 
 \end_layout
 
 \begin_layout Plain Layout
@@ -1561,7 +1683,54 @@ public override string emit()
 
 \begin_layout Plain Layout
 
-	return type~" "~fullEntityName~";";
+	//NOTE: We should remove all dots from generated symbol names as it won't
+ be valid C (I don't want to say C because
+\end_layout
+
+\begin_layout Plain Layout
+
+	// a custom CodeEmitter should be allowed, so let's call it a general rule)
+\end_layout
+
+\begin_layout Plain Layout
+
+	//
+\end_layout
+
+\begin_layout Plain Layout
+
+	//simple_variables.x -> simple_variables_x
+\end_layout
+
+\begin_layout Plain Layout
+
+	//NOTE: We may need to create a symbol table actually and add to that and
+ use that as these names             	//could get out of hand (too long)
+\end_layout
+
+\begin_layout Plain Layout
+
+	// NOTE: Best would be identity-mapping Entity's to a name
+\end_layout
+
+\begin_layout Plain Layout
+
+	import compiler.codegen.mapper : SymbolMapper;
+\end_layout
+
+\begin_layout Plain Layout
+
+	string renamedSymbol = SymbolMapper.symbolLookup(context.getContainer(),
+ varDecInstr.varName);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	return varDecInstr.varType~" "~renamedSymbol~";";
 \end_layout
 
 \begin_layout Plain Layout
@@ -1579,6 +1748,124 @@ end{lstlisting}
 \end_inset
 
 
+\end_layout
+
+\begin_layout Subsection
+Symbol renaming
+\end_layout
+
+\begin_layout Standard
+Of the many sub-types of the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{Instruction}
+\end_layout
+
+\end_inset
+
+ class, when it comes to time to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{emit()}
+\end_layout
+
+\end_inset
+
+ some code we do need to apply certain fixups to some of the symbol names
+ (if any) which will appear in the final emitted code.
+ Nmaely, we need to remove any periods in the name such that something like
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{simple
+\backslash
+_variables.x}
+\end_layout
+
+\end_inset
+
+ becomes 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{simple
+\backslash
+_variables
+\backslash
+_x}
+\end_layout
+
+\end_inset
+
+.
+ The reason for this is because when we emit C code using the DGen code
+ emitter we will need to have valid C names which cannot contain characters
+ such as periods.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+The method used in order to do this is 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{symbolRename()}
+\end_layout
+
+\end_inset
+
+ from the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{mics.utils}
+\end_layout
+
+\end_inset
+
+ module which takes in the symbol name and returns the 
+\emph on
+
+\begin_inset Quotes eld
+\end_inset
+
+fixed-up
+\begin_inset Quotes erd
+\end_inset
+
+
+\emph default
+ version.
 \end_layout
 
 \end_body
