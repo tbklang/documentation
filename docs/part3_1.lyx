@@ -1424,7 +1424,7 @@ texttt{DGen}
 \end_inset
 
  class) such that the code can be written to a file.
- At this stage all queues consist simpyl of instances of the 
+ At this stage all queues consist simply of instances of the 
 \begin_inset ERT
 status open
 
@@ -1542,6 +1542,232 @@ texttt{transform(Instruction instruction)}
 \begin_layout Enumerate
 Transforms or emits a single Instruction and returns the transformation
  as a string
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+The 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{CodeEmitter}
+\end_layout
+
+\end_inset
+
+ class also contains the arrays (and methods for moving back and forth and
+ fetching the current element):
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{initQueue}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+This contains allocation code required to allocate memory for static entities,
+ despite its name it does not initialize this memory, such code falls part
+ of the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{codeQueue}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{codeQueue}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+This contains a linear queue of all the code to be run, mostly global code
+ executions such as for global variable declarations
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+The methods for moving back and forth in these queues, fetching the current
+ element etc.
+ are:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{getCurrentInitInstruction()}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{getCurrentCodeInstruction()}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Fetches the instruction that the cursor points to in the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{initQueue}
+\end_layout
+
+\end_inset
+
+/
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{codeQueue}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{nextInitInstruction()}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{nextCodeInstruction()}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Moves the cursor forward
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{previousInitInstruction()}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{previousCodeInstruction()}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Moves the cursor backwards
 \end_layout
 
 \end_deeper
@@ -1667,8 +1893,8 @@ else if(cast(VariableDeclaration)instruction)
 
 \begin_layout Plain Layout
 
-	auto typedEntityVariable = context.tc.getResolver().resolveBest(context.getContaine
-r(), varDecInstr.varName); //TODO: Remove `auto`
+	Variable typedEntityVariable = cast(Variable)context.tc.getResolver().resolveBest(
+context.getContainer(), varDecInstr.varName);
 \end_layout
 
 \begin_layout Plain Layout
@@ -1679,43 +1905,6 @@ ontainer(), typedEntityVariable);
 
 \begin_layout Plain Layout
 
-\end_layout
-
-\begin_layout Plain Layout
-
-	//NOTE: We should remove all dots from generated symbol names as it won't
- be valid C (I don't want to say C because
-\end_layout
-
-\begin_layout Plain Layout
-
-	// a custom CodeEmitter should be allowed, so let's call it a general rule)
-\end_layout
-
-\begin_layout Plain Layout
-
-	//
-\end_layout
-
-\begin_layout Plain Layout
-
-	//simple_variables.x -> simple_variables_x
-\end_layout
-
-\begin_layout Plain Layout
-
-	//NOTE: We may need to create a symbol table actually and add to that and
- use that as these names             	//could get out of hand (too long)
-\end_layout
-
-\begin_layout Plain Layout
-
-	// NOTE: Best would be identity-mapping Entity's to a name
-\end_layout
-
-\begin_layout Plain Layout
-
-	import compiler.codegen.mapper : SymbolMapper;
 \end_layout
 
 \begin_layout Plain Layout
@@ -1755,36 +1944,9 @@ Symbol renaming
 \end_layout
 
 \begin_layout Standard
-Of the many sub-types of the 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{Instruction}
-\end_layout
-
-\end_inset
-
- class, when it comes to time to 
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{emit()}
-\end_layout
-
-\end_inset
-
- some code we do need to apply certain fixups to some of the symbol names
- (if any) which will appear in the final emitted code.
- Nmaely, we need to remove any periods in the name such that something like
- 
+In terms of general code emitting we could have simply decided to use the
+ TLang-esque symbol name structure where entities are seperated by periods
+ such as 
 \begin_inset ERT
 status open
 
@@ -1794,12 +1956,186 @@ status open
 \backslash
 texttt{simple
 \backslash
-_variables.x}
+_module.x}
 \end_layout
 
 \end_inset
 
- becomes 
+ where 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{simple
+\backslash
+_module}
+\end_layout
+
+\end_inset
+
+ is a container-type such as a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{module}
+\end_layout
+
+\end_inset
+
+ and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{x}
+\end_layout
+
+\end_inset
+
+ is some entity within it, such as a variable.
+ However, what we have decided to do in the emitter process, specifically
+ in 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{DGen}
+\end_layout
+
+\end_inset
+
+ - our C code emitter - is to actually rename these symbols to a hash, wherever
+ they occur.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+The renaming mechanism is hanlded by the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{symbolLookup(container, entityName)}
+\end_layout
+
+\end_inset
+
+ method from the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{SymbolMapper}
+\end_layout
+
+\end_inset
+
+ class.
+ This takes in two arguments:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{container}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+This must be a type-of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{Container}
+\end_layout
+
+\end_inset
+
+ such that the provided entity name is looked up relative to it
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{entityName}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+This is the name of the entity to look up relative to the container
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+This allows one do then translate the symbol name with the following usage.
+ In this case we want to translate the symbol of the entity named 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{x}
+\end_layout
+
+\end_inset
+
+ which is container in the module-container named 
 \begin_inset ERT
 status open
 
@@ -1811,23 +2147,15 @@ texttt{simple
 \backslash
 _variables
 \backslash
-_x}
+_decls
+\backslash
+_ass}
 \end_layout
 
 \end_inset
 
 .
- The reason for this is because when we emit C code using the DGen code
- emitter we will need to have valid C names which cannot contain characters
- such as periods.
-\begin_inset Newline newline
-\end_inset
-
-
-\begin_inset Newline newline
-\end_inset
-
-The method used in order to do this is 
+ Therefore we provide both peices of information into the function 
 \begin_inset ERT
 status open
 
@@ -1835,12 +2163,12 @@ status open
 
 
 \backslash
-texttt{symbolRename()}
+texttt{symbolLookup}
 \end_layout
 
 \end_inset
 
- from the 
+:
 \begin_inset ERT
 status open
 
@@ -1848,24 +2176,134 @@ status open
 
 
 \backslash
-texttt{mics.utils}
+begin{lstlisting}[language=Java]
 \end_layout
 
-\end_inset
+\begin_layout Plain Layout
 
- module which takes in the symbol name and returns the 
-\emph on
+// The relative container of this variable is the module
+\end_layout
 
+\begin_layout Plain Layout
+
+Container container = tc.getModule();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// The name of the variable
+\end_layout
+
+\begin_layout Plain Layout
+
+string name = 
 \begin_inset Quotes eld
 \end_inset
 
-fixed-up
+x
 \begin_inset Quotes erd
 \end_inset
 
+;
+\end_layout
 
-\emph default
- version.
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// Symbol map
+\end_layout
+
+\begin_layout Plain Layout
+
+string renamedSymbol = SymbolMapper.symbolLookup(container, name);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// renamedSymbol == t_c326f89096616e69e89a3874a4c7f324
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+The resulting hash is generated by resolving the absolute path name of the
+ entity provided, applying an md5 hash to this name and then pre-pending
+ a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{t
+\backslash
+_}
+\end_layout
+
+\end_inset
+
+ to the name.
+ Therefore for the above code we will have 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{simple
+\backslash
+_variables
+\backslash
+_decls
+\backslash
+_ass.x}
+\end_layout
+
+\end_inset
+
+ mapped to a symbol name of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{t
+\backslash
+_c326f89096616e69e89a3874a4c7f324}
+\end_layout
+
+\end_inset
+
+ to be emitted into the C code file.
 \end_layout
 
 \end_body
