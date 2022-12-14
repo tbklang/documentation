@@ -5,9 +5,9 @@ Below is a list of all releases and a link to download the build artefacts and s
 
 ## v0.X.X _"Velloza"_
 
-<img src="../velloza_release.jpg" width=300 style="float:right;gap;margin-left:20px;margin-bottom:20px">
-
 ### Dedicated to my grandmother (TODO: insert full name).
+
+<img src="../velloza_release.jpg" width=300 style="float:right;gap;margin-left:20px;margin-bottom:20px">
 
 This is the very first release of the Tristan Language Project (_TLP_ for short) compiler and is therefore quite a historical moment for me in my life and those who have been involved in the project near the last few months prior to this release. I would therefore like to thank the following people:
 
