@@ -5,7 +5,7 @@ Below is a list of all releases and a link to download the build artefacts and s
 
 ## v0.X.X _"Velloza"_
 
-<img src="../velloza_release.jpg" width=300 style="float:right;gap">
+<img src="../velloza_release.jpg" width=300 style="float:right;gap;margin-left:20px;margin-bottom:20px">
 
 ### Dedicated to my grandmother (TODO: insert full name).
 
