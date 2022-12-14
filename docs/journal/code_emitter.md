@@ -24,11 +24,11 @@ h = 2;
 
 Well, now I know! I will have to disallow that in TLang or something, but for now will leave it and not write test cases that so such global assignments.
 
-### Example emits
+## Example emits
 
 Well, let's see some of the example code emits that are possible!
 
-#### Basic variable assignments
+### Basic variable assignments
 
 Here we will do some basic **global** variable assignments and also make use of said declared variables in the expressions.
 
@@ -71,7 +71,7 @@ int main()
 
 Technically the example T code provided generates semantically incorrect C code **only** because we are doing global variables with non-constant values (see the ==yellow lines==) but the translation is still technically correct - that isn't a hard fix as it would be done at the TLang syntax level not the C emitting level. We simply would  catch it and throw an error before we are even near the emitting stage.
 
-#### Function definitions
+### Function definitions
 
 This is almost completed, for the most part, there are some outstanding issues (not that you will see in this example) some of which are quick fixes but we can emit function definitions now too. Please to be minded there is always a default emit of an `int main()` function - that's just some boilerplate generation code I added.
 
