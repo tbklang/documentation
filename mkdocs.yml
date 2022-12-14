@@ -19,7 +19,7 @@ theme:
     primary: indigo
 
 plugins:
-    - blog
+    # - blog
     - search
     #- mermaid2
 
