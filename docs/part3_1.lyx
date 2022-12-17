@@ -2014,18 +2014,11 @@ context.getContainer(), varDecInstr.varName);
 
 \begin_layout Plain Layout
 
-	string typedEntityVariableName = context.tc.getResolver().generateName(context.getC
-ontainer(), typedEntityVariable); 
 \end_layout
 
 \begin_layout Plain Layout
 
-\end_layout
-
-\begin_layout Plain Layout
-
-	string renamedSymbol = SymbolMapper.symbolLookup(context.getContainer(),
- varDecInstr.varName);
+	string renamedSymbol = SymbolMapper.symbolLookup(typedEntityVariable);
 \end_layout
 
 \begin_layout Plain Layout
@@ -2056,12 +2049,34 @@ What we have here is some code which will extract the name of the variable
 \backslash
 texttt{varDecInstr.varName} which is then used to lookup the parser node
  of type 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
 \backslash
-texttt{Variable}.
+texttt{Variable}
+\end_layout
+
+\end_inset
+
+.
  The 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
 \backslash
-texttt{Variable} object contains information such as the variable's type
- and also if a variable assignment is attached to this declaration or not.
+texttt{Variable}
+\end_layout
+
+\end_inset
+
+ object contains information such as the variable's type and also if a variable
+ assignment is attached to this declaration or not.
 \begin_inset Newline newline
 \end_inset
 
@@ -2200,7 +2215,7 @@ status open
 
 
 \backslash
-texttt{symbolLookup(container, entityName)}
+texttt{symbolLookup(Entity)}
 \end_layout
 
 \end_inset
@@ -2219,7 +2234,7 @@ texttt{SymbolMapper}
 \end_inset
 
  class.
- This takes in two arguments:
+ This method takes in a single argument:
 \end_layout
 
 \begin_layout Enumerate
@@ -2230,7 +2245,7 @@ status open
 
 
 \backslash
-texttt{container}
+texttt{entity}
 \end_layout
 
 \end_inset
@@ -2248,34 +2263,12 @@ status open
 
 
 \backslash
-texttt{Container}
+texttt{Entity}
 \end_layout
 
 \end_inset
 
- such that the provided entity name is looked up relative to it
-\end_layout
-
-\end_deeper
-\begin_layout Enumerate
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-texttt{entityName}
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_deeper
-\begin_layout Enumerate
-This is the name of the entity to look up relative to the container
+, this is the entity of which the symbol renaming should be applied on.
 \end_layout
 
 \end_deeper
@@ -2361,12 +2354,7 @@ Container container = tc.getModule();
 
 \begin_layout Plain Layout
 
-// The name of the variable
-\end_layout
-
-\begin_layout Plain Layout
-
-string name = 
+// Lookup a variable named 
 \begin_inset Quotes eld
 \end_inset
 
@@ -2374,7 +2362,35 @@ x
 \begin_inset Quotes erd
 \end_inset
 
-;
+
+\end_layout
+
+\begin_layout Plain Layout
+
+string varLookup = 
+\begin_inset Quotes eld
+\end_inset
+
+x
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// The Variable (type-of Entity)
+\end_layout
+
+\begin_layout Plain Layout
+
+Variable variable = cast(Variable)tc.getResolver().resolveBest(context.getContainer
+(), varLookup);
 \end_layout
 
 \begin_layout Plain Layout
@@ -2388,7 +2404,7 @@ x
 
 \begin_layout Plain Layout
 
-string renamedSymbol = SymbolMapper.symbolLookup(container, name);
+string renamedSymbol = SymbolMapper.symbolLookup(variable);
 \end_layout
 
 \begin_layout Plain Layout
