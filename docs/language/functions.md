@@ -38,9 +38,6 @@ int myFunction()
 }
 ```
 
-!!! error
-	Currently `return` is not a supported keyword - it is planned to be added as per [issue #7](http://deavmi.assigned.network/git/tlang/tlang/issues/7)
-
 ## Parameters
 
 Functions can take in parameters of the form _`<type> arg1, <type> arg2, ...`_, below is an example of such a function which takes to integral parameters and returns the sum:
