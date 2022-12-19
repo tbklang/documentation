@@ -54,3 +54,6 @@ Calling such a function is accomplished as such:
 ```d
 sum(2,1)
 ```
+
+!!! warning
+    Calling a  function like this is not yet supported. It must be in an expression. So try assigning it or something. This needs to be fixed. We should get it to work with the `discard` keyword for now.
