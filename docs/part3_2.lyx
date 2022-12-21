@@ -635,7 +635,7 @@ TODO: Make citable
 \end_layout
 
 \begin_layout Standard
-The stoken stream is effectively a list of instances of 
+The token stream is effectively a list of instances of 
 \begin_inset ERT
 status open
 
@@ -771,6 +771,1288 @@ public enum SymbolType {
 \begin_layout Plain Layout
 
 	LBRACE,
+\end_layout
+
+\begin_layout Plain Layout
+
+	...
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Given an instance of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{Token}
+\end_layout
+
+\end_inset
+
+ one can pass it to the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{getSymbolType(Token)}
+\end_layout
+
+\end_inset
+
+ method which will then return an enum member from 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{SymbolType}
+\end_layout
+
+\end_inset
+
+.
+ When a token has no associated symbol type then 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{SymbolType.UNKNOWN}
+\end_layout
+
+\end_inset
+
+ is returned.
+ Now for an example:
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[language=Java]
+\end_layout
+
+\begin_layout Plain Layout
+
+// Create a new token at with (0, 0) as coordinates
+\end_layout
+
+\begin_layout Plain Layout
+
+Token token = new Token(
+\begin_inset Quotes eld
+\end_inset
+
+100
+\begin_inset Quotes erd
+\end_inset
+
+, 0, 0);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// Get the symbol type
+\end_layout
+
+\begin_layout Plain Layout
+
+SymbolType symType = getSymbolType(token);
+\end_layout
+
+\begin_layout Plain Layout
+
+assert(symType == SymbolType.NUMBER_LITERAL);
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\end_inset
+
+This assertion would pass as the symbol type of such a token is a number
+ literal.
+\end_layout
+
+\begin_layout Subsection
+API
+\end_layout
+
+\begin_layout Standard
+The API for working with and using 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{SymbolType}
+\end_layout
+
+\end_inset
+
+s is made available within the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parsing/data/check.d}
+\end_layout
+
+\end_inset
+
+ and contains the following methods:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{isType(string)}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Returns 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{true}
+\end_layout
+
+\end_inset
+
+ if the given string (a token) is a built-in type
+\end_layout
+
+\begin_layout Enumerate
+Built-in type strings would be: 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{byte, ubyte, short, ushort, int, uint, long, ulong, void}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{getSymbolType(Token)}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Returns the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{SymbolType}
+\end_layout
+
+\end_inset
+
+ associated with the given 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{Token}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+If the token is not of a valid type then 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{SymbolType.UNKNOWN}
+\end_layout
+
+\end_inset
+
+ is returned
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{getCharacter(SymbolType)}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+This performs the reverse of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{getSymbolType(Token)}
+\end_layout
+
+\end_inset
+
+ in the sense that you provide it a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{SymbolType}
+\end_layout
+
+\end_inset
+
+ and it will return the corresponding string that is of that type.
+\end_layout
+
+\begin_layout Enumerate
+This will work only for back-mapping a sub-section of tokens as you won't
+ get anything back if you provide 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{SymbolType.IDENT
+\backslash
+_TYPE}
+\end_layout
+
+\end_inset
+
+ as there are infinite possibiltiies for that - not a fixed token.
+\end_layout
+
+\end_deeper
+\begin_layout Section
+Data types
+\end_layout
+
+\begin_layout Standard
+Every node returned by a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parseX()}
+\end_layout
+
+\end_inset
+
+ is of a certain type and there are some important types to mention here.
+ The following types are from either 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parsing/data.d}
+\end_layout
+
+\end_inset
+
+ or 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parsing/containers.d}
+\end_layout
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{Statement}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{Statement}
+\end_layout
+
+\end_inset
+
+ type is the top-type for most parse nodes, it has the following important
+ methods and fields:
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{weight}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+This holds a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{byte}
+\end_layout
+
+\end_inset
+
+ value which is used for when statements are required to be re-ordered.
+ It starts default at 0 whereby that is the most prioritized re-ordering
+ value (i.e.
+ smaller means you appear first)
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parentOf()}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+This returns an instance of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{Container}
+\end_layout
+
+\end_inset
+
+, specifically indicating of which container this Statement is a 
+\emph on
+parent of
+\emph default
+.
+\end_layout
+
+\begin_layout Enumerate
+It can be 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{null}
+\end_layout
+
+\end_inset
+
+ if this Statement was not parented.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parentTo(Container)}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Set the parenting 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{Container}
+\end_layout
+
+\end_inset
+
+ of this Statement to the one provided.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{toString()}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+The default string representtion method for Statements (unless overridden)
+ is to show a rolling count which is increment with every instantiation
+ of a Statement object.
+\end_layout
+
+\end_deeper
+\begin_layout Subsection
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{Entity}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{Entity}
+\end_layout
+
+\end_inset
+
+ type is a sub-type of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{Statement}
+\end_layout
+
+\end_inset
+
+ and represents any named entity, along with initialization scopes 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO: these are not yet implemented semantically
+\end_layout
+
+\end_inset
+
+ and accessor types
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+TODO: these are not yet implemented semantically
+\end_layout
+
+\end_inset
+
+.
+ The following methods are to note:
+\end_layout
+
+\begin_layout Enumerate
+s
+\end_layout
+
+\begin_layout Section
+How to parse
+\end_layout
+
+\begin_layout Standard
+The basic flow of the parser involves the following process:
+\end_layout
+
+\begin_layout Enumerate
+Firstly you need an entry point, this entry point for us is the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parse()}
+\end_layout
+
+\end_inset
+
+ method which will return an instance of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{Module}
+\end_layout
+
+\end_inset
+
+ which represents the module - the TLang program.
+\end_layout
+
+\begin_layout Enumerate
+Every 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parseX()}
+\end_layout
+
+\end_inset
+
+ method gets called by another such method dependent on the current symbol
+ (and sometimes a lookahead)
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+For example, sometimes when we come across 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{SymbolType.IDENTIFIER}
+\end_layout
+
+\end_inset
+
+ we call 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parseName()}
+\end_layout
+
+\end_inset
+
+ which can then either call 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parseFuncCall()}
+\end_layout
+
+\end_inset
+
+, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parseTypedDeclaration()}
+\end_layout
+
+\end_inset
+
+ or 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parseAssignment()}
+\end_layout
+
+\end_inset
+
+.
+ This requires a lookahead to check what follows the identifier because
+ just by itself it is too ambuguous grammatically.
+\end_layout
+
+\begin_layout Enumerate
+After determining what comes next the token is pushed back using 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{previousToken()}
+\end_layout
+
+\end_inset
+
+ and then we proceed into the correct function
+\end_layout
+
+\begin_layout Enumerate
+Lookaheads are rare but they do appear in situations like that
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+The 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parseX()}
+\end_layout
+
+\end_inset
+
+ methods return instances of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{Statement}
+\end_layout
+
+\end_inset
+
+ which is the top type for all parser-generated nodes or 
+\emph on
+AST nodes
+\emph default
+.
+\end_layout
+
+\begin_layout Enumerate
+When you are about to parse a sub-section (like an if statement) of a bigger
+ syntax group (like a body) you leave the 
+\emph on
+offending token
+\emph default
+ as the current token, then you call the parsing method (in this case 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parseIf()}
+\end_layout
+
+\end_inset
+
+) and let it handle the call to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{nextToken()}
+\end_layout
+
+\end_inset
+
+ - this is simply the structure of parsing that TLang follows.
+\end_layout
+
+\begin_layout Enumerate
+Upon exiting a 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parseX()}
+\end_layout
+
+\end_inset
+
+ method you call 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{nextToken()}
+\end_layout
+
+\end_inset
+
+ - this determines whether this method would continue parsing or not - if
+ not then you return and the caller will continue with that current token
+ and move on from there.
+\end_layout
+
+\begin_layout Subsection
+Example of parsing if-statements
+\end_layout
+
+\begin_layout Standard
+We will now look at an example of how we deal with parsing if statements
+ in our parser, specifically within the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parseBody()}
+\end_layout
+
+\end_inset
+
+.
+ The beginning of this method starts by moving us off the offending token
+ that made us call 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parseBody()}
+\end_layout
+
+\end_inset
+
+ (hence the call to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{nextToken()}
+\end_layout
+
+\end_inset
+
+).
+ After which we setup an array of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{Statement}
+\end_layout
+
+\end_inset
+
+ such that we can build up a 
+\emph on
+body
+\emph default
+ of them:
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[language=Java]
+\end_layout
+
+\begin_layout Plain Layout
+
+gprintln("parseBody(): Enter", DebugType.WARNING);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Statement[] statements;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+/* Consume the `{` symbol */
+\end_layout
+
+\begin_layout Plain Layout
+
+nextToken();
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Now we are within the body, as you can imagine a body is to be made up of
+ several statements of which we do not know how many there are.
+ Therefore we setup a loop that will iterate till we run out of tokens:
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[language=Java]
+\end_layout
+
+\begin_layout Plain Layout
+
+while (hasTokens())
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+	...
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Next thing we want to do if grab the current token and check what type of
+ symbol it is:
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[language=Java]
+\end_layout
+
+\begin_layout Plain Layout
+
+while (hasTokens())
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+	/* Get the token */
+\end_layout
+
+\begin_layout Plain Layout
+
+	Token tok = getCurrentToken();
+\end_layout
+
+\begin_layout Plain Layout
+
+	SymbolType symbol = getSymbolType(tok);
+\end_layout
+
+\begin_layout Plain Layout
+
+	gprintln("parseBody(): SymbolType=" ~ to!(string)(symbol));
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	...
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+Following this we now have several checks that make use of 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{getSymbolType(Token)}
+\end_layout
+
+\end_inset
+
+ in order to determine what the token's type is and then in our case if
+ the token is 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{
+\begin_inset Quotes eld
+\end_inset
+
+if
+\begin_inset Quotes erd
+\end_inset
+
+}
+\end_layout
+
+\end_inset
+
+ then we will make a call to 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{parseIf()}
+\end_layout
+
+\end_inset
+
+ and append the returned Statement-sub-type to the body of statements (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{Statement[]}
+\end_layout
+
+\end_inset
+
+):
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[language=Java]
+\end_layout
+
+\begin_layout Plain Layout
+
+while(hasTokens())
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+	...
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+	/* If it is a branch */
+\end_layout
+
+\begin_layout Plain Layout
+
+	else if (symbol == SymbolType.IF)
+\end_layout
+
+\begin_layout Plain Layout
+
+	{
+\end_layout
+
+\begin_layout Plain Layout
+
+		statements ~= parseIf();
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
 \end_layout
 
 \begin_layout Plain Layout
