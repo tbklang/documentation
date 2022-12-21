@@ -620,5 +620,14 @@ allowed but the default is to pack accordingly to the respective platform
 \end_layout
 
 \end_deeper
+\begin_layout Section
+Specified behaviour
+\end_layout
+
+\begin_layout Standard
+TODO: Insert ramblings here about underspecified behaviour and how they
+ plague C and how we easily fix this in tlang
+\end_layout
+
 \end_body
 \end_document
