@@ -14,7 +14,7 @@ oparen    := "("
 cparen    := ")"
 ocurly    := "{"
 ccurly    := "}"
-if        := "if" oparen expr cparen ocurly body ccurly {"else" if } | "else" body
+if        := "if" oparen expr cparen ocurly { statement } ccurly {"else" if } | "else" { statement }
 ```
 
 
