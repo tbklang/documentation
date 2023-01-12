@@ -31,3 +31,26 @@ int* valuePtr = &value;
 What we have ==here== is the declaration of a variable called `valuePtr` of type `int*`, meaning this variable is going to hold an address which points to an integer. What follows is the assignment of the value `&value` to our variable `valuePtr`. The `&` operator returns the address of our variable.
 
 Resulting in us having another "variable" (our `valuePtr`) or address which, if we visit it we get another value which is _intended_ to be interpreted as another address as well - it is **this** address that if we visit we fetch the value of 69.
+
+## Example code
+
+Below is example usage of a pointer:
+
+```d
+module simple_pointer;
+
+int j;
+
+int function(int* ptr)
+{
+    *ptr = 2+2;
+
+    return 0;
+}
+
+int thing()
+{
+    int discardExpr = function(&j);
+    int** l;
+}
+```
