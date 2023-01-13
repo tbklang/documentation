@@ -6,4 +6,3 @@ documentclass: scrbook
 classoption:
   - oneside
 ---
-
