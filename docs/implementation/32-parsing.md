@@ -49,3 +49,153 @@ Parser parser = new Parser(tokens);
 ### Symbol types
 
 The token stream is effectively a list of instances of `Token` which consist just of the token itself as a string and the coordinates of the token (where it occurs). However, some tokens, despite being different strings, can be of the same type or _syntactical grouping_. For example one would agree that both tokens `1.5` and `25.2` are both different tokens but are both floating points. This is where the notion of symbol types comes in.
+
+The enum `SymbolType` in `parsing/symbols/check.d` describes all of the available types of tokens there are in the grammar of the Tristan programming language like so:
+
+```d
+public enum SymbolType {
+	LE_SYMBOL,
+	IDENT_TYPE,
+	NUMBER_LITERAL,
+	CHARACTER_LITERAL,
+	STRING_LITERAL,
+	SEMICOLON,
+	LBRACE,
+	...
+}
+```
+
+Given an instance of `Token` one can pass it to the `getSymbolType(Token)` method which will then return an enum member from `SymbolType`. When a token has no associated symbol type then `SymbolType.UNKNOWN` is returned. Now for an example:
+
+```d
+// Create a new token at with (0, 0) as coordinates
+Token token = new Token("100", 0, 0);
+
+// Get the symbol type
+SymbolType symType = getSymbolType(token);
+assert(symType == SymbolType.NUMBER_LITERAL);
+```
+
+This assertion would pass as the symbol type of such a token is a number literal.
+
+#### API
+
+The API for working with and using `SymbolType`s is made available within the `parsing/data/check.d` and contains the following methods:
+
+1. `isType(string)`
+    * Returns `true` if the given string (a token) is a built-in type
+    * Built-in type strings would be: `byte, ubyte, short, ushort, int, uint, long, ulong, void`
+2. `getSymbolType(Token)`
+    * Returns the `SymbolType` associated with the given `Token`
+    * If the token is not of a valid type then `SymbolType.UNKNOWN` is returned
+3. `getCharacter(SymbolType)`
+    * This performs the reverse of `getSymbolType(Token)` in the sense that you provide it a `SymbolType` and it will return the corresponding string that is of that type.
+    * This will work only for back-mapping a sub-section of tokens as you won't get anything back if you provide `SymbolType.IDENT_TYPE` as there are infinite possibiltiies for that - not a fixed token.
+
+### Data types
+
+Every node returned by a `parseX()` is of a certain type and there are some important types to mention here. The following types are from either `parsing/data.d` or `parsing/containers.d`.
+
+#### `Statement`
+
+The `Statement` type is the top-type for most parse nodes, it has the following important methods and fields:
+
+1. `weight`
+    * This holds a `byte` value which is used for when statements are required to be re-ordered. It starts default at 0 whereby that is the most prioritized re-ordering value (i.e. smaller means you appear first)
+2. `parentOf()`
+    * This returns an instance of `Container`, specifically indicating of which container this Statement is a parent of.
+    * It can be `null` if this Statement was not parented.
+3. `parentTo(Container)`
+    * Set the parenting `Container` of this Statement to the one provided.
+4. `toString()`
+    * The default string representtion method for Statements (unless overridden) is to show a rolling count which is increment with every instantiation of a Statement object.
+
+#### `Entity`
+
+The `Entity` type is a sub-type of `Statement` and represents any named entity, along with initialization scopes (TODO: these are not yet implemented semantically and accessor types) (TODO: these are not yet implemented semantically.) The following methods and fields are to note:
+
+1. `this(string)`
+    * Constructs a new instance of an Entity with the provided name.
+2. `getName()`
+    * Returns the name of the entity.
+3. `setAccessorType(AccessorType accessorType)`
+    * TODO: Describe this
+4. `getAccessorType()`
+    * TODO: Describe this
+5. `setModifierType(InitScope initScope)`
+    * TODO: Describe this
+6. `InitScope getModifierType()`
+    * TODO: Describe this
+
+#### `Container`
+
+The `Container` type is an interface that specifies a certain type to implement a set of methods. These methods allow the type to _become_ a container by then allowing one or more instances of `Statement` or rather a `Statement[]` to be contained within the container i.e. making it contain them.
+
+It should be noted that the parenting method is used to climb up the hierachy **given** a Statement instance, however the Container technique is useful for a top-down search for an Entity - they are independent in that sense but can be used toghether TODO: double check but I believe this is right.
+
+### How to parse
+
+The basic flow of the parser involves the following process:
+
+1. Firstly you need an entry point, this entry point for us is the `parse()` method which will return an instance of `Module` which represents the module - the TLang program.
+2. Every `parseX()` method gets called by another such method dependent on the current symbol (and sometimes a lookahead)
+    * For example, sometimes when we come across `SymbolType.IDENTIFIER` we call `parseName()` which can then either call `parseFuncCall()`, `parseTypedDeclaration()` or `parseAssignment()`. This requires a lookahead to check what follows the identifier because just by itself it is too ambuguous grammatically.
+    * After determining what comes next the token is pushed back using `previousToken()` and then we proceed into the correct function
+    * Lookaheads are rare but they do appear in situations like that
+3. The `parseX()` methods return instances of `Statement` which is the top type for all parser-generated nodes or _AST nodes_.
+4. When you are about to parse a sub-section (like an if statement) of a bigger syntax group (like a body) you leave the _offending token_ as the current token, then you call the parsing method (in this case `parseIf()`) and let it handle the call to `nextToken()` - this is simply the structure of parsing that TLang follows.
+5. Upon exiting a `parseX()` method you call `nextToken()` - this determines whether this method would continue parsing or not - if not then you return and the caller will continue with that current token and move on from there.
+
+#### Example of parsing if-statements
+
+We will now look at an example of how we deal with parsing if statements in our parser, specifically within the `parseBody()`. The beginning of this method starts by moving us off the offending token that made us call `parseBody()` (hence the call to `nextToken()`). After which we setup an array of `Statement` such that we can build up a body of them:
+
+```d
+gprintln("parseBody(): Enter", DebugType.WARNING);
+
+Statement[] statements;
+
+/* Consume the `{` symbol */
+nextToken();
+```
+
+Now we are within the body, as you can imagine a body is to be made up of several statements of which we do not know how many there are. Therefore we setup a loop that will iterate till we run out of tokens:
+
+```d
+while (hasTokens())
+{
+	...
+}
+```
+
+Next thing we want to do if grab the current token and check what type of symbol it is:
+
+```d
+while (hasTokens())
+{
+	/* Get the token */
+	Token tok = getCurrentToken();
+	SymbolType symbol = getSymbolType(tok);
+	gprintln("parseBody(): SymbolType=" ~ to!(string)(symbol));
+
+	...
+}
+```
+
+Following this we now have several checks that make use of `getSymbolType(Token)` in order to determine what the token's type is and then in our case if the token is `"if"` then we will make a call to `parseIf()` and append the returned Statement-sub-type to the body of statements (`Statement[]`):
+
+```d
+while(hasTokens())
+{
+	...
+
+	/* If it is a branch */
+	else if (symbol == SymbolType.IF)
+	{
+		statements ~= parseIf();
+	}
+
+	...
+}
+```
+
