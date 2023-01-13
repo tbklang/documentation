@@ -1,11 +1,10 @@
-Pointers
-========
+## Pointers
 
 Pointers allow one to get the address of a named entity, store it, and use
 it in a manner to either update the value at said address or fetch
 the value from said address in an indirect manner.
 
-## Pointer types
+### Pointer types
 
 A pointer type is written in the form of `<type>*` where this is read as "a pointer-to <type>". The `<type>` is anything before the last asterisk. Therefore `<type>**` is a "a pointer-to < a pointer-to <type>>".
 
@@ -13,7 +12,7 @@ One also gets untyped pointers, these are written as `void*`.
 
 All pointers are 64-bit values - the size of addresses on one's system.
 
-## Usage
+### Usage
 
 Here we shall show you the use cases of pointers in the below example:
 
@@ -32,7 +31,7 @@ What we have ==here== is the declaration of a variable called `valuePtr` of type
 
 Resulting in us having another "variable" (our `valuePtr`) or address which, if we visit it we get another value which is _intended_ to be interpreted as another address as well - it is **this** address that if we visit we fetch the value of 69.
 
-## Example code
+### Example code
 
 Below is example usage of a pointer:
 

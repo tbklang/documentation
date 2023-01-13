@@ -1,0 +1,144 @@
+
+\chapter{Lexical analysis}
+
+Lexical analysis is the process of taking a program as an input string
+$A$ and splitting it into a list of $n$ sub-strings $A_{1},\,A_{2}\ldots A_{n}$
+called \emph{tokens}. The length $n$ of this list of dependent on
+several rules that determine how, when and where new tokens are built
+- this set of rules is called a \emph{grammar}.
+
+\section{Grammar}
+
+The Tristan grammar is specified in EBNF below:\\
+\\
+TODO: We need to derive a grammar/come up with one (and include explanations
+of EBNF).
+
+\section{Overview of implementation}
+
+The source code for the lexical analysis part of the compiler is located
+in \texttt{source/tlang/lexer.d} which contains two important class
+definitions:
+\begin{itemize}
+\item \texttt{Token} - This represents a token
+\begin{itemize}
+\item Complete with the token string itself, \texttt{token}. Retrivebale
+with a call to \texttt{getToken()}
+\item The coordinates in the source code where the token begins as \texttt{line}
+and \texttt{column}
+\item Overrides equality (\texttt{opEquals}) such that doing,
+
+\begin{lstlisting}[language=C]
+new Token("int") == new Token("int")
+\end{lstlisting}
+\item would evaluate to \texttt{true}, rather than false by reference equality
+(the default in D)
+\end{itemize}
+\item \texttt{Lexer} - The token builder
+\begin{itemize}
+\item \texttt{sourceCode}, the whole input program (as a string) to be
+tokenized
+\item \texttt{position}, holds the index to the current character in the
+string array \texttt{sourceCode}
+\item \texttt{currentChar}, the current character at index-\texttt{position}
+\item Contains a list of the currently built tokens, \texttt{Token[] tokens}
+\item Current line and column numbers as \texttt{line} and \texttt{column}
+respectively
+\item A ``build up'' - this is the token (in string form) currently being
+built - \texttt{currentToken}
+\end{itemize}
+\end{itemize}
+
+\section{Implementation}
+
+The implementation of the lexer, the \texttt{Lexer} class, is explained
+in detail in this section. (TODO: constructor) The lexical analysis
+is done one-shot via the \texttt{performLex()} method which will
+attempt to tokenize the input program, on failure returning \texttt{false},
+\texttt{true} otherwise. In the successful case the \texttt{tokens}
+array will be filled with the created tokens and can then later be
+retrieved via a call to \texttt{getTokens()}.\\
+\\
+Example usage:\\
+TODO
+
+\subsection{performLex()}
+
+TODO: This is going to change sometime soonish, so I want the final
+version of how it works here. I may as well, however, give a brief
+explanation as I doubt \emph{much }will change - only specific parsing
+cases.\\
+\\
+This method contains a looping structure which will read character-by-character
+from the \texttt{sourceCode} string and follow the rules of the grammar
+(TODO: add link), looping whilst there are still characters available
+for consumption (\texttt{position < sourceCode.length}).\\
+\\
+We loop through each character and dependent on its value we start
+building new tokens, certain characters will cause a token to finish
+being built which will sometimes be caused by \texttt{isSpliter(character)}
+being \texttt{true}. A typical token building process looks something
+like the following, containing the final character to be tacked onto
+the current token build up, the creation of a new token object and
+the addition of it to the \texttt{tokens} list, finishing with flushing
+the build up string and incrementing the coordinates:\\
+\\
+A typical token building procedure looks something like this:\\
+\begin{lstlisting}[language=Java]
+/* Generate and add the token */
+currentToken ~= "'";
+currentTokens ~= new Token(currentToken, line, column);
+
+/* Flush the token */
+currentToken = "";
+column += 2
+position += 2;
+\end{lstlisting}
+
+\subsection{Character and token availability}
+
+Helper functions relating to character and token availability.
+
+\subsubsection{hasToken()}
+
+Returns \texttt{true} if there is a token currently built i.e. \texttt{currentToken.length != 0},
+\texttt{false} otherwise.
+
+\subsubsection{isBackward()}
+
+Returns \texttt{true} if we can move the character pointer backwards,
+\texttt{false} otherwise.
+
+\subsubsection{isForward()}
+
+Returns \texttt{true} if we can move the character pointer forward,
+\texttt{false} otherwise.
+
+\subsection{isNumericalStr()}
+
+This method is called in order to chck if the build up, \texttt{currentToken},
+is a valid numerical string. If the string is empty, then it returns
+\texttt{false}. If the string is non-empty and contains anything
+\emph{other }than digits then it returns \texttt{false}, otherwise
+is returns \texttt{true}.
+
+TODO
+
+\subsection{isSpliter()}
+
+This method checks if the given character is one of the following:
+\begin{itemize}
+\item character == ';' || character == ',' || character == '(' || character
+== ')' || character == '{[}' || character == '{]}' || character ==
+'+' || character == '-' || character == '/' || character == '\%' ||
+character == '{*}' || character == '\&' || character == '\{' || character
+== '\}' || character == '=' || character == '|' || character == '\textasciicircum '
+|| character == '!' || character == '\textbackslash n' || character
+== '\textasciitilde ' || character =='.' || character == ':'; 
+\item \texttt{;}~\texttt{,}~\texttt{(}~\texttt{)}~\texttt{[}~\texttt{]}~\texttt{+}~\texttt{-}~\texttt{/}~\texttt{\%}~\texttt{*}~\texttt{\&}~\texttt{\{}~\texttt{\}}
+\item \texttt{=}~| (TODO: make it texttt)~\texttt{\^}~\texttt{!}~\texttt{\\n}(TODO:
+\textbackslash n not appearing)~\texttt{\~}~\texttt{.}~\texttt{\:}
+\end{itemize}
+Whenever this method returns \texttt{true} it generally means you
+should flush the current token, start a new token add the offending
+spliter token and flush that as well.

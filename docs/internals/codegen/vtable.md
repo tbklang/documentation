@@ -1,8 +1,4 @@
----
-title: Virtual Table implementation
-date: 2021-04-20
-tags: [documentation, internals, vtable]
----
+# Virtual Table implementation
 
 This article aims to describe a possible virtual table implementation that we could use to for method dispatch that not only supports overriding but **also** interfaces.
 

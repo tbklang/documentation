@@ -1,11 +1,10 @@
-Conditionals
-============
+## Conditionals
 
 The following conditionals are supported in T:
 
 1. `if` statements
 
-## If statements
+### If statements
 
 If statements are like those you have seen in any other language, they are composed of atleast one `if` branch:
 

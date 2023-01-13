@@ -1,11 +1,10 @@
-Loops
-=====
+## Loops
 
 Loops are structures which allow one to run code a repeated number of times based on a condition. The currently supported looping structures in TLang are:
 
 1. `while` loops
 
-## `while` loops
+### `while` loops
 
 One can declare a while loop using the `while` keyword followed by a condition (an expression) as follows:
 
@@ -19,7 +18,7 @@ while(i)
 }
 ```
 
-## `for` loops
+### `for` loops
 
 One can declare a for loop using the `for` keyword. A for loop consists of 4 parts:
 

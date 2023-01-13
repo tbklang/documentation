@@ -213,8 +213,296 @@ It is with this lean approach to object orientation that we keep things
  the real world in code (by supporting interfaces).
 \end_layout
 
+\begin_layout Subsection
+Templating
+\end_layout
+
+\begin_layout Standard
+Templating, otherwise known as 
+\emph on
+generics
+\emph default
+, is a mechanism by which a given body of code which contains a type specifier
+ such as variable declarations or function definitions can have their said
+ type specifiers parameterized.
+ The usage of this can be illustrated in the code below, where we want to
+ define a method 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{sum(a, b)}
+\end_layout
+
+\end_inset
+
+ which returns the summation of the two inputs.
+ We define version that works for integral types (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{int}
+\end_layout
+
+\end_inset
+
+) and a version that works for decimal types (
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{float}
+\end_layout
+
+\end_inset
+
+):
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[language=C]
+\end_layout
+
+\begin_layout Plain Layout
+
+// Integral summation function
+\end_layout
+
+\begin_layout Plain Layout
+
+int sum(int a, int b)
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+	return a+b;
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// Decimal summation function
+\end_layout
+
+\begin_layout Plain Layout
+
+float sum(float a, float b)
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+	return a+b;
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\end_inset
+
+Being a small example we can reason about the easiness of simply defining
+ two versions of the 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{sum(a, b)}
+\end_layout
+
+\end_inset
+
+ method for the two types, but after some time this can either get overly
+ repetitive if we have to do this for more methods of a similar structure
+ 
+\emph on
+or 
+\emph default
+when more types are involved.
+ This is where templating comes in, we can write a more general version
+ of the same function and let the compiler generate the differently typed
+ versions dependent on what 
+\emph on
+type parameter
+\emph default
+ we pass in.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+A templatised version of the above 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{sum(a, b)}
+\end_layout
+
+\end_inset
+
+ function is shown below:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{lstlisting}[language=C]
+\end_layout
+
+\begin_layout Plain Layout
+
+// Templatised function
+\end_layout
+
+\begin_layout Plain Layout
+
+template T
+\end_layout
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+	T sum(T a, T b)
+\end_layout
+
+\begin_layout Plain Layout
+
+	{
+\end_layout
+
+\begin_layout Plain Layout
+
+		return a+b;
+\end_layout
+
+\begin_layout Plain Layout
+
+	}
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// Integral version
+\end_layout
+
+\begin_layout Plain Layout
+
+sum!(int)(1,2)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// Decimal version
+\end_layout
+
+\begin_layout Plain Layout
+
+sum!(float)(1.0,2.0)
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{lstlisting}
+\end_layout
+
+\end_inset
+
+The way this works is that whenever you call the function 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+texttt{sum(a, b)}
+\end_layout
+
+\end_inset
+
+ you will have to provide it with the specific type you want generated for
+ that function.
+\end_layout
+
 \begin_layout Section
-Systems-level
+Systems-level access
 \end_layout
 
 \begin_layout Standard
@@ -235,12 +523,23 @@ Weak typing
 \begin_deeper
 \begin_layout Itemize
 By default this is not the behavior when using 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
 \backslash
 texttt{cast()}
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
 \begin_layout Itemize
-Casting to an incompatible type is allowed - even when a runtime-type check
+Casting to an incompatible type is allowed - even when a run-time type-check
  is invalid you can still force a cast with 
 \begin_inset ERT
 status open
@@ -307,14 +606,6 @@ Custom byte-packing
 
 \begin_deeper
 \begin_layout Itemize
-
-\series bold
-TODO:
-\series default
- How will we go about this in the backend C compiler
-\end_layout
-
-\begin_layout Itemize
 Allowing the user to deviate from the normal struct packing structure in
  favor of a tweaked packing technique
 \end_layout
@@ -329,5 +620,14 @@ allowed but the default is to pack accordingly to the respective platform
 \end_layout
 
 \end_deeper
+\begin_layout Section
+Speecified behaviour
+\end_layout
+
+\begin_layout Standard
+TODO: Insert ramblings here about underspecified behaviour and how they
+ plague C and how we easily fix this in tlang
+\end_layout
+
 \end_body
 \end_document

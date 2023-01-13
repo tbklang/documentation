@@ -1,4 +1,6 @@
-# Primitive data types
+## Types
+
+## Primitive data types
 
 Primitive data type are the building blocks of which other more complex types are derived from. Each primitive type has the following 3 attributes:
 
@@ -6,7 +8,7 @@ Primitive data type are the building blocks of which other more complex types ar
 2. **Width:** How many bits it takes up
 3. **Intended interpretation:** How it should be interpreted
 
-## Integral types
+### Integral types
 
 | Type | Width | Intended interpretation |
 |-|-|-|
@@ -20,18 +22,18 @@ Primitive data type are the building blocks of which other more complex types ar
 | ulong | 64 | unsigned long |
 
 
-### Conversion rules
+#### Conversion rules
 
 1. TODO: Sign/zero extension
 2. Promotion?
 3. Precedence in interpretation when the first two don't apply
 
-## Decimal
+### Decimal
 
 TODO: Add this
 
 * float32, float64 etc
 
-### Conversion rules
+#### Conversion rules
 
 TODO: Add this

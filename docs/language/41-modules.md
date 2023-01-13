@@ -1,9 +1,8 @@
-Modules
-=======
+## Modules
 
 A module is the top-level container for all T programs, it is the parent of all other syntactical components.
 
-## Declaration
+### Declaration
 
 A module is defined using the `module` keyword followed by the name of the module:
 
@@ -13,7 +12,7 @@ module myModule;
 // Code goes here
 ```
 
-## Naming
+### Naming
 
 Because the module is the root of all other containers such as classes and structs, one can always use the module name to refer from the top-down. An example:
 

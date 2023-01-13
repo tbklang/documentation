@@ -1,5 +1,4 @@
-Literals
-========
+## Literals
 
 #### Document todo
 
@@ -9,7 +8,7 @@ Literals
 - [ ] fixes needed:
 	- [x] sole `-1` does not work but `0-1` does, need to check the binary operator and unary operator things
 
-## Integer literals
+### Integer literals
 
 Integer literals are encoded according to the following table:
 

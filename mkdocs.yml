@@ -23,6 +23,10 @@ plugins:
     - search
     #- mermaid2
 
+    - exclude:
+        glob:
+          - docs/00-bookindex.md
+
     
     - section-index
     #- git-committers-2
@@ -37,7 +41,7 @@ plugins:
           features:
             tags: {}
 
-    - print-site
+    #- print-site
 
 #TODO: See if we can get git commit authors automatically on each page
 #TODO: See if we can ehnace material docs theme
@@ -50,6 +54,8 @@ markdown_extensions:
   - pymdownx.mark
   - pymdownx.tilde
 
+  - pymdownx.arithmatex:
+      generic: true
 
   - pymdownx.highlight:
       anchor_linenums: true
@@ -77,3 +83,7 @@ markdown_extensions:
       emoji_generator: !!python/name:materialx.emoji.to_svg
 
 
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js

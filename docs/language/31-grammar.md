@@ -1,5 +1,4 @@
-Grammar
-=======
+## Grammar
 
 * TODO: Need help with this @Wilhelm, some things to look at (must reference!)
     * https://karmin.ch/ebnf/examples
