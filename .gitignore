@@ -7,3 +7,4 @@ site/
 *.log
 *.ps
 *.toc
+*.aux
