@@ -9,6 +9,25 @@ site_url: http://journal/
 repo_url: http://deavmi.assigned.network/git/tlang/tlang
 repo_name: tlang/tlang
 
+nav:
+  - Home: index.md
+  - Introduction:
+    - Why: introduction/11-why.md
+    - Aims: introduction/12-aims.md
+  - Language:
+    - Introduction: language/30-index.md
+    - Grammar: language/31-grammar.md
+    - Literals: language/32-literals.md
+    - Types: language/33-types.md
+    - Variables: language/34-variables.md
+    - Conditionals: language/35-conditionals.md
+    - Loops: language/36-loops.md
+    - Funtions: language/37-functions.md
+    - Pointers: language/38-pointers.md
+    - Structs: language/39-structs.md
+    - OOP: language/40-oop.md
+    - Modules: language/41-modules.md
+
 theme:
   name: material
   logo: logo.png
