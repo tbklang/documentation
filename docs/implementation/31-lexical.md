@@ -58,21 +58,14 @@ position += 2;
 
 Helper functions relating to character and token availability.
 
-##### hasToken()
-
-Returns `true` if there is a token currently built i.e. `currentToken.length != 0`, `false` otherwise.
-
-##### isBackward()
-
-Returns `true` if we can move the character pointer backwards, `false` otherwise.
-
-##### isForward()
-
-Returns `true` if we can move the character pointer forward, `false` otherwise.
-
-#### isNumericalStr()
-
-This method is called in order to chck if the build up, `currentToken`, is a valid numerical string. If the string is empty, then it returns `false`. If the string is non-empty and contains anything other than digits then it returns `false`, otherwise is returns `true`.
+1. `hasToken()`
+    * Returns `true` if there is a token currently built i.e. `currentToken.length != 0`, `false` otherwise.
+2. `isBackward()`
+    * Returns `true` if we can move the character pointer backwards, `false` otherwise.
+3. `isForward()`
+    * Returns `true` if we can move the character pointer forward, `false` otherwise.
+4. `isNumericalStr()`
+    * This method is called in order to chck if the build up, `currentToken`, is a valid numerical string. If the string is empty, then it returns `false`. If the string is non-empty and contains anything other than digits then it returns `false`, otherwise is returns `true`.
 
 TODO
 

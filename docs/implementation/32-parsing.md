@@ -25,3 +25,27 @@ The API exposed by the parser is rather minimal as there isn't much to a parser 
     * Returns the current `Token` instance at the current token pointer position
 4. `hasTokens()`
     * Returns `true` if there are tokens still left in the stream (i.e. `tokenPtr < tokens.length`), `false` otherwise
+
+### Initialization
+
+The initialization of the parser is rather simple, an instance of the `Parser` class must be instantiated, along with this the following arguments must be provided to the constructor:
+
+1. `Token[] tokens`
+    * This is an array of `Token` to be provided to the parser for parsing. This would have been derived from the `Lexer` via its `performLex()` and `getTokens()` call.
+
+A new instance woud therefore be created with something akin to:
+
+```d
+// Tokenize the following program
+string sourceCode = "int i = 2;"
+Lexer lexer = new Lexer(sourceCode);
+lexer.performLex();
+
+// Extract tokens and pass to the lexer
+Token[] tokens = lexer.getTokens();
+Parser parser = new Parser(tokens);
+```
+
+### Symbol types
+
+The token stream is effectively a list of instances of `Token` which consist just of the token itself as a string and the coordinates of the token (where it occurs). However, some tokens, despite being different strings, can be of the same type or _syntactical grouping_. For example one would agree that both tokens `1.5` and `25.2` are both different tokens but are both floating points. This is where the notion of symbol types comes in.
