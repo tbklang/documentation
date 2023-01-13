@@ -27,6 +27,10 @@ nav:
     - Structs: language/39-structs.md
     - OOP: language/40-oop.md
     - Modules: language/41-modules.md
+  - Implementation:
+    - Introduction: implementation/30-introduction.md
+    - Lexical analysis: implementation/31-lexical.md
+    - Parsing: implementation/32-parsing.md
 
 theme:
   name: material
