@@ -24,6 +24,7 @@ nav:
     - Loops: language/36-loops.md
     - Funtions: language/37-functions.md
     - Pointers: language/38-pointers.md
+    - Extern: language/42-extern.md
     - Structs: language/39-structs.md
     - OOP: language/40-oop.md
     - Modules: language/41-modules.md
