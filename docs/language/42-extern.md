@@ -8,13 +8,13 @@ In order to use such a feature one can make use of the `extern` keyword which us
 
 To declare an external function use the `extern efunc ...` clause followed by a function's signature. Below we have an example of the `write` function from glibc being specified:
 
-```d
+```{.d .numberLines}
 extern efunc uint write(uint fd, ubyte* buffer, uint count);
 ```
 
 We can now go ahead and use this function as a call such as with:
 
-```d
+```{.d .numberLines}
 extern efunc uint write(uint fd, ubyte* buffer, uint count);
 
 void test()
