@@ -11,8 +11,8 @@ docs/internals/codegen/*.md
 function generateBook()
 {
     # Run twice because latex
-    pandoc --toc docs/00-bookindex.md docs/01-dedication.md docs/introduction/*.md docs/language/*.md docs/implementation/* -s -t latex --highlight-style kate
-    pandoc --toc docs/00-bookindex.md docs/01-dedication.md docs/introduction/*.md docs/language/*.md docs/implementation/* -s -t latex --highlight-style kate | pdflatex > /dev/null
+    pandoc --top-level-division=part --number-sections --toc docs/00-bookindex.md docs/01-dedication.md docs/introduction/*.md docs/language/*.md docs/implementation/* -s -t latex --highlight-style kate
+    pandoc --top-level-division=part --number-sections --toc docs/00-bookindex.md docs/01-dedication.md docs/introduction/*.md docs/language/*.md docs/implementation/* -s -t latex --highlight-style kate | pdflatex > /dev/null
     mv texput.pdf book.pdf
 
 }
