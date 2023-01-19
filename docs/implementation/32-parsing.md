@@ -126,6 +126,11 @@ The `Entity` type is a sub-type of `Statement` and represents any named entity, 
     * TODO: Describe this
 6. `InitScope getModifierType()`
     * TODO: Describe this
+7. `bool isExternal()`
+    * If this returns `true` then it is a signal that this Entity should be emitted in a manner pertaining to an external symbol rather than one found in the current T module
+8. `void makeExternal()`
+    * Mark this Entity as external
+    * You will see this used in `parseExtern()` as that is where we need to mark entities as external for link-time resolution
 
 #### `Container`
 

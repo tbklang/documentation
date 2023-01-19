@@ -23,3 +23,11 @@ void test()
     discard write(cast(uint)0, buff, cast(uint)1001);
 }
 ```
+
+### External variables
+
+To declare en external variable use the `extern evar ...` clause followed by the variable declaration (type and name). Below we have an example (TODO: finish me)
+
+```{.d .numberLines}
+extern evar int myExternal;
+```
