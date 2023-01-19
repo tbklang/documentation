@@ -37,7 +37,7 @@ There are a few main important factors that the dependency processing and creati
 
 The `DNode` (short for _**d**ependency **node**_) is an object which wraps the following methods and fields within it:
 
-1.  `this(Statement statement)`
+1. `this(Statement statement)`
     * The constructor of a DNode takes in a `Statement` that it is intended to wrap around - since it is all about `Statement`s we create dependencies from
 2. `getEntity()`
     * Returns the `Statement` this dependency node wraps
@@ -53,9 +53,12 @@ The `DNode` (short for _**d**ependency **node**_) is an object which wraps the f
 7. `DNode[] dependencies`
     * The current `DNode`'s array of depenencies which themselves are `DNode`s 
 8. `print()`
-    * TODO: THis should be renamed to `generateLinearization()`
+    * TODO: This should be renamed to `generateLinearization()` and should be cached
+    * NOTE: Add note about the `static DNode[] poes` used as linearization result
     * Performs the linearization process on the dependency tree, visited all children knows in a depth-first-search left-visitation stratergy.
     * Returns a `DNode[]`
+9. `needs(DNode)`
+    * This adds the given `DNode` as a dependency to the current DNode, effectively appending it to the `dependencies` array.
 
 TODO: Discuss `DNode`
 
