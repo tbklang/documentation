@@ -52,14 +52,22 @@ The `DNode` (short for _**d**ependency **node**_) is an object which wraps the f
     * This is normally used as an alternative to `markVisited()` when all nodes have already been visited but a second run through is needed, therefore a second visitation state is required. See `tree()`.
 7. `DNode[] dependencies`
     * The current `DNode`'s array of depenencies which themselves are `DNode`s 
-8. `print()`
-    * TODO: This should be renamed to `generateLinearization()` and should be cached
-    * NOTE: Add note about the `static DNode[] poes` used as linearization result
-    * Performs the linearization process on the dependency tree, visited all children knows in a depth-first-search left-visitation stratergy.
-    * Returns a `DNode[]`
-9. `needs(DNode)`
+8. `performLinearization()`
+    * Performs the linearization process on the dependency tree, visited all children knows in a depth-first-search left-visitation stratergy. 
+    * This method is to only be called once, calling it again will raise a `DependencyException`
+9. `getLinearizedNodes()`
+    * Returns the `DNode[]` array of linearized nodes
+    * This method may be called numerous times but must be preceded by a call to `performLinearization()`, failing to do so will raise a `DependencyException`
+10. `getTree()`
+    * Returns a `string` containing the string representation of the dependency tree.
+    * This method may be called numerous times but must be preceded by a call to `performLinearization()`, failing to do so will raise a `DependencyException`
+11. `needs(DNode)`
     * This adds the given `DNode` as a dependency to the current DNode, effectively appending it to the `dependencies` array.
 
 TODO: Discuss `DNode`
+
+#### The `DNodeGenerator`
+
+TODO: Discuss the `DNodeGenerator`
 
 TODO: Add dependency generation notes here
