@@ -68,6 +68,27 @@ TODO: Discuss `DNode`
 
 #### The `DNodeGenerator`
 
+The DNodeGenerator is used to generate dependency node objects (`DNode`s) based on the current state of the type checker. It will use the type checker's facilities to lookup the `Module` that is contained within and use this container-based entity to traverse the entire parse tree of the container and process each different possible type of `Statement` found within, step-by-step generating a dependency node for each and attacching them to the relative parent dependency node - at the end resulting with athe final dependency tree.
+
+This type provides the following methods:
+
+1. `generate()`
+    * This is the method that starts the dependency tree generation, resulting in the return of a single `DNode` (which may have multiple dependencies and so on) at the end of processing
+2. `pool(Statement e)`
+    * Pools the given parse node `e`, returning a `DNode` wrapper for it
+    * Creates a new `DNode` if no such mapping exists, else returns the same `DNode`
+
+
 TODO: Discuss the `DNodeGenerator`
+
+### Pooling
+
+Pooling is the technique of mapping a given parse node, let's say some kind-of `Statement`, to the same `DNode` everytime and if no mapping exists then creating a `DNode` for the respective parse node once off and then returning that same dependency node on successive requests. This means that the same object reference to the created `DNode` is returned on each successive call. This mapping of sorts is how we get a consistent dependency node handle on the various parse nodes we encounter when doing dependency processing.
+
+This is important because visitation marking is used in order to know if a certain parse node has been processed but because `Statement` (parse nodes) do not have such functionality whilst dependency nodes **do**, we therefore need to map a given parse node to the same exact (by memory reference) dependency node each time, and then check the visitation status of said `DNode` during processing.
+
+
+
+---
 
 TODO: Add dependency generation notes here
