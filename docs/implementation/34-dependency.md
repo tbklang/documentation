@@ -88,8 +88,26 @@ Pooling is the technique of mapping a given parse node, let's say some kind-of `
 
 This is important because visitation marking is used in order to know if a certain parse node has been processed but because `Statement` (parse nodes) do not have such functionality whilst dependency nodes **do**, we therefore need to map a given parse node to the same exact (by memory reference) dependency node each time, and then check the visitation status of said `DNode` during processing.
 
+Below we have an example of what this process looks like:
 
+![](docs/graphs/pooling.dot.png){ width="300" }
+![](../../graphs/pooling.dot.svg){ width="300" }
 
 ---
+
+In this case we would have done something akin to the following. Our scenario is that we have some sort of parse node, let's assume it was a `Variable` parse node which would represent a variable declaration. 
+
+```{.d .numberLines}
+Variable varPNode = <... fetch node>;
+
+DNode varDNode = pool(varPNode);
+assert(varDNode.getEntity() == varPNode);
+
+DNode varDNode2 = pool(varPNode);
+assert(varDNode == varDNode2);
+```
+
+
+What we have done in the code below is extracted our parse node `varPNode`, pooled it in order to retrieve a `DNode` dependency node for it and then confirmed that the `varDNode.entity` is equal to that of the `varPNode` itself. Furthermore we then pool the same parse node again (`varPNode`) in order to show the returned dependency node will be the same as that referenced by `varDNode`.
 
 TODO: Add dependency generation notes here

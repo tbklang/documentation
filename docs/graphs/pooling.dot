@@ -1,0 +1,61 @@
+digraph Pooling {
+	graph [
+		label="Pooling of a parse node to a DNode"
+		labelloc="t"
+		fontname="Helvetica,Arial,sans-serif"
+	]
+	node [
+		fontname="Helvetica,Arial,sans-serif"
+		shape=record
+		style=filled
+		fillcolor=gray95
+	]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	edge [arrowhead=vee style=dashed]
+
+	edge [dir=back arrowtail=empty style=""]
+
+	edge [dir=back arrowtail=empty style=dashed]
+	DNode_1
+	DNode_1 [
+		shape=plain
+		label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+			<tr> <td> <b>DNode</b> </td> </tr>
+			<tr> <td>
+				<table border="0" cellborder="0" cellspacing="0" >
+					<tr> <td align="left" >+ properties</td> </tr>
+					<tr> <td port="dependenciesArray" align="left" >- DNode[] dependencies   </td> </tr>
+					<tr> <td port="containedEntity" align="left" >- Statement entity</td> </tr>
+
+					<tr> <td align="left">...</td> </tr>
+				</table>
+			</td> </tr>
+			<tr> <td align="left">+ methods</td>  </tr>
+			<tr> <td align="left">+ needs(DNode)</td> </tr>
+			<tr> <td align="left">+ isVisited()</td> </tr>
+			<tr> <td align="left">+ markVisited()</td> </tr>
+			<tr> <td align="left">+ getEntity()</td> </tr>
+		</table>>
+	]
+
+	edge [dir=back]
+	SubDNode_1 -> DNode_1:containedEntity [xlabel="pooled by    "]
+
+
+	SubDNode_1 [
+		shape=plain
+		label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+			<tr> <td> <b>Parse node   </b> </td> </tr>
+			<tr> <td>
+				<table border="0" cellborder="0" cellspacing="0" >
+					<tr> <td align="left">+ properties </td> </tr>
+					<tr> <td align="left">...</td> </tr>
+				</table>
+				</td> </tr>
+			<tr> <td align="left">
+				+ method<br/>
+				...<br align="left"/>
+			</td> </tr>
+		</table>>
+	]
+}
