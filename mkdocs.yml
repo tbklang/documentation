@@ -36,6 +36,7 @@ nav:
     - Dependency generation: implementation/34-dependency.md
     - Typechecking and codegen: implementation/35-typechecking.md
     - Emit: implementation/36-emit.md
+    - Compiler: implementation/37-compiler.md
 
 theme:
   name: material
