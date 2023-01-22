@@ -90,8 +90,8 @@ This is important because visitation marking is used in order to know if a certa
 
 Below we have an example of what this process looks like:
 
-![](docs/graphs/pooling.dot.png){ width="300" }
-![](../../graphs/pooling.dot.svg){ width="300" }
+![](docs/graphs/pooling.dot.png){ width="400" }
+![](../../graphs/pooling.dot.svg){ width="400" }
 
 ---
 
