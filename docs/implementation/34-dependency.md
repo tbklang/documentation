@@ -65,7 +65,7 @@ The `DNode` (short for _**d**ependency **node**_) is an object which wraps the f
     * This adds the given `DNode` as a dependency to the current DNode, effectively appending it to the `dependencies` array.
 
 ![](docs/graphs/dnode.dot.png){ width="400" }
-![](/graphs/dnode.dot.svg){ width="400" }
+![](../../graphs/dnode.dot.svg){ width="400" }
 
 #### The `DNodeGenerator`
 
