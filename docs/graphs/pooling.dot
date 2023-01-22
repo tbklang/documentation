@@ -45,17 +45,19 @@ digraph Pooling {
 	SubDNode_1 [
 		shape=plain
 		label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
-			<tr> <td> <b>Parse node   </b> </td> </tr>
+			<tr> <td> <b>Variable node (PNode)   </b> </td> </tr>
 			<tr> <td>
 				<table border="0" cellborder="0" cellspacing="0" >
 					<tr> <td align="left">+ properties </td> </tr>
+					<tr> <td align="left">- string name</td> </tr>
+					<tr> <td align="left">- string type</td> </tr>
 					<tr> <td align="left">...</td> </tr>
 				</table>
 				</td> </tr>
-			<tr> <td align="left">
-				+ method<br/>
-				...<br align="left"/>
-			</td> </tr>
+			<tr> <td align="left">+ methods</td> </tr>
+			<tr> <td align="left">+ getName()</td> </tr>
+			<tr> <td align="left">+ getType()</td> </tr>
+			<tr> <td align="left">+ hasAssignment()   </td> </tr>
 		</table>>
 	]
 }
