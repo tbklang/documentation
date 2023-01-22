@@ -20,10 +20,17 @@ function doAsciiDoc()
 # Generate graphs
 function generateGraphs()
 {
-    graphs="$(ls docs/graphs/*.dot)"
-    for graph in $graphs
+    circoGraphs="$(ls docs/graphs/*.circo)"
+    for graph in $circoGraphs
     do
         cat $graph | circo -Tpng -o$graph.png
         cat $graph | circo -Tsvg -o$graph.svg
+    done
+
+    dotGraphs="$(ls docs/graphs/*.dot)"
+    for graph in $dotGraphs
+    do
+        cat $graph | dot -Tpng -o$graph.png
+        cat $graph | dot -Tsvg -o$graph.svg
     done
 }

@@ -64,8 +64,8 @@ The `DNode` (short for _**d**ependency **node**_) is an object which wraps the f
 11. `needs(DNode)`
     * This adds the given `DNode` as a dependency to the current DNode, effectively appending it to the `dependencies` array.
 
-![](docs/graphs/dnode.dot.png){ width="400" }
-![](../../graphs/dnode.dot.svg){ width="400" }
+![](docs/graphs/dnode.circo.png){ width="400" }
+![](../../graphs/dnode.circo.svg){ width="400" }
 
 #### The `DNodeGenerator`
 
@@ -92,8 +92,8 @@ This is important because visitation marking is used in order to know if a certa
 
 Below we have an example of what this process looks like. In this case we would have done something akin to the following. Our scenario is that we have some sort of parse node, let's assume it was a `Variable` parse node which would represent a variable declaration. 
 
-![](docs/graphs/pooling.dot.png){ width="400" }
-![](../../graphs/pooling.dot.svg){ width="400" }
+![](docs/graphs/pooling.circo.png){ width="400" }
+![](../../graphs/pooling.circo.svg){ width="400" }
 
 ---
 

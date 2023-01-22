@@ -2,6 +2,9 @@
 
 All of the functionality mentioned in the past chapters describing each stage of the compilation process and their respective components are all combined in a `Compiler` object which adds additional functionality via the compiler configuration sub-system. This sub-system is passed into each stage (TODO: Not yet, only the code emitter, we must fix this) such that if a requirement for a decision to be taken based on compiler flags is specified then such configuration paremeters can be obtained via each module of the compilation stage.
 
+![](docs/graphs/compiler.circo.png){ width="550" }
+![](../../graphs/compiler.circo.svg){ width="800" }
+
 ### Compiler system
 
 The `Compiler` class provides is constructed by being given source code as a string along with a `File` struct which represents the file of which to write the final emitted code to. This type provides the following methods:
@@ -28,3 +31,9 @@ The `Compiler` class provides is constructed by being given source code as a str
 7. `compile()`
     * Performs all of the above stages.
     * A `CompilerException` can be thrown for any of the aforementioned reasons.
+
+TODO: Document `CompilerException` exception and `CompilerError` enum.
+
+### Configuration sub-system
+
+TODO: Add an explanation for this here
