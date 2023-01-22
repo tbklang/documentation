@@ -8,3 +8,7 @@ site/
 *.ps
 *.toc
 *.aux
+
+# Any generated artefacts
+docs/graphs/*.png
+docs/graphs/*.svg
