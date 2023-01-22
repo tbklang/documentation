@@ -78,7 +78,6 @@ The renaming mechanism is hanlded by the `symbolLookup(Entity)` method from the 
 
 1. `entity`
     * This must be a type-of `Entity`, this is the entity of which the symbol renaming should be applied on.
-2. .
 
 This allows one do then translate the symbol name with the following usage. In this case we want to translate the symbol of the entity named `x` which is container in the module-container named `simple_variables_decls_ass`. Therefore we provide both peices of information into the function `symbolLookup`:
 

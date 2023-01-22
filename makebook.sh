@@ -25,5 +25,17 @@ function doAsciiDoc()
     mv book.html tlang.html
 }
 
+# Generate graphs
+function generateGraphs()
+{
+    graphs="$(ls docs/graphs/*.dot)"
+    for graph in $graphs
+    do
+        cat $graph | circo -Tpng -o$graph.png
+        cat $graph | circo -Tsvg -o$graph.svg
+    done
+}
+
+generateGraphs
 generateBook
 doAsciiDoc
