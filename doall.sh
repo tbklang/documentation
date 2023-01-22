@@ -7,4 +7,4 @@ bash makegraphs.sh
 python3 -m mkdocs build -d /home/pi/HDD/projects/tlang
 
 # Generate the book
-bash makebook.s
+#bash makebook.s
