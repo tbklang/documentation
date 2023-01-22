@@ -89,7 +89,7 @@ digraph CompilationProcess {
 	InstructionEmit [
 		shape=plain
 		label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
-			<tr> <td> <b>TC/GC</b> </td> </tr>
+			<tr> <td> <b>Emit</b> </td> </tr>
 			<tr> <td>
 				<table border="0" cellborder="0" cellspacing="0" >
 					<tr> <td port="ss1" align="left" >- Instruction transformation    </td> </tr>
