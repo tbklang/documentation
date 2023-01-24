@@ -36,4 +36,11 @@ TODO: Document `CompilerException` exception and `CompilerError` enum.
 
 ### Configuration sub-system
 
+At user-request or due to constraints of the host machine it may be required that certain aspects of the various components of the compiler be modified in terms of their behaviour. This is where the compiler configuration sub-system comes in in order to support a key-value store that can be used via the `compiler.config` field at any time.
+
+The `CompilerConfiguration` exposes the following API:
+
+1. `bool hasConfig(string key)`
+    * Checks if the given `key` exists in the key-value store, returns `false` if not, `true` otherwise
+
 TODO: Add an explanation for this here
