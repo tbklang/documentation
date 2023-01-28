@@ -6,10 +6,23 @@ In order to use such a feature one can make use of the `extern` keyword which us
 
 ### External functions
 
-To declare an external function use the `extern efunc ...` clause followed by a function's signature. Below we have an example of the `write` function from glibc being specified:
+To declare an external function use the `extern efunc ...` clause followed by a function's signature. Below we have an example of the `doWrite` function from our C program (seen later) being specified:
 
 ```{.d .numberLines}
-extern efunc uint write(uint fd, ubyte* buffer, uint count);
+extern efunc uint doWrite(uint fd, ubyte* buffer, uint count);
+```
+
+The corresponding C program is:
+
+```{.c .numberLines}
+#include<unistd.h>
+
+int ctr = 2;
+
+unsigned int doWrite(unsigned int fd, unsigned char* buffer, unsigned int count)
+{
+    write(fd, buffer, count+ctr);
+}
 ```
 
 We can now go ahead and use this function as a call such as with:
@@ -19,15 +32,31 @@ extern efunc uint write(uint fd, ubyte* buffer, uint count);
 
 void test()
 {
+    ctr = ctr + 1;
+
     ubyte* buff;
-    discard write(cast(uint)0, buff, cast(uint)1001);
+    discard doWrite(cast(uint)0, buff, cast(uint)1001);
 }
 ```
 
 ### External variables
 
-To declare en external variable use the `extern evar ...` clause followed by the variable declaration (type and name). Below we have an example (TODO: finish me)
+To declare en external variable use the `extern evar ...` clause followed by the variable declaration (type and name). Below we have an example of the `ctr` variable from our C program seen earlier being specified:
 
 ```{.d .numberLines}
-extern evar int myExternal;
+extern evar int ctr;
+```
+
+We have the same program as before where we then refer to it with:
+
+```{.d .numberLines}
+...
+extern evar int ctr;
+
+void test()
+{
+    ctr = ctr + 1;
+
+    ...
+}
 ```
