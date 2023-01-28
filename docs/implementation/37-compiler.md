@@ -38,9 +38,81 @@ TODO: Document `CompilerException` exception and `CompilerError` enum.
 
 At user-request or due to constraints of the host machine it may be required that certain aspects of the various components of the compiler be modified in terms of their behaviour. This is where the compiler configuration sub-system comes in in order to support a key-value store that can be used via the `compiler.config` field at any time.
 
+#### The `CompilerConfiguration` API
+
 The `CompilerConfiguration` exposes the following API:
 
 1. `bool hasConfig(string key)`
     * Checks if the given `key` exists in the key-value store, returns `false` if not, `true` otherwise
+2. `addConfig(ConfigEntry entry)`
+    * Stores the given entry in the cnfiguration store
+    * Throws a `CompilerException` if you are trying to update an entry to a different tye than the existing one
+3. `ConfigEntry getConfig(string key)`
+    * Returns the `ConfigEntry` at the provided name
+    * Throws a `CompilerException` if no such entry exists
 
-TODO: Add an explanation for this here
+#### The `ConfigEntry` API
+
+The `ConfigEntry` represents a configuration entry, this is composed of:
+
+1. An entry name
+    * Fetched via `string getName()`
+2. An entry type
+    * This is fetched via `ConfigType getType()`
+3. An entry value
+    * This is fetched via `getX()`
+    * There are several getter functions which will interpret the union space dependent on which one you call, however, in reality a misinterpretation will cause a runtime error as we catch it before you attempt to do a reinterpattion of it, therefore throwing a `CompilerException`
+
+The types that can be stored and their respectives methods are:
+
+1. Boolean
+    * Values: `true` or `false`
+    * Use `getBoolean()`
+1. Number
+    * Values: A valid D `ulong`
+    * Use `getNumber()`
+1. Text
+    * Values: A D `string`
+    * Use `getText()`
+1. Tex array
+    * Values: A D `string[]`
+    * Use `getArray()`
+
+#### Example usage
+
+Below is an example of the usage of the `ConfigEntry`s in the `CompilerConfiguration` system, here we add a few entries:
+
+```{.d .numberLines}
+/* Enable Behaviour-C fixes */
+config.addConfig(ConfigEntry("behavec:preinline_args", true));
+
+/* Enable pretty code generation for DGen */
+config.addConfig(ConfigEntry("dgen:pretty_code", true));
+
+/* Enable entry point test generation for DGen */
+config.addConfig(ConfigEntry("dgen:emit_entrypoint_test", true));
+
+/* Set the mapping to hashing of entity names (TODO: This should be changed before release) */
+config.addConfig(ConfigEntry("emit:mapper", "hashmapper"));
+```
+
+Later on we can retrieve these entries, the below is code from the `DGen` class which emits the C code), here we check for any object files that should be linked in:
+
+```{.d .numberLines}
+//NOTE: Change to system compiler (maybe, we need to choose a good C compiler)
+string[] compileArgs = ["clang", "-o", "tlang.out", file.name()];
+
+// Check for object files to be linked in
+string[] objectFilesLink;
+if(config.hasConfig("linker:link_files"))
+{
+    objectFilesLink = config.getConfig("linker:link_files").getArray();
+    gprintln("Object files to be linked in: "~to!(string)(objectFilesLink));
+}
+else
+{
+    gprintln("No files to link in");
+}
+
+Pid ccPID = spawnProcess(compileArgs~objectFilesLink);
+```
