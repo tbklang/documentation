@@ -80,6 +80,8 @@ The types that can be stored and their respectives methods are:
 
 #### Example usage
 
+##### Creation of entries
+
 Below is an example of the usage of the `ConfigEntry`s in the `CompilerConfiguration` system, here we add a few entries:
 
 ```{.d .numberLines}
@@ -95,6 +97,8 @@ config.addConfig(ConfigEntry("dgen:emit_entrypoint_test", true));
 /* Set the mapping to hashing of entity names (TODO: This should be changed before release) */
 config.addConfig(ConfigEntry("emit:mapper", "hashmapper"));
 ```
+
+##### Retrieval of entries
 
 Later on we can retrieve these entries, the below is code from the `DGen` class which emits the C code), here we check for any object files that should be linked in:
 
