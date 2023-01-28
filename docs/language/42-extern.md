@@ -4,15 +4,7 @@ Some times it is required that a symbol be processed at a later stage that is no
 
 In order to use such a feature one can make use of the `extern` keyword which us specify either a function's signature or variable that should be resolved during C compilation time **but** such that we can still use it in our T program with typechecking and all.
 
-### External functions
-
-To declare an external function use the `extern efunc ...` clause followed by a function's signature. Below we have an example of the `doWrite` function from our C program (seen later) being specified:
-
-```{.d .numberLines}
-extern efunc uint doWrite(uint fd, ubyte* buffer, uint count);
-```
-
-The corresponding C program is:
+One could take a C program such as the following:
 
 ```{.c .numberLines}
 #include<unistd.h>
@@ -23,6 +15,30 @@ unsigned int doWrite(unsigned int fd, unsigned char* buffer, unsigned int count)
 {
     write(fd, buffer, count+ctr);
 }
+```
+
+and then compile it to an on object file named `file_io.o` with the following command:
+
+```{.bash .numberLines}
+gcc source/tlang/testing/file_io.c -c -o file_io.o
+```
+
+And then link this with your T program using the command (take note of the flag `-ll file_io.o` which specifies the object to link in):
+
+```{.bash .numberLines}
+./tlang compile source/tlang/testing/simple_extern.t \
+        -sm HASHMAPPER \
+        -et true \
+        -pg true \
+        -ll file_io.o \
+```
+
+### External functions
+
+To declare an external function use the `extern efunc ...` clause followed by a function's signature. Below we have an example of the `doWrite` function from our C program (seen earlier) being specified:
+
+```{.d .numberLines}
+extern efunc uint doWrite(uint fd, ubyte* buffer, uint count);
 ```
 
 We can now go ahead and use this function as a call such as with:
