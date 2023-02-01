@@ -1,4 +1,4 @@
-## Typechecking (and code gen)
+## Typechecking and code generation
 
 TODO: Add notes here
 TODO: Talk about the queues that exist
@@ -17,3 +17,14 @@ Every type of instruction that is produced during the code generation phase is a
 3. `string produceToStrEnclose(string addInfo)`
     * Returns a string containing the additional info provided through `addInfo`
     * The format of the returned string will be `[Instruction: <className>: <addInfo>]` where `<className>` is the name of the instruction type (kind-of) and `<addInfo>` as explained previously
+
+#### Value-based instructions (`Value`)
+
+TODO: Talk about the `Value` instruction base class here
+
+A `Value` instruction is a kind-of `Instruction` of which represents code which generates some sort of value, think of literals, arithmetic operations, pointer dereferences, variable reads and so on. Every such instruction always has an associated `Type` object associated with it in order to know the intended type of the instruction. Below we show the API usage of the `Value` class:
+
+1. `Type getType()`
+    * Returns the type associated with this instruction
+2. `setType(Type)`
+    * Set the type to be associated with this instruction
