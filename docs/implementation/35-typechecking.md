@@ -14,3 +14,6 @@ Every type of instruction that is produced during the code generation phase is a
     * This is normally done as a way to transfer the context from the respective parser-node to the corresponding instruction such that if such context is needed during further code generation (or even emit) it can then be accessed
 2. `Context getContext()`
     * Returns this instruction's associated context via its `Context` object
+3. `string produceToStrEnclose(string addInfo)`
+    * Returns a string containing the additional info provided through `addInfo`
+    * The format of the returned string will be `[Instruction: <className>: <addInfo>]` where `<className>` is the name of the instruction type (kind-of) and `<addInfo>` as explained previously
