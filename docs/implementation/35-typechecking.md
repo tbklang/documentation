@@ -5,6 +5,8 @@ TODO: Talk about the queues that exist
 
 ### Instructions
 
+The process of code generation involves the production (creation) of instructions and consumption of them (consuming them and embedding them in other instructions). There are several types of instructions but the main important base ones are listed below.
+
 #### The base `Instruction`
 
 Every type of instruction that is produced during the code generation phase is a kind-of `Instruction`, it is the base class for all instructions and contains some common methods used by all of them:
@@ -28,3 +30,5 @@ A `Value` instruction is a kind-of `Instruction` of which represents code which 
     * Returns the type associated with this instruction
 2. `setType(Type)`
     * Set the type to be associated with this instruction
+
+There are many instructions which sub-type this `Value` class, these can be found in `<TODO: Insert path here and put all Value-based instructions in their own module>`.
