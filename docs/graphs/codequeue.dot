@@ -1,6 +1,6 @@
-digraph CompilationProcess {
+digraph CodequeueProcess {
         graph [
-                label="Compilation process"
+                label="Code queueing process"
                 labelloc="t"
                 fontname="Helvetica,Arial,sans-serif"
         ]
