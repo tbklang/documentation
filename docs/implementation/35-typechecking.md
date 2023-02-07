@@ -57,8 +57,8 @@ The code queue is used as a stack and a queue in order to facilitate instruction
 
 An example of this would be the following T code which uses a binary operation with two operands (one being a `LiteralValue` instruction and the other being a `FuncCall` instruction):
 
-```{.d .numberLines}
-1+func();
+```{.d}
+                                1 + func()
 ```
 
 This would result in a situation where we have the following production
