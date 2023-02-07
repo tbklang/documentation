@@ -32,3 +32,36 @@ A `Value` instruction is a kind-of `Instruction` of which represents code which 
     * Set the type to be associated with this instruction
 
 There are many instructions which sub-type this `Value` class, these can be found in `<TODO: Insert path here and put all Value-based instructions in their own module>`.
+
+---
+
+### Code generation
+
+The method of code generation and type checking starts by being provided a so-called "action list" which is a linear array of dependency-nodes (or `DNode`s for code's sake), this list is then iterated through by a for-loop, and each `DNode` is passed to a method called `typeCheckThing(DNode)`:
+
+```{.d .numberLines}
+foreach(DNode node; actionList)
+{
+    /* Type-check/code-gen this node */
+    typeCheckThing(node);
+}
+```
+
+The handling of every different instruction type and its associated typechecking requirements are handled in one huge if-statement within the `typeCheckThing(DNode)` method. This method will analyse a given dependency-node and perform the required typechecking by extracting the `DNode`'s emebedded parser-node, whilst doing so if a type check passes then code generation takes place by generating the corresponding instruction and adding this to some position in the code queue (discussed later).
+
+#### Code queue
+
+TODO: Add information on this
+
+The code queue is used as a stack and a queue in order to facilitate instruction generation. Certain instructions are produced once off and then added to the back of the queue (_"consuming"_ instructions) whilst other are produced and pushed onto the top of the queue (_"producing"_ instructions) for consumption by other consuming instructions later.
+
+An example of this would be the following T code which uses a binary operation with two operands (one being a `LiteralValue` instruction and the other being a `FuncCall` instruction):
+
+```{.d .numberLines}
+1+func();
+```
+
+This would result in a situation where we have the following production
+
+![](docs/graphs/codequeue.dot.png){ width="320" }
+![](../../graphs/codequeue.dot.svg){ width="320" }

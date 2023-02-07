@@ -1,0 +1,141 @@
+digraph CompilationProcess {
+        graph [
+                label="Compilation process"
+                labelloc="t"
+                fontname="Helvetica,Arial,sans-serif"
+        ]
+        
+        node [
+                fontname="Helvetica,Arial,sans-serif"
+                shape=record
+                style=filled
+                fillcolor=gray95
+        ]
+
+
+        Codequeue0 [
+                shape=plain
+                label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+                        <tr> <td> <b>Code queue (state 0)    </b> </td> </tr>
+                        <tr> <td>
+                                <table border="0" cellborder="0" cellspacing="0" >
+                                        <tr> <td port="ss1" align="left" >        <i>Empty queue</i>    </td> </tr>
+                                </table>
+                        </td> </tr>
+
+                </table>>
+        ]
+        Codequeue0 -> Codequeue1 [xlabel="addInstr() "]
+
+        Codequeue1 [
+                shape=plain
+                label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+                        <tr> <td> <b>Code queue (state 1)</b>     </td> </tr>
+                        <tr> <td>
+                                <table border="0" cellborder="0" cellspacing="0" >
+                                        <tr> <td port="ss1" align="left" >- LiteralValue</td> </tr>
+                                </table>
+                        </td> </tr>
+
+                </table>>
+                
+                
+        ]
+        Codequeue1:ss1 -> cl1_value
+
+        subgraph clusterLiteral
+        {
+            style=filled;
+            color=lightgrey;
+            cl1_value [label="value: 1"]
+            label = "LiteralValue";
+        }
+        
+        subgraph clusterFuncCall
+        {
+            style=filled;
+            color=lightgrey;
+            cl2_value [label="symbol: func"]
+            label = "FuncCall";
+        }
+        
+
+        edge [arrowhead=vee]
+        Codequeue1 -> Codequeue2 [xlabel="addInstr() "]
+        
+        Codequeue2 [
+                shape=plain
+                label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+                        <tr> <td> <b>Code queue (state 2)    </b> </td> </tr>
+                        <tr> <td>
+                                <table border="0" cellborder="0" cellspacing="0" >
+                                        <tr> <td port="ss1" align="left" >- FuncCall</td> </tr>
+                                        <tr> <td port="ss2" align="left" >- LiteralValue</td> </tr>
+                                </table>
+                        </td> </tr>
+
+                </table>>
+        ]
+        Codequeue2:ss1 -> cl2_value
+        Codequeue2:ss2 -> cl1_value
+        
+        edge [arrowhead=vee]
+        Codequeue2 -> Codequeue3 [xlabel="popInstr() "]
+        
+        Codequeue3 [
+                shape=plain
+                label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+                        <tr> <td> <b>Code queue (state 3)    </b> </td> </tr>
+                        <tr> <td>
+                                <table border="0" cellborder="0" cellspacing="0" >
+                                        <tr> <td port="ss1" align="left" >- LiteralValue</td> </tr>
+                                </table>
+                        </td> </tr>
+
+                </table>>
+        ]
+        Codequeue3:ss2 -> cl1_value
+        
+        edge [arrowhead=vee]
+        Codequeue3 -> Codequeue4 [xlabel="popInstr() "]
+        
+        Codequeue4 [
+                shape=plain
+                label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+                        <tr> <td> <b>Code queue (state 4.0 )    </b> </td> </tr>
+                        <tr> <td>
+                                <table border="0" cellborder="0" cellspacing="0" >
+                                        <tr> <td port="ss1" align="left" >        <i>Empty queue</i>    </td> </tr>
+                                </table>
+                        </td> </tr>
+
+                </table>>
+        ]
+        
+        edge [arrowhead=vee]
+        Codequeue4 -> Codequeue5 [xlabel="addInstr() "]
+        
+        subgraph clusterBinaryOp
+        {
+            style=filled;
+            color=lightgrey;
+            label = "BinaryOp";
+            cl3_value [label="operator: +"]
+            leftInstr -> cl1_value
+            rightInstr -> cl2_value
+        }
+        
+        Codequeue5 [
+                shape=plain
+                label=<<table border="0" cellborder="1" cellspacing="0" cellpadding="4">
+                        <tr> <td> <b>Code queue (state 4.1 )    </b> </td> </tr>
+                        <tr> <td>
+                                <table border="0" cellborder="0" cellspacing="0" >
+                                        <tr> <td port="ss1" align="left" >- BinOpInstr</td> </tr>
+                                </table>
+                        </td> </tr>
+
+                </table>>
+        ]
+        Codequeue5:ss1 -> cl3_value
+}
