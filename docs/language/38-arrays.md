@@ -25,7 +25,7 @@ TODO: Add this
 
 #### Pointer arrays
 
-The _"unmebrered"_ (lacking a number between then `[]`) array syntax is the equivalent of declaring a pointer to the component type.
+The _"unnumbered"_ (lacking a number between then `[]`) array syntax is the equivalent of declaring a pointer to the component type.
 
 ```{.d numberLines=1}
 module simple_arrays4;
