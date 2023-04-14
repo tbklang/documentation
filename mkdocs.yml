@@ -23,7 +23,8 @@ nav:
     - Conditionals: language/35-conditionals.md
     - Loops: language/36-loops.md
     - Funtions: language/37-functions.md
-    - Pointers: language/38-pointers.md
+    - Arrays: language/38-arrays.md
+    - Pointers: language/39-pointers.md
     - Extern: language/42-extern.md
     - Structs: language/39-structs.md
     - OOP: language/40-oop.md
