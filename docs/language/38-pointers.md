@@ -1,16 +1,14 @@
 ## Pointers
 
-Pointers allow one to get the address of a named entity, store it, and use
-it in a manner to either update the value at said address or fetch
-the value from said address in an indirect manner.
+Pointers are just like any other variable one would declare but what is important is that
+their values can be used in certain operations. A pointer's value is an address of another
+variable and one can use a pointer to indirectly refer to such a variable and indirectly
+fetch or update its value.
 
-### Pointer types
+A pointer type is written in the form of `<type>*`, for example one may write `int*` which
+is read as "a pointer to an `int`".
 
-A pointer type is written in the form of `<type>*` where this is read as "a pointer-to <type>". The `<type>` is anything before the last asterisk. Therefore `<type>**` is a "a pointer-to < a pointer-to <type>>".
-
-One also gets untyped pointers, these are written as `void*`.
-
-All pointers are 64-bit values - the size of addresses on one's system.
+TODO: All pointers are 64-bit values - the size of addresses on one's system.
 
 ### Usage
 
@@ -43,13 +41,45 @@ int j;
 int function(int* ptr)
 {
     *ptr = 2+2;
-
-    return 0;
+    return (*ptr)+1*2;
 }
 
 int thing()
 {
     int discardExpr = function(&j);
     int** l;
+
+    return discardExpr;
 }
 ```
+
+We can also cast pointers to smaller pointer types and use this technique to be able to address sub-sections of bigger data units.
+```d
+module simple_pointer_cast_le;
+
+int j;
+
+int ret()
+{
+    return 0;
+}
+
+int function(int* ptr)
+{
+    byte* bytePtr = cast(byte*)ptr;
+    *bytePtr = 2+2;
+    *(bytePtr+1) = 1;
+    
+    return (*ptr)+1*2;
+}
+
+int thing()
+{
+    int discardExpr = function(&j);
+    int** l;
+
+    return discardExpr;
+}
+```
+
+Here we have a slightly modified version of the above code and we update the second-last significant byte (this code is written for little-endian x86) of the integer referred to by `ptr` to `1`. This means our number held in `j` - the variable pointed to be `ptr` - should (TODO: we can explain the memory here) become the result of `256+4` (that is `260`). After this we then return that number with two added to it.
