@@ -41,3 +41,21 @@ void function()
 The above program is equivalent to (TODO: do this and ensure equivalency in actual code **even though** the above compiles)
 
 TODO: Add this
+
+One can even mix these if they want, for example we can do the following:
+
+```{.d numberLines=1}
+module simple_stack_arrays3;
+
+void function()
+{
+    int[][22222] myArray;
+
+    int[2][2] myArray2;
+
+    int i = 2;
+    myArray[i][i] = 69;
+}
+```
+
+TODO: Describe that here we have a staxck array of integer arrays or integer pointers
