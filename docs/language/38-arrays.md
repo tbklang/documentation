@@ -42,6 +42,8 @@ The above program is equivalent to (TODO: do this and ensure equivalency in actu
 
 TODO: Add this
 
+#### Mixing and matching
+
 One can even mix these if they want, for example we can do the following:
 
 ```{.d numberLines=1}
