@@ -10,30 +10,20 @@ is read as "a pointer to an `int`".
 
 TODO: All pointers are 64-bit values - the size of addresses on one's system.
 
-### Usage
+### Pointer syntax
 
-Here we shall show you the use cases of pointers in the below example:
+TODO: Mention the `&` and `*`
 
-```{.d linenums="1"}
-int value = 69;
-```
+There are a few operators that can be used on pointers which are shown below, most specific of which are the `*` and `&` unary operators:
 
-Firstly, we declare a new variable named `value`, now when a program runs on a computer these variable _"names"_ become addresses. So effectively what we have so far is some "address", that if we visit it now has the value of 69 assigned to it. With this sort of understanding, what follows will be easy to understand.
+| Operator | Description | Example|
+|----------|-------------|--------|
+| `&`      | Gets the address of the identifier | `int* myVarPtr = &myVar`   |
+| `*`      | Gets the value at the address held in the referred identifier | `int myVarVal = *myVarPtr` |
 
-```{.d linenums="1" hl_lines="2"}
-int value = 69;
-int* valuePtr = &value;
-```
+Below we will declare a module-level global variable `j` of type `int` and then use a function to indirectly update its value by the use of a pointer to this integer - in other words an `int*`:
 
-What we have here is the declaration of a variable called `valuePtr` of type `int*`, meaning this variable is going to hold an address which points to an integer. What follows is the assignment of the value `&value` to our variable `valuePtr`. The `&` operator returns the address of our variable.
-
-Resulting in us having another "variable" (our `valuePtr`) or address which, if we visit it we get another value which is _intended_ to be interpreted as another address as well - it is **this** address that if we visit we fetch the value of 69.
-
-### Example code
-
-Below is example usage of a pointer:
-
-```d
+```{.d numberLines=1}
 module simple_pointer;
 
 int j;
@@ -52,6 +42,37 @@ int thing()
     return discardExpr;
 }
 ```
+
+We have a function declared called `function` which takes in an `int*` named `ptr`. This can hold the address of memory that points to an `int`. We then have a function called `thing` which will call the former function with the argument `&j` which means it is passing a pointer to the `j` variable in.
+
+```{.d numberLines=1}
+int function(int* ptr)
+{
+    *ptr = 2+2;
+    return (*ptr)+1*2;
+}
+```
+
+What `int function(int* ptr)` does is two things:
+
+1. The first line, `*ptr = 2+2`, means that we will update the variable that is pointed to by the address stored in `ptr` to `2+2` (so `4`)
+2. The second line, `return (*ptr)+1*2`, means a few things:
+    1. The `*ptr` fetches the value pointed to by the address stored in `ptr`, so it would be `4` as of calling this
+    2. The `+1*2` will add `2` to the value of `4`
+    3. Lastly we return this value; `6`
+
+#### Casting
+
+TODO: Add code that uses byte-pointers below here
+
+### Array syntax
+
+TODO: Mention the `[<expr>]` syntax
+
+---
+
+### Example code
+
 
 We can also cast pointers to smaller pointer types and use this technique to be able to address sub-sections of bigger data units:
 

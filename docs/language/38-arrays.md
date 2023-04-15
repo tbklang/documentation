@@ -36,7 +36,15 @@ myArray[2] = myArray[i]+1;
 
 We can also later refer to the value of the array at that index again if we want to, perhaps, use it as part of an expression. What we have done here is to update the element at index `2` (the third element) of the array with the result of the `i`-th element of the array with `1` added to it.
 
+#### Coercion
+
+If one passes in a stack-based array to a function (TODO: finish this)
+
+TODO: Add code example here
+
 ### Pointer arrays
+
+Pointer arrays are just a way to use the array syntax, such as the `[<index>]` on pointers rather than the native pointer syntax, for this please see the next section on [pointers](39-pointers.md).
 
 The _"unnumbered"_ (lacking a number between then `[]`) array syntax is the equivalent of declaring a pointer to the component type.
 
