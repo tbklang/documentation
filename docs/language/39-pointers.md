@@ -65,15 +65,6 @@ What `int function(int* ptr)` does is two things:
 
 TODO: Add code that uses byte-pointers below here
 
-### Array syntax
-
-TODO: Mention the `[<expr>]` syntax
-
----
-
-### Example code
-
-
 We can also cast pointers to smaller pointer types and use this technique to be able to address sub-sections of bigger data units:
 
 ```{.d linenums="1" hl_lines="12"}
@@ -105,3 +96,7 @@ int thing()
 ```
 
 Here we have a slightly modified version of the above code and we update the second-last significant byte (this code is written for little-endian x86) of the integer referred to by `ptr` to `1`. This means our number held in `j` - the variable pointed to be `ptr` - should (TODO: we can explain the memory here) become the result of `256+4` (that is `260`). After this we then return that number with two added to it.
+
+### Array syntax
+
+TODO: Mention the `[<expr>]` syntax
