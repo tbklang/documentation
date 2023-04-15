@@ -9,19 +9,34 @@ of the same type tightly packed next to one-another but being able to refer to t
 
 Stack arrays are what we refer to when we allocate an array (i.e. multiple instances of the same type next to each other) using the stack space of the current stack frame (the space for the current function call).
 
-```{.d numberLines=1}
-module simple_stack_arrays2;
+```{.d numberLines=1 hl_lines="5"}
+module simple_stack_arrays4;
 
-void function()
+int function()
 {
     int[22222] myArray;
 
     int i = 2;
-    myArray[i] = 1;
+    myArray[i] = 60;
+    myArray[2] = myArray[i]+1;
+
+    return myArray[2];
 }
 ```
 
-TODO: Add this
+What we have above is a declaration of an array of `int` with 22222-many instances packed next to each other. We can then make use of the stack array by referring to its name and an index as we have done below:
+
+```{.d}
+myArray[i] = 60;
+```
+
+Here we are updating the `i`-th element of the array to the value of `60`.
+
+```{.d}
+myArray[2] = myArray[i]+1;
+```
+
+We can also later refer to the value of the array at that index again if we want to, perhaps, use it as part of an expression. What we have done here is to update the element at index `2` (the third element) of the array with the result of the `i`-th element of the array with `1` added to it.
 
 #### Pointer arrays
 
