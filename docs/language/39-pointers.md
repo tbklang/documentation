@@ -100,7 +100,25 @@ int thing()
 }
 ```
 
-Here we have a slightly modified version of the above code and we update the second-last significant byte (this code is written for little-endian x86) of the integer referred to by `ptr` to `1`. This means our number held in `j` - the variable pointed to be `ptr` - should (TODO: we can explain the memory here) become the result of `256+4` (that is `260`). After this we then return that number with two added to it.
+What we first do over here in `int function(int* ptr)` is to cast our pointer `ptr` from an `int*` to a `byte*`, this means that we now can access the 4 byte integer byte-by-byte, on x86 we would be starting with the least-significant byte. What we have done here is updated said byte to the value of `2+2`:
+
+```{.d linenums="1"}
+byte* bytePtr = cast(byte*)ptr;
+*bytePtr = 2+2;
+```
+
+We now apply pointer arithmetic to our `bytePtr` by adding `1` to it which would increment the address by `1`, resultingly pointing to the second least significant byte, we then use the dereference operator `*` to set this byte to `1`:
+
+```{.d linenums="1"}
+*(bytePtr+1) = 1;
+
+```
+
+This means our number held in `j` - the variable pointed to be `ptr` - should (TODO: we can explain the memory here) become the result of `256+4` (that is `260`). After this we then return that number with two added to it:
+
+```{.d linenums="1"}
+return (*ptr)+1*2;
+```
 
 ### Array syntax
 
