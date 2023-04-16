@@ -12,3 +12,6 @@ site/
 # Any generated artefacts
 docs/graphs/*.png
 docs/graphs/*.svg
+book.ad
+book.pdf
+tlang.html
