@@ -61,13 +61,18 @@ What `int function(int* ptr)` does is two things:
     2. The `+1*2` will add `2` to the value of `4`
     3. Lastly we return this value; `6`
 
-#### Casting
+#### Casting and arithmetic
 
-TODO: Add code that uses byte-pointers below here
+Some of the existing operators such as those used for arithmetic have special usage when used on pointers:
 
-We can also cast pointers to smaller pointer types and use this technique to be able to address sub-sections of bigger data units:
+| Operator | Description | Example|
+|----------|-------------|--------|
+| `+`      | Allows one to offset the pointer by a `+ offset*sizeof(ptrType)` | `ptr+1` |
+| `-`      | Allows one to offset the pointer by a `- offset*sizeof(ptrType)` | `ptr-1` |
 
-```{.d linenums="1" hl_lines="12"}
+Below we show how one can use pointer arithmetic and the casting of pointers to work on sub-sections of data referenced to by a pointer:
+
+```{.d linenums="1" hl_lines="12-14"}
 module simple_pointer_cast_le;
 
 int j;
