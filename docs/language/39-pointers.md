@@ -122,5 +122,6 @@ return (*ptr)+1*2;
 
 ### Array syntax
 
-TODO: Mention the `[<expr>]` syntax
-NOTE: We can only work on this once the arrays branch is done and has been tested with the new pointers code
+**TODO:** Mention the `[<expr>]` syntax
+
+**NOTE:** We can only work on this once the arrays branch is done and has been tested with the new pointers code
