@@ -120,6 +120,28 @@ This means our number held in `j` - the variable pointed to be `ptr` - should (T
 return (*ptr)+1*2;
 ```
 
+#### Mixing and matching
+
+One can even mix these if they want, for example we can do the following:
+
+```{.d numberLines=1}
+module simple_stack_arrays3;
+
+void function()
+{
+    int[][22222] myArray;
+
+    int[2][2] myArray2;
+
+    int i = 2;
+    myArray[i][i] = 69;
+}
+```
+
+TODO: Describe that here we have a staxck array of integer arrays or integer pointers
+
+NOTE: This appears before the array syntax, this should probaly be changed around
+
 ### Array syntax
 
 **TODO:** Mention the `[<expr>]` syntax

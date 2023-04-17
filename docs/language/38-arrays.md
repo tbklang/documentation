@@ -43,25 +43,3 @@ If one passes in a stack-based array of type `<compType>[10]` to a function with
 TODO: Add code example here
 
 TODO: Finalize coercion and place example here
-
-#### Mixing and matching
-
-One can even mix these if they want, for example we can do the following:
-
-```{.d numberLines=1}
-module simple_stack_arrays3;
-
-void function()
-{
-    int[][22222] myArray;
-
-    int[2][2] myArray2;
-
-    int i = 2;
-    myArray[i][i] = 69;
-}
-```
-
-TODO: Describe that here we have a staxck array of integer arrays or integer pointers
-
-FIXME: This should actually appear on the [Pointers]() page
