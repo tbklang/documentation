@@ -12,8 +12,6 @@ TODO: All pointers are 64-bit values - the size of addresses on one's system.
 
 ### Pointer syntax
 
-TODO: Mention the `&` and `*`
-
 There are a few operators that can be used on pointers which are shown below, most specific of which are the `*` and `&` unary operators:
 
 | Operator | Description | Example|
