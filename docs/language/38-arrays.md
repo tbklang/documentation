@@ -38,30 +38,11 @@ We can also later refer to the value of the array at that index again if we want
 
 #### Coercion
 
-If one passes in a stack-based array to a function (TODO: finish this)
+If one passes in a stack-based array of type `<compType>[10]` to a function with a paremeter type of `<compType>*` (TODO: add support for `<compType>[]` by using `parseTypedDeclaration(onlyType=true)`) then type coercion will occur and the address of the base of the stack array will be passed to the function.
 
 TODO: Add code example here
 
-### Pointer arrays
-
-Pointer arrays are just a way to use the array syntax, such as the `[<index>]` on pointers rather than the native pointer syntax, for this please see the next section on [pointers](39-pointers.md).
-
-The _"unnumbered"_ (lacking a number between then `[]`) array syntax is the equivalent of declaring a pointer to the component type.
-
-```{.d numberLines=1}
-module simple_arrays4;
-
-void function()
-{
-    int[] myArray;
-    int i = 2;
-    myArray[i] = myArray[1]+2;
-}
-```
-
-The above program is equivalent to (TODO: do this and ensure equivalency in actual code **even though** the above compiles)
-
-TODO: Add this
+TODO: Finalize coercion and place example here
 
 #### Mixing and matching
 
@@ -82,3 +63,5 @@ void function()
 ```
 
 TODO: Describe that here we have a staxck array of integer arrays or integer pointers
+
+FIXME: This should actually appear on the [Pointers]() page
