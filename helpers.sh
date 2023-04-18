@@ -16,13 +16,13 @@ function generateMarkdown()
 {
     # Site docs
     #
-    # From GitHub flavored markdown, filtered through pandoc-plot, to GitHub flavored markdown
-    siteDocs="$(ls docs_src/*.md)"
+    # Copied over
+    siteDocs="$(ls docs_src/*.md) $(ls docs_src/journal/*)"
     for doc in $siteDocs
     do
         echo "Converting markdown for doc '$doc'..."
         # pandoc -F pandoc-plot -M plot-configuration=pandoc-plot.conf -f gfm -t gfm "$doc" -o "docs/$(echo $doc | cut -b 9-)"
-        cp $doc "docs/$(echo $doc | cut -b 9-)"
+        cp -r $doc "docs/$(echo $doc | cut -b 9-)"
 
         echo "Converting markdown for doc '$doc'... [done]"
     done
@@ -45,10 +45,6 @@ function generateMarkdown()
 
         echo "Converting markdown for doc '$doc'... [done]"
     done
-    #pandoc -F pandoc-plot -f markdown --top-level-division=part --number-sections --toc docs/00-bookindex.md docs/01-dedication.md docs/introduction/*.md docs/language/*.md docs/implementation/* \
-    #														 -s -t markdown --highlight-style kate -o /tmp/bruh.md
-
-
 }
 
 # Generates a single page AsciiDoc document and converts to HTML then
