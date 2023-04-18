@@ -39,25 +39,25 @@ nav:
     - Typechecking and codegen: implementation/35-typechecking.md
     - Emit: implementation/36-emit.md
     - Compiler: implementation/37-compiler.md
-  - Journal:
-    - Why: journal/why.md
-    - First day: journal/first-day.md
-    - First update: journal/update-1.md
-    - Parsing begins: journal/parsing-begins.md
-    - Parsing Update 1: journal/parser-update-1.md
-    - Parsing Update 2: journal/parser-update-2.md
-    - Why: journal/why.md
-    - Why: journal/why.md
-    - Why: journal/why.md
-    - Why: journal/why.md
+  # - Journal:
+  #   - Why: journal/why.md
+  #   - First day: journal/first-day.md
+  #   - First update: journal/update-1.md
+  #   - Parsing begins: journal/parsing-begins.md
+  #   - Parsing Update 1: journal/parser-update-1.md
+  #   - Parsing Update 2: journal/parser-update-2.md
+  #   - Why: journal/why.md
+  #   - Why: journal/why.md
+  #   - Why: journal/why.md
+  #   - Why: journal/why.md
     
-    - Dependency generation: journal/deps.md
-    - Path-hopping: journal/deps_next.md
-    - 2K22: journal/2K22.md
-    - July Updates: journal/jul_updates.md
-    - Code emitter: journal/code_emitter.md
-    - Why: journal/why.md
-    - Why: journal/why.md
+  #   - Dependency generation: journal/deps.md
+  #   - Path-hopping: journal/deps_next.md
+  #   - 2K22: journal/2K22.md
+  #   - July Updates: journal/jul_updates.md
+  #   - Code emitter: journal/code_emitter.md
+  #   - Why: journal/why.md
+  #   - Why: journal/why.md
 
 theme:
   name: bootstrap-classic
