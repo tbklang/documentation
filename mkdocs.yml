@@ -1,7 +1,7 @@
 site_name: Tristan Programming Language
 
 # TODO: Fix the site url such that the blogging plugin shuts up
-site_url: http://journal/
+# site_url: http://journal/
 
 # TODO: We must host fonts locally
 # https://t.pxeger.com/mkdocs-material/setup/changing-the-fonts/
