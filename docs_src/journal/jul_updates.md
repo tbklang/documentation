@@ -22,7 +22,7 @@ constants of the same value to a single ID which will be useful later for code e
 
 ### Type resolver
 
-![](/projects/tlang/journal/jul_update/getBuiltIN.png)
+![](/projects/tlang/journal/jul_update_getBuiltIN.png)
 
 The built-in type resolver has also been having some work added to it. Normally we call the `getType()` method on the `TypeChecker`
 object to resolve a `TypeEntity` (a _kind-of_ `Entity` used for types), if something is not a built-in type then it will try
@@ -34,7 +34,7 @@ that the `getBuiltInTypes()` now takes in the `TypeChecker` object so it can res
 taking in the `Container` that `getType()` takes in, as for now it does a global type resolution which might not be the case -
 but it works for now.
 
-![](/projects/tlang/journal/jul_update/get_header.png)
+![](/projects/tlang/journal/jul_update_get_header.png)
 
 The change in the future would be very easy, we would not use a `tc.getType(tc.getModulle())` but rather `tc.getType(container)`. It's an easy change but one
 I will add in later.
@@ -44,7 +44,7 @@ of the `getBuiltInType()` mutually recur to `getType()` after a chop-and-recurse
 resolve user-defined types. Yeah, this is probably fine but [here](http://deavmi.assigned.network/git/tlang/tlang/issues/1) is a todo/note
 list.
 
-![](/projects/tlang/journal/jul_update/type_res.png)
+![](/projects/tlang/journal/jul_update_type_res.png)
 
 ## Work in progress
 
