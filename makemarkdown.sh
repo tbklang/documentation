@@ -10,4 +10,4 @@ docs/internals/codegen/*.md
 source helpers.sh
 
 # generateGraphs
-generateBook
+generateMarkdown
