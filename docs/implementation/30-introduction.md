@@ -1,3 +1,3 @@
 # Implementation
 
-TODO: Addinformation about internals section
+TODO: Add information about internals section

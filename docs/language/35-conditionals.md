@@ -2,13 +2,14 @@
 
 The following conditionals are supported in T:
 
-1. `if` statements
+1.  `if` statements
 
 ### If statements
 
-If statements are like those you have seen in any other language, they are composed of atleast one `if` branch:
+If statements are like those you have seen in any other language, they
+are composed of atleast one `if` branch:
 
-```d
+``` d
 int val = 2;
 if(val == 1)
 {
@@ -18,7 +19,7 @@ if(val == 1)
 
 You can add alternative conditions using the `else if` keyword:
 
-```d
+``` d
 int val = 2;
 if(val == 2)
 {
@@ -30,9 +31,10 @@ else if(val == 3)
 }
 ```
 
-In the case the conditions are not true for any of the `if` or `else if` branches then "default" code can be run in the `else` branch as such:
+In the case the conditions are not true for any of the `if` or `else if`
+branches then "default" code can be run in the `else` branch as such:
 
-```d
+``` d
 int val = 2;
 if(val == 2)
 {
