@@ -10,9 +10,9 @@ site/
 *.aux
 
 # Any generated artefacts
-docs/graphs/*.png
-docs/graphs/*.svg
 book.ad
 book.pdf
 tlang.html
 texput.pdf
+graphs/*.html
+docs/graphs/*.html
