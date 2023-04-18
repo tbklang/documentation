@@ -26,10 +26,10 @@ nav:
     - Arrays: language/38-arrays.md
     - Pointers: language/39-pointers.md
     - Extern: language/43-extern.md
-    - Structs: language/39-structs.md
+    - Structs: language/40-structs.md
     - OOP: language/41-oop.md
     - Modules: language/42-modules.md
-    - Annotations: language/44-modules.md
+    - Annotations: language/44-annotations.md
   - Implementation:
     - Introduction: implementation/30-introduction.md
     - Lexical analysis: implementation/31-lexical.md
