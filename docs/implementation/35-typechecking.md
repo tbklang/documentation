@@ -100,4 +100,4 @@ the other being a `FuncCall` instruction):
 
 This would result in a situation where we have the following production
 
-![](docs/graphs/pandocplot12139419864099887541.svg)
+![](/projects/tlang/graphs/pandocplot12139419864099887541.svg)

@@ -39,8 +39,8 @@ function generateMarkdown()
 
         pandoc -F pandoc-plot -M plot-configuration=pandoc-plot.conf -f markdown -t markdown "$doc" -o "$outputFile"
 
-        # echo "$(cat $outputFile | sed -e s/docs//)" > "$outputFile"
-        # cat "$outputFile"
+        echo "$(cat $outputFile | sed -e s/docs\\//\\/projects\\/tlang\\//)" > "$outputFile"
+        cat "$outputFile"
         # break
 
         echo "Converting markdown for doc '$doc'... [done]"
