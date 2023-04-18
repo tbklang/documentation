@@ -28,7 +28,9 @@ number    ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "0";
 Expressions come in many forms and are defined here.
 
 ```
-expr      ::= literal | binop | unaryop;
+expr      ::= literal | binop | unaryop | parens;
+
+parens    ::= "(", expr, ")";
 
 infix     ::= "+" | "-" | "*" | "-";
 prefix    ::= "*" | "&";
