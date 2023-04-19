@@ -69,29 +69,11 @@ theme:
     primary: indigo
 
 plugins:
-    # - blog
     - search
-    #- mermaid2
-
     - exclude:
         glob:
           - docs/00-bookindex.md
 
-    
-    - section-index
-    #- git-committers-2
-    - git-revision-date
-
-    - tooltips
-    #- mknotebooks
-
-    # - blogging:
-    #       dirs:
-    #         - journal
-    #       features:
-    #         tags: {}
-
-    #- print-site
 
 #TODO: See if we can get git commit authors automatically on each page
 #TODO: See if we can ehnace material docs theme
