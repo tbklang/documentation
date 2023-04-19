@@ -13,20 +13,22 @@ are placed into sections whereby they are related.
 
 These make are the basic atoms that define literals.
 
-**TODO:** Finish enumerating all numbers
-
     letter    ::= "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K"
                 | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V"
                 | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g"
                 | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r"
                 | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z";
-    number    ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "0";
+    number    ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+
+    float     ::= (number | {number}), ".", (number | {number});
 
 ### Expressions
 
 Expressions come in many forms and are defined here.
 
     expr      ::= literal | binop | unaryop | parens;
+
+    literal   ::= number | float;
 
     parens    ::= "(", expr, ")";
 
@@ -48,6 +50,11 @@ Statements are inevitably the building blocks of a program and make use
 of all the former defined sections of the grammar and more of themsleves
 in some cases as well.
 
+    module    ::= "module", ident, ";", {decl};
+    decl      ::= vdecl | funcDecl;
+
+
+
     statement ::= discard | vdecl;
 
 
@@ -56,11 +63,12 @@ in some cases as well.
 
 
 
-    discard   ::= "discard", expr ;
+    discard   ::= "discard", expr, ";";
 
     ident     ::= letter | { letter | number };
     vdecl     ::= type, identifier, [assign], ";";
-    type      ::= "int" | "uint" | ident;
+    type      ::= "int" | "uint" | ident | ptrType;
+    ptrType   ::= type, "*";
     assign    ::= "=", expr;
 
 
