@@ -32,6 +32,8 @@ expr      ::= literal | binop | unaryop | parens;
 
 literal   ::= number | float;
 
+ident     ::= letter | { letter, number };
+
 parens    ::= "(", expr, ")";
 
 infix     ::= "+" | "-" | "*" | "-";
@@ -68,7 +70,7 @@ statement ::= discard | vdecl;
 
 discard   ::= "discard", expr, ";";
 
-ident     ::= letter | { letter, number };
+
 vdecl     ::= type, identifier, [assign], ";";
 type      ::= "int" | "uint" | ident | ptrType;
 ptrType   ::= type, "*";
