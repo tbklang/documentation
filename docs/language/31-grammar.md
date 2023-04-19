@@ -26,7 +26,7 @@ These make are the basic atoms that define literals.
 
 Expressions come in many forms and are defined here.
 
-    expr      ::= literal | binop | unaryop | parens;
+    expr      ::= literal | binop | unaryop | parens | ident;
 
     literal   ::= number | float;
 
