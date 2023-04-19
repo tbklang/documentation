@@ -35,8 +35,9 @@ Expressions come in many forms and are defined here.
     binop     ::= expr, operator, expr;
     unaryop   ::= prefix, operator;
 
-    (* TODO: Below EBNF isn't right, I am not sure how to write it *)
-    funccall  ::= ident, "(", ([expr], { expr, ","}), ")";
+    parmList  ::= [expr] | (expr, {",", expr});
+
+    funccall  ::= ident, "(", parmList, ")";
 
 **TODO:** Add `|`, `&` (infix), `&&` and `||` operators support first
 before adding them here
