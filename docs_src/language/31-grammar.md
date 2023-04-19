@@ -37,9 +37,9 @@ prefix    ::= "*" | "&";
 binop     ::= expr, operator, expr;
 unaryop   ::= prefix, operator;
 
-parmList  ::= [expr] | (expr, {",", expr});
+exprList  ::= [expr] | (expr, {",", expr});
 
-funccall  ::= ident, "(", parmList, ")";
+funccall  ::= ident, "(", exprList, ")";
 ```
 
 **TODO:** Add `|`, `&` (infix), `&&` and `||` operators support first before adding them here
