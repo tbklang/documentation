@@ -67,6 +67,10 @@ type      ::= "int" | "uint" | ident;
 assign    ::= "=", expr;
 
 
+parmList  ::= [type, ident] | {(type, ident), ","};
+funcdecl  ::= type, identifier, "(", parmList, ")", "{", {statement}, "}";
+
+
 if        ::= "if", "(", expr, ")", "{", { statement }, "}",
              [ { "else", if } | ( "else", "{", { statement }, "}") ];
 
