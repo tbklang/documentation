@@ -68,7 +68,7 @@ statement ::= discard | vdecl;
 
 discard   ::= "discard", expr, ";";
 
-ident     ::= letter | { letter | number };
+ident     ::= letter | { letter, number };
 vdecl     ::= type, identifier, [assign], ";";
 type      ::= "int" | "uint" | ident | ptrType;
 ptrType   ::= type, "*";
