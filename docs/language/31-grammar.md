@@ -52,7 +52,7 @@ Statements are inevitably the building blocks of a program and make use
 of all the former defined sections of the grammar and more of themsleves
 in some cases as well.
 
-    module    ::= "module", ident, ";", {decl};
+    module    ::= "module", ident, ";", {decl, ";"};
     decl      ::= vdecl | funcDecl;
 
 
