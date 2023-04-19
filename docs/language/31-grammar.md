@@ -30,6 +30,8 @@ Expressions come in many forms and are defined here.
 
     literal   ::= number | float;
 
+    ident     ::= letter | { letter, number };
+
     parens    ::= "(", expr, ")";
 
     infix     ::= "+" | "-" | "*" | "-";
@@ -65,7 +67,7 @@ in some cases as well.
 
     discard   ::= "discard", expr, ";";
 
-    ident     ::= letter | { letter | number };
+
     vdecl     ::= type, identifier, [assign], ";";
     type      ::= "int" | "uint" | ident | ptrType;
     ptrType   ::= type, "*";
