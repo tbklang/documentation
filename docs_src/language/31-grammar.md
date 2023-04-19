@@ -78,11 +78,14 @@ assign    ::= "=", expr;
 
 
 parmList  ::= [type, ident] | {(type, ident), ","};
-funcdecl  ::= type, identifier, "(", parmList, ")", "{", {statement}, "}";
+funcdecl  ::= type, identifier, "(", parmList, ")", "{", {statement, ";"}, "}";
 
 
 if        ::= "if", "(", expr, ")", "{", { statement }, "}",
-             [ { "else", if } | ( "else", "{", { statement }, "}") ];
+             [ { "else", if } | ( "else", "{", { statement, ";" }, "}") ];
 
-while     ::= "while", "(", expr, ")", "{", { statement }, "}";
+while     ::= "while", "(", expr, ")", "{", { statement, ";" }, "}";
+
+(* TODO: Check if the below is correct actually *)
+for       ::= "for", "(", statement, ";", expr, ";", statement, ")", "{", {statement, ";"}, "}";
 ```
