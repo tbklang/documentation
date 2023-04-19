@@ -3,7 +3,7 @@
 Arrays allow us to have one name refer to multiple instances of the same
 type. Think of an array like having multiple variables of the same type
 tightly packed next to one-another but being able to refer to this group
-by a *single name* and *each instance* by a number - an *"offset"* so to
+by a *single name* and *each instance* by a number - an *“offset”* so to
 speak.
 
 ### Stack arrays
@@ -13,7 +13,7 @@ Stack arrays are what we refer to when we allocate an array
 stack space of the current stack frame (the space for the current
 function call).
 
-``` {.d numberLines="1" hl_lines="5"}
+``` d
 module simple_stack_arrays4;
 
 int function()

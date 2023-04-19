@@ -18,7 +18,7 @@ struct <name>
 }
 ```
 
-Note: Assignments to these variables within the struct's body is not
+Note: Assignments to these variables within the struct’s body is not
 allowed.
 
 #### Example

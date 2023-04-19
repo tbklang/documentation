@@ -37,7 +37,7 @@ function generateMarkdown()
 
         outputFile="docs/$(echo $doc | cut -b 9-)"
 
-        pandoc -F pandoc-plot -M plot-configuration=pandoc-plot.conf -f markdown -t markdown "$doc" -o "$outputFile"
+        pandoc -F pandoc-plot -M plot-configuration=pandoc-plot.conf -f markdown -t gfm "$doc" -o "$outputFile"
 
         echo "$(cat $outputFile | sed -e s/docs\\//\\/projects\\/tlang\\//)" > "$outputFile"
         cat "$outputFile"

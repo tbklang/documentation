@@ -11,7 +11,7 @@ Primitive data type are the building blocks of which other more complex types ar
 ### Integral types
 
 | Type | Width | Intended interpretation |
-|-|-|-|
+|------|-------|-------------------------|
 | byte | 8 | signed byte (two's complement) |
 | ubyte | 8 | unsigned byte |
 | short | 16| signed short (two's complement) |

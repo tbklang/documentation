@@ -12,7 +12,7 @@ time but also makes the implementation bloated as all logic must be in
 one file to support each stage. There are also other disbenefits:
 
 1.  Symbol definitions
-    -   Doing a single pass means you haven't stored all symbols in the
+    -   Doing a single pass means you haven’t stored all symbols in the
         program yet, hence resolution of some will fail unless you do
         some sort of over-complicated lookahead to find them - cache
         them - and then retry. In general it makes all sort of
@@ -24,28 +24,28 @@ one file to support each stage. There are also other disbenefits:
 2.  Dependencies
     -   Some instructions must be generated which do not have a
         syntactical mapping. I.e. the static initialization of a class
-        doesn't have a parser/AST node equivalent. Therefore our
+        doesn’t have a parser/AST node equivalent. Therefore our
         multi-stage system of parserot-to-dependency coversions allows
         us to convert all AST nodes to dependency nodes and add extra
         dependency nodes (such as `ClassStaticInit`) into the dependency
         tree despite them having no AST equivalent.
-    -   Splitting this up also let's us more easily, once again, about
+    -   Splitting this up also let’s us more easily, once again, about
         symbols that are defined but reauire static initializations, and
         looping structures which must be resolved and can easily be done
         if we know all symbols (we just walk the AST tree)
 
-*And the list goes on...*
+*And the list goes on…*
 
 Hopefully now one understands as to why a multi-pass compiler is both
 easier to write (as the code is more modular) and easier to reason about
 in terms symbol resolution. It is for this reason that a lot of the code
 you see in the dependency processor looks like a duplicate of the parser
-processor but in reality it's doing something different - it's generated
+processor but in reality it’s doing something different - it’s generated
 the actual executable atoms that must be typechecked and have code
 generated for - taking into account looping structures and so forth.
 
 > The dependency processor adds execution to the AST tree and the
-> ability to reason about visited nodes and "already-initted" structures
+> ability to reason about visited nodes and “already-initted” structures
 
 ### What gets accomplished?
 
@@ -60,19 +60,19 @@ and creation process provides us:
         mark them as visited hence a use-before-declare situation is
         easy to detect and report to the end-user
 2.  Tree of execution
-    -   When the dependency tree is fully created it can be "linearized"
+    -   When the dependency tree is fully created it can be “linearized”
         or left-hand leaf visited whereby eahc leaf-left node is
         appended into an array.
     -   This array then provides us a list of `DNode`s we walk through
         in the typechecker and can effectively generate instructions
         from and perform typechecking
-    -   It's an easy to walk through "process - typecheck - code gen".
+    -   It’s an easy to walk through “process - typecheck - code gen”.
 3.  Non-AST equivalents
-    -   There is no equivalent AST node that represents a "static
-        allocation" - that is something derived from the AST tree,
-        therefore we need a list of **concrete** "instructions" which
+    -   There is no equivalent AST node that represents a “static
+        allocation” - that is something derived from the AST tree,
+        therefore we need a list of **concrete** “instructions” which
         precisely tell the code generator what to do - this is one of
-        those cases where a AST tree wouldn't help us - or we we would
+        those cases where a AST tree wouldn’t help us - or we we would
         effectively have to implement this all in the parser which leads
         to overly complex parser.
 
@@ -104,7 +104,7 @@ wraps the following methods and fields within it:
         needed, therefore a second visitation state is required. See
         `tree()`.
 7.  `DNode[] dependencies`
-    -   The current `DNode`'s array of depenencies which themselves are
+    -   The current `DNode`’s array of depenencies which themselves are
         `DNode`s
 8.  `performLinearization()`
     -   Performs the linearization process on the dependency tree,
@@ -133,7 +133,7 @@ wraps the following methods and fields within it:
 
 The DNodeGenerator is used to generate dependency node objects
 (`DNode`s) based on the current state of the type checker. It will use
-the type checker's facilities to lookup the `Module` that is contained
+the type checker’s facilities to lookup the `Module` that is contained
 within and use this container-based entity to traverse the entire parse
 tree of the container and process each different possible type of
 `Statement` found within, step-by-step generating a dependency node for
@@ -156,7 +156,7 @@ TODO: Discuss the `DNodeGenerator`
 
 ### Pooling
 
-Pooling is the technique of mapping a given parse node, let's say some
+Pooling is the technique of mapping a given parse node, let’s say some
 kind-of `Statement`, to the same `DNode` everytime and if no mapping
 exists then creating a `DNode` for the respective parse node once off
 and then returning that same dependency node on successive requests.
@@ -176,7 +176,7 @@ status of said `DNode` during processing.
 
 Below we have an example of what this process looks like. In this case
 we would have done something akin to the following. Our scenario is that
-we have some sort of parse node, let's assume it was a `Variable` parse
+we have some sort of parse node, let’s assume it was a `Variable` parse
 node which would represent a variable declaration.
 
 ![](/projects/tlang/graphs/pandocplot11037938885968638614.svg)
@@ -190,7 +190,7 @@ it and then confirmed that the `varDNode.entity` is equal to that of the
 (`varPNode`) in order to show the returned dependency node will be the
 same as that referenced by `varDNode`.
 
-``` {.d .numberLines}
+``` d
 Variable varPNode = <... fetch node>;
 
 DNode varDNode = pool(varPNode);

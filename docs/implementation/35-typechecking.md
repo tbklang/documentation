@@ -23,7 +23,7 @@ instructions and contains some common methods used by all of them:
         that if such context is needed during further code generation
         (or even emit) it can then be accessed
 2.  `Context getContext()`
-    -   Returns this instruction's associated context via its `Context`
+    -   Returns this instruction’s associated context via its `Context`
         object
 3.  `string produceToStrEnclose(string addInfo)`
     -   Returns a string containing the additional info provided through
@@ -58,12 +58,12 @@ be found in
 ### Code generation
 
 The method of code generation and type checking starts by being provided
-a so-called "action list" which is a linear array of dependency-nodes
-(or `DNode`s for code's sake), this list is then iterated through by a
+a so-called “action list” which is a linear array of dependency-nodes
+(or `DNode`s for code’s sake), this list is then iterated through by a
 for-loop, and each `DNode` is passed to a method called
 `typeCheckThing(DNode)`:
 
-``` {.d .numberLines}
+``` d
 foreach(DNode node; actionList)
 {
     /* Type-check/code-gen this node */
@@ -75,7 +75,7 @@ The handling of every different instruction type and its associated
 typechecking requirements are handled in one huge if-statement within
 the `typeCheckThing(DNode)` method. This method will analyse a given
 dependency-node and perform the required typechecking by extracting the
-`DNode`'s emebedded parser-node, whilst doing so if a type check passes
+`DNode`’s emebedded parser-node, whilst doing so if a type check passes
 then code generation takes place by generating the corresponding
 instruction and adding this to some position in the code queue
 (discussed later).
@@ -86,8 +86,8 @@ TODO: Add information on this
 
 The code queue is used as a stack and a queue in order to facilitate
 instruction generation. Certain instructions are produced once off and
-then added to the back of the queue (*"consuming"* instructions) whilst
-other are produced and pushed onto the top of the queue (*"producing"*
+then added to the back of the queue (*“consuming”* instructions) whilst
+other are produced and pushed onto the top of the queue (*“producing”*
 instructions) for consumption by other consuming instructions later.
 
 An example of this would be the following T code which uses a binary

@@ -21,9 +21,9 @@ following methods:
 1.  `this(string sourceCode, File emitOutFile)`
     -   Constructs a new compiler object with the given source code and
         the file to write the emitted code out to
-    -   An newly initialized `File` struct that doesn't contain a valid
+    -   An newly initialized `File` struct that doesn’t contain a valid
         file handle can be passed in in the case whereby the emitter
-        won't be used but an instance of the compiler is required
+        won’t be used but an instance of the compiler is required
 2.  `doLex()`
     -   Performs the tokenization of the input source code,
         `sourceCode`.
@@ -118,7 +118,7 @@ The types that can be stored and their respectives methods are:
 Below is an example of the usage of the `ConfigEntry`s in the
 `CompilerConfiguration` system, here we add a few entries:
 
-``` {.d .numberLines}
+``` d
 /* Enable Behaviour-C fixes */
 config.addConfig(ConfigEntry("behavec:preinline_args", true));
 
@@ -138,7 +138,7 @@ Later on we can retrieve these entries, the below is code from the
 `DGen` class which emits the C code), here we check for any object files
 that should be linked in:
 
-``` {.d .numberLines}
+``` d
 //NOTE: Change to system compiler (maybe, we need to choose a good C compiler)
 string[] compileArgs = ["clang", "-o", "tlang.out", file.name()];
 

@@ -2,14 +2,14 @@
 
 Pointers are just like any other variable one would declare but what is
 important is that their values can be used in certain operations. A
-pointer's value is an address of another variable and one can use a
+pointer’s value is an address of another variable and one can use a
 pointer to indirectly refer to such a variable and indirectly fetch or
 update its value.
 
 A pointer type is written in the form of `<type>*`, for example one may
-write `int*` which is read as "a pointer to an `int`".
+write `int*` which is read as “a pointer to an `int`”.
 
-TODO: All pointers are 64-bit values - the size of addresses on one's
+TODO: All pointers are 64-bit values - the size of addresses on one’s
 system.
 
 ### Pointer syntax
@@ -17,22 +17,16 @@ system.
 There are a few operators that can be used on pointers which are shown
 below, most specific of which are the `*` and `&` unary operators:
 
-  ---------------------------------------------------------------------------------
-  Operator               Description                   Example
-  ---------------------- ----------------------------- ----------------------------
-  `&`                    Gets the address of the       `int* myVarPtr = &myVar`
-                         identifier                    
-
-  `*`                    Gets the value at the address `int myVarVal = *myVarPtr`
-                         held in the referred          
-                         identifier                    
-  ---------------------------------------------------------------------------------
+| Operator | Description                                                   | Example                    |
+|----------|---------------------------------------------------------------|----------------------------|
+| `&`      | Gets the address of the identifier                            | `int* myVarPtr = &myVar`   |
+| `*`      | Gets the value at the address held in the referred identifier | `int myVarVal = *myVarPtr` |
 
 Below we will declare a module-level global variable `j` of type `int`
 and then use a function to indirectly update its value by the use of a
 pointer to this integer - in other words an `int*`:
 
-``` {.d numberLines="1"}
+``` d
 module simple_pointer;
 
 int j;
@@ -58,7 +52,7 @@ named `ptr`. This can hold the address of memory that points to an
 function with the argument `&j` which means it is passing a pointer to
 the `j` variable in.
 
-``` {.d numberLines="1"}
+``` d
 int function(int* ptr)
 {
     *ptr = 2+2;
@@ -81,15 +75,15 @@ What `int function(int* ptr)` does is two things:
 Some of the existing operators such as those used for arithmetic have
 special usage when used on pointers:
 
-  Operator   Description                                                        Example
-  ---------- ------------------------------------------------------------------ ---------
-  `+`        Allows one to offset the pointer by a `+ offset*sizeof(ptrType)`   `ptr+1`
-  `-`        Allows one to offset the pointer by a `- offset*sizeof(ptrType)`   `ptr-1`
+| Operator | Description                                                      | Example |
+|----------|------------------------------------------------------------------|---------|
+| `+`      | Allows one to offset the pointer by a `+ offset*sizeof(ptrType)` | `ptr+1` |
+| `-`      | Allows one to offset the pointer by a `- offset*sizeof(ptrType)` | `ptr-1` |
 
 Below we show how one can use pointer arithmetic and the casting of
 pointers to work on sub-sections of data referenced to by a pointer:
 
-``` {.d linenums="1" hl_lines="12-14"}
+``` d
 module simple_pointer_cast_le;
 
 int j;
@@ -123,7 +117,7 @@ access the 4 byte integer byte-by-byte, on x86 we would be starting with
 the least-significant byte. What we have done here is updated said byte
 to the value of `2+2`:
 
-``` {.d linenums="1"}
+``` d
 byte* bytePtr = cast(byte*)ptr;
 *bytePtr = 2+2;
 ```
@@ -133,7 +127,7 @@ which would increment the address by `1`, resultingly pointing to the
 second least significant byte, we then use the dereference operator `*`
 to set this byte to `1`:
 
-``` {.d linenums="1"}
+``` d
 *(bytePtr+1) = 1;
 ```
 
@@ -142,7 +136,7 @@ should (TODO: we can explain the memory here) become the result of
 `256+4` (that is `260`). After this we then return that number with two
 added to it:
 
-``` {.d linenums="1"}
+``` d
 return (*ptr)+1*2;
 ```
 
@@ -151,7 +145,7 @@ return (*ptr)+1*2;
 One can even mix these if they want, for example we can do the
 following:
 
-``` {.d numberLines="1"}
+``` d
 module simple_stack_arrays3;
 
 void function()

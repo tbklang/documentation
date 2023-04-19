@@ -94,7 +94,7 @@ else if(cast(VariableDeclaration)instruction)
 What we have here is some code which will extract the name of the
 variable being declared via `varDecInstr.varName` which is then used to
 lookup the parser node of type `Variable`. The `Variable` object
-contains information such as the variable's type and also if a variable
+contains information such as the variable’s type and also if a variable
 assignment is attached to this declaration or not.
 
 TODO: Insert code regarding assignment checking
@@ -129,7 +129,7 @@ usage. In this case we want to translate the symbol of the entity named
 `simple_variables_decls_ass`. Therefore we provide both peices of
 information into the function `symbolLookup`:
 
-``` {.d .numberLines}
+``` d
 // The relative container of this variable is the module
 Container container = tc.getModule();
 

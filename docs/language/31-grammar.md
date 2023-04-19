@@ -2,7 +2,7 @@
 
 The grammar for the language is still a work in progress and may take
 some time to become concrete but every now and then I update this page
-to add more to it or fix any incongruencies with the parser's actual
+to add more to it or fix any incongruencies with the parser’s actual
 implementation. The grammar starts from the simplest building blocks and
 then progresses to the more complex (heavily composed) ones and these
 are placed into sections whereby they are related.

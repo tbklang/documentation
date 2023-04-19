@@ -13,7 +13,7 @@ filter.
 
 Tristan aims to be able to support all of these but with certain limits,
 this is after all mainly an imperative language with those paradigms as
-*"extra features"*. Avoiding feature creep in other systems-levels
+*“extra features”*. Avoiding feature creep in other systems-levels
 languages such as C++ is something I really want to stress about the
 design of this language, I do not want a big and confusing mess that has
 an extremely steep learning curve and way too many moving parts.
@@ -117,7 +117,7 @@ in my viewpoint and hence we support such features as:
 -   Pointers
     -   The mere *support* of pointers allowing one to take a
         memory-level view of objects in memory rather than the normal
-        "safe access" means
+        “safe access” means
 -   Inline assembly
     -   Inserting of arbitrary assembler is allowed, providing the
         programmer with access to systems level registers,
@@ -125,7 +125,7 @@ in my viewpoint and hence we support such features as:
 -   Custom byte-packing
     -   Allowing the user to deviate from the normal struct packing
         structure in favor of a tweaked packing technique
-    -   Custom packing on a system that doesn't agree with the alignment
+    -   Custom packing on a system that doesn’t agree with the alignment
         of your data **is** allowed but the default is to pack
         accordingly to the respective platform
 

@@ -1,10 +1,11 @@
 ## Lexical analysis
 
 Lexical analysis is the process of taking a program as an input string
-$A$ and splitting it into a list of $n$ sub-strings
-$A_{1},\,A_{2}\ldots A_{n}$ called tokens. The length $n$ of this list
-of dependent on several rules that determine how, when and where new
-tokens are built - this set of rules is called a *grammar*.
+*A* and splitting it into a list of *n* sub-strings
+*A*<sub>1</sub>, *A*<sub>2</sub>…*A*<sub>*n*</sub> called tokens. The
+length *n* of this list of dependent on several rules that determine
+how, when and where new tokens are built - this set of rules is called a
+*grammar*.
 
 ### Grammar
 
@@ -27,7 +28,7 @@ definitions:
     new Token("int") == new Token("int")
     ```
 
-    -   ...would evaluate to `true`, rather than false by reference
+    -   …would evaluate to `true`, rather than false by reference
         equality (the default in D)
 -   `Lexer` - The token builder
     -   `sourceCode`, the whole input program (as a string) to be
@@ -38,7 +39,7 @@ definitions:
     -   Contains a list of the currently built tokens, `Token[] tokens`
     -   Current line and column numbers as `line` and `column`
         respectively
-    -   A "build up" - this is the token (in string form) currently
+    -   A “build up” - this is the token (in string form) currently
         being built - `currentToken`
 
 ### Implementation
@@ -124,13 +125,10 @@ character == ':';
 
 !!! error FInish this page
 
-•
-`\texttt{;}`{=tex} `\texttt{,}`{=tex} `\texttt{(}`{=tex} `\texttt{)}`{=tex} `\texttt{[}`{=tex} `\texttt{]}`{=tex} `\texttt{+}`{=tex} `\texttt{-}`{=tex} `\texttt{/}`{=tex} `\texttt{\%}`{=tex} `\texttt{*}`{=tex} `\texttt{\&}`{=tex} `\texttt{\{}`{=tex} `\texttt{\}}`{=tex}
+•              
 
-• `\texttt{=}`{=tex} \| (TODO: make it
-texttt) \\texttt{\^} `\texttt{!}`{=tex} `\texttt{\\n}`{=tex}(TODO:
-`\n `{=tex}not
-appearing) \\texttt{\~} `\texttt{.}`{=tex} `\texttt{\:}`{=tex}
+•  \| (TODO: make it texttt) \\texttt{^}  (TODO: not
+appearing) \\texttt{\~}  
 
 Whenever this method returns `true` it generally means you should flush
 the current token, start a new token add the offending spliter token and

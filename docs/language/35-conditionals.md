@@ -32,7 +32,7 @@ else if(val == 3)
 ```
 
 In the case the conditions are not true for any of the `if` or `else if`
-branches then "default" code can be run in the `else` branch as such:
+branches then “default” code can be run in the `else` branch as such:
 
 ``` d
 int val = 2;
