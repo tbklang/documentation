@@ -35,9 +35,9 @@ Expressions come in many forms and are defined here.
     binop     ::= expr, operator, expr;
     unaryop   ::= prefix, operator;
 
-    parmList  ::= [expr] | (expr, {",", expr});
+    exprList  ::= [expr] | (expr, {",", expr});
 
-    funccall  ::= ident, "(", parmList, ")";
+    funccall  ::= ident, "(", exprList, ")";
 
 **TODO:** Add `|`, `&` (infix), `&&` and `||` operators support first
 before adding them here
@@ -48,7 +48,7 @@ Statements are inevitably the building blocks of a program and make use
 of all the former defined sections of the grammar and more of themsleves
 in some cases as well.
 
-    statement ::= discard | decl;
+    statement ::= discard | vdecl;
 
 
 
@@ -59,9 +59,13 @@ in some cases as well.
     discard   ::= "discard", expr ;
 
     ident     ::= letter | { letter | number };
-    decl      ::= type, identifier, [assign], ";";
+    vdecl     ::= type, identifier, [assign], ";";
     type      ::= "int" | "uint" | ident;
     assign    ::= "=", expr;
+
+
+    parmList  ::= [type, ident] | {(type, ident), ","};
+    funcdecl  ::= type, identifier, "(", parmList, ")", "{", {statement}, "}";
 
 
     if        ::= "if", "(", expr, ")", "{", { statement }, "}",
