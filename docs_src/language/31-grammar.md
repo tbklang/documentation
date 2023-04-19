@@ -36,7 +36,12 @@ infix     ::= "+" | "-" | "*" | "-";
 prefix    ::= "*" | "&";
 binop     ::= expr, operator, expr;
 unaryop   ::= prefix, operator;
+
+(* TODO: Below EBNF isn't right, I am not sure how to write it *)
+funccall  ::= ident, "(", ([expr], { expr, ","}), ")";
 ```
+
+**TODO:** Add `|`, `&` (infix), `&&` and `||` operators support first before adding them here
 
 ### Statements
 
