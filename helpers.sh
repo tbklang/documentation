@@ -17,7 +17,7 @@ function generateMarkdown()
     # Site docs
     #
     # Copied over
-    siteDocs="$(ls docs_src/*.md) $(ls docs_src/journal/*)"
+    siteDocs="$(ls docs_src/*.md) $(ls docs_src/journal/*) docs_src/logo.png"
     for doc in $siteDocs
     do
         echo "Converting markdown for doc '$doc'..."
