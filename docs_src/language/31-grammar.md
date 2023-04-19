@@ -51,7 +51,7 @@ use of all the former defined sections of the grammar and more of
 themsleves in some cases as well.
 
 ```
-statement ::= discard | decl;
+statement ::= discard | vdecl;
 
 
 
@@ -62,7 +62,7 @@ statement ::= discard | decl;
 discard   ::= "discard", expr ;
 
 ident     ::= letter | { letter | number };
-decl      ::= type, identifier, [assign], ";";
+vdecl     ::= type, identifier, [assign], ";";
 type      ::= "int" | "uint" | ident;
 assign    ::= "=", expr;
 
