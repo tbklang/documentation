@@ -166,6 +166,9 @@ integer pointers
 NOTE: This appears before the array syntax, this should probaly be
 changed around
 
+TODO: Save a pointer into the inner array to make this actually valid
+semanticly
+
 ### Array syntax
 
 One can also use the familiar array syntax to work with pointers, in

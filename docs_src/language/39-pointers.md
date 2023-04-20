@@ -141,6 +141,9 @@ TODO: Describe that here we have a staxck array of integer arrays or integer poi
 
 NOTE: This appears before the array syntax, this should probaly be changed around
 
+
+TODO: Save a pointer into the inner array to make this actually valid semanticly
+
 ### Array syntax
 
 One can also use the familiar array syntax to work with pointers, in fact the syntax `<compType>*` (for declaring a pointer to data of type `<compType>`) can also be written as `<compType>[]`, a similar syntax table exists whereby instead of using `*` we use the `[<offset>]` operator:
