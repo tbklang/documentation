@@ -168,4 +168,4 @@ int function()
 }
 ```
 
-What we have above is a program that has a function defined as `coerce(int* in)`, we have an `int*` as the parameter and as you can see instead of accessing 
+What we have above is a program that has a function defined as `coerce(int* in)`, we have an `int*` as the parameter and as you can see instead of accessing the first and second items pointed to by `in` using the syntax `*(in+0)` and `*(in+1)` respectively, we have rather used `in[0]` and `in[1]` to the same effect.
