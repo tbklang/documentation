@@ -38,8 +38,24 @@ We can also later refer to the value of the array at that index again if we want
 
 #### Coercion
 
-If one passes in a stack-based array of type `<compType>[10]` to a function with a paremeter type of `<compType>*` (TODO: add support for `<compType>[]` by using `parseTypedDeclaration(onlyType=true)`) then type coercion will occur and the address of the base of the stack array will be passed to the function.
+If one passes in a stack-based array of type `<compType>[10]` to a function with a paremeter type of `<compType>*` then type coercion will occur and the address of the base of the stack array will be passed to the function.
 
-TODO: Add code example here
+```{.d numberLines=1}
+module simple_stack_array_coerce;
 
-TODO: Finalize coercion and place example here
+void coerce(int* in)
+{
+    in[0] = 69;
+    in[1] = 420;
+}
+
+int function()
+{
+    int[2] stackArr;
+    discard coerce(stackArr);
+
+    return stackArr[0]+stackArr[1];
+}
+```
+
+What we have above is an example of coercion occuring. We have stack array named `stackArray` of type `int[2]`, we then pass it into a function call `coerce(stackArray)`, therefore because it is defined as `void coerce(int*)` and the type of the array is `int[2]` the component types both match and the base address of the stack array is sent in as an `int*` to the `coerce` function.
