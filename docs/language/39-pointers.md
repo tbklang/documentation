@@ -147,26 +147,16 @@ One can even mix these if they want, for example we can do the
 following:
 
 ``` d
-module complex_stack_array_coerce;
+module simple_stack_arrays3;
 
-int val1;
-int val2;
-
-void coerce(int** in)
+void function()
 {
-    in[0][0] = 69;
-    in[1][0] = 420;
-}
+    int[][22222] myArray;
 
-int function()
-{
-    int[][2] stackArr;
-    stackArr[0] = &val1;
-    stackArr[1] = &val2;
-    
-    discard coerce(stackArr);
+    int[2][2] myArray2;
 
-    return val1+val2;
+    int i = 2;
+    myArray[i][i] = 69;
 }
 ```
 
