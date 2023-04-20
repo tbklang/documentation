@@ -21,6 +21,7 @@ below, most specific of which are the `*` and `&` unary operators:
 |----------|---------------------------------------------------------------|----------------------------|
 | `&`      | Gets the address of the identifier                            | `int* myVarPtr = &myVar`   |
 | `*`      | Gets the value at the address held in the referred identifier | `int myVarVal = *myVarPtr` |
+| `*`      | Sets the value at the address held in the referred identifier | `*myVarPtr = 81`           |
 
 Below we will declare a module-level global variable `j` of type `int`
 and then use a function to indirectly update its value by the use of a
@@ -167,7 +168,35 @@ changed around
 
 ### Array syntax
 
-**TODO:** Mention the `[<expr>]` syntax
+One can also use the familiar array syntax to work with pointers, in
+fact the syntax `<compType>*` (for declaring a pointer to data of type
+`<compType>`) can also be written as `<compType>[]`, a similar syntax
+table exists whereby instead of using `*` we use the `[<offset>]`
+operator:
 
-**NOTE:** We can only work on this once the arrays branch is done and
-has been tested with the new pointers code
+| Operator     | Description                                                   | Example                      |
+|--------------|---------------------------------------------------------------|------------------------------|
+| `[<offset>]` | Gets the value at the address held in the referred identifier | `int myVarVal = myVarPtr[0]` |
+| `[<offset>]` | Sets the value at the address held in the referred identifier | `myVarPtr[0] = 81`           |
+
+``` d
+module simple_stack_array_coerce;
+
+void coerce(int* in)
+{
+    in[0] = 69;
+    in[1] = 420;
+}
+
+int function()
+{
+    int[2] stackArr;
+    discard coerce(stackArr);
+
+    return stackArr[0]+stackArr[1];
+}
+```
+
+What we have above is a program that has a function defined as
+`coerce(int* in)`, we have an `int*` as the parameter and as you can see
+instead of accessing
