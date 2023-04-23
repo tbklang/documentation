@@ -149,12 +149,7 @@ int function()
 
 First let's take a look at what we have in `int function()`. Here we have declared an array of type `int[][2]` called `stackArr`, this means a stack array with two elements of type `int[]` (or `int*`). We then proceed to store two elements into this stack array, a pointer to the integer variable `val1` and `val2` respectively.
 
-TODO: Describe that here we have a staxck array of integer arrays or integer pointers
-
-NOTE: This appears before the array syntax, this should probaly be changed around
-
-
-TODO: Save a pointer into the inner array to make this actually valid semanticly
+NOTE: This appears before the array syntax, this should probably be changed around
 
 ### Array syntax
 
