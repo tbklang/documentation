@@ -60,6 +60,10 @@ manner.
 
 #### Literals
 
+There is one case whereby automatic conversion (known as *“coercion”*)
+is applied and that is with the usage of numeric literals. Firstly,
+however, we must discuss the default encoding scheme…. (TODO: do this)
+
 TODO: Add information about how literals are ranged checked and then
 coercion applies (this is the **ONLY** case were coercion applies)
 
