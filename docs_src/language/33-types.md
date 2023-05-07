@@ -51,6 +51,8 @@ This is seen as a benefit as one always knows what they are doing at any time wi
 
 #### Literals
 
+There is one case whereby automatic conversion (known as _"coercion"_) is applied and that is with the usage of numeric literals. Firstly, however, we must discuss the default encoding scheme.... (TODO: do this)
+
 TODO: Add information about how literals are ranged checked and then coercion applies (this is the **ONLY** case were coercion applies)
 
 | To-type | Provided-type |
