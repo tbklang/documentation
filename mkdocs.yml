@@ -30,6 +30,7 @@ nav:
     - OOP: language/41-oop.md
     - Modules: language/42-modules.md
     - Annotations: language/44-annotations.md
+    - Configuration: language/50-configuration.md
   - Implementation:
     - Introduction: implementation/30-introduction.md
     - Lexical analysis: implementation/31-lexical.md
@@ -39,6 +40,7 @@ nav:
     - Typechecking and codegen: implementation/35-typechecking.md
     - Emit: implementation/36-emit.md
     - Compiler: implementation/37-compiler.md
+    - Meta: implementation/38-meta.md
   # - Journal:
   #   - Why: journal/why.md
   #   - First day: journal/first-day.md
