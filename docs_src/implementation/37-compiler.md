@@ -153,6 +153,8 @@ The `CompilerConfiguration` exposes the following API:
 3. `ConfigEntry getConfig(string key)`
     * Returns the `ConfigEntry` at the provided name
     * Throws a `CompilerException` if no such entry exists
+4. `CompilerConfiguration defaultConfig()`
+	* Returns the [default compiler configuration]() (TODO: link to it)
 
 #### The `ConfigEntry` API
 
