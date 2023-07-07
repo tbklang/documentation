@@ -74,13 +74,15 @@ Below we have a table of ranges of values (literal values) and the types they ca
 | `0` ... `9_223_372_036_854_775_807`     | `long`, `ulong`                                                    |
 
 
-**TODO:** Add the negative ranges (i.e. when a -<value> (UnaryOpExp) is present and the range checking applied then
-and what types are coercible to)
+If the expression being assigned is not a literal but rather a composed expression such as a "negated literal" (a `UnaryOpExpression` with an operation of `-` and a embedded `LiteralValue`) then the following table applies:
 
-TODO: Add information about how literals are ranged checked and then coercion applies (this is the **ONLY** case were coercion applies)
-
-| To-type | Provided-type |
+| Range                                                           | Coercible-to                                                       |
+|-----------------------------------------------------------------|--------------------------------------------------------------------|
+| `-128` ... `127`                                                | `byte`, `short`, `int`, `long`                                     |
+| `-32_768` ... `32_767`                                          | `short`, `int`, `long`                                             |
+| `-2_147_483_648` ... `2_147_483_647`                            | `int`, `long`                                                      |
+| `-9_223_372_036_854_775_808` ... `9_223_372_036_854_775_807`    | `long`                                                            |
 
 1. TODO: Sign/zero extension
-2. Promotion?
-3. Precedence in interpretation when the first two don't apply
+    * TODO: Mention that this is something the code emitter will have to do by comparing the `CastedValueInstruction`'s `toType` and the `getInstrType()` of the embedded `Value`-based instruction
+    * It should, however, follow a predictable/lang-specc'd procedure
