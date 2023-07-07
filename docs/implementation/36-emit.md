@@ -12,13 +12,13 @@ Our C backend or *custom code emitter*, `DGen`, inherits from the
 overriden/implemented:
 
 1.  `emit()`
-    -   Begins the emit process
+    - Begins the emit process
 2.  `finalize()`
-    -   Finalizes the emitting process (only to be called after the
-        `emit()` finishes)
+    - Finalizes the emitting process (only to be called after the
+      `emit()` finishes)
 3.  `transform(Instruction instruction)`
-    -   Transforms or emits a single Instruction and returns the
-        transformation as a string
+    - Transforms or emits a single Instruction and returns the
+      transformation as a string
 
 ### Queues
 
@@ -26,39 +26,39 @@ There are several notable queues that the `CodeEmitter` class contains,
 these are as follows:
 
 1.  `initQueue`
-    -   Despite its name this holds instructions for doing memory
-        allocations for static entities (not initialization code for
-        said entities)
+    - Despite its name this holds instructions for doing memory
+      allocations for static entities (not initialization code for said
+      entities)
 2.  `globalsQueue`
-    -   This queue holds instructions for the globals executions. This
-        includes things such as global variable declarations and the
-        sorts.
+    - This queue holds instructions for the globals executions. This
+      includes things such as global variable declarations and the
+      sorts.
 3.  Function definitions map
-    -   This is a string-to-queue map which contains the code queues for
-        every function definition.
+    - This is a string-to-queue map which contains the code queues for
+      every function definition.
 
 Along with these queues there are some methods used to manipulate and
 use them, these are:
 
 1.  `selectQueue(QueueType, string)`
-    -   Select the type of queue: `ALLOC_QUEUE` (for the `initQueue`),
-        `GLOBALS_QUEUE` (for `globalsQueue` and `FUNCTION_DEF_QUEUE`
-        (for the function definitions queue)
-    -   For function definitions, the optional string argument (second
-        argument) must specify the name of the function definition you
-        would wish to use. An invalid name will throw an error. (TODO:
-        Ensure we do this actually)
-    -   This automatically calls `resetCursor()`.
+    - Select the type of queue: `ALLOC_QUEUE` (for the `initQueue`),
+      `GLOBALS_QUEUE` (for `globalsQueue` and `FUNCTION_DEF_QUEUE` (for
+      the function definitions queue)
+    - For function definitions, the optional string argument (second
+      argument) must specify the name of the function definition you
+      would wish to use. An invalid name will throw an error. (TODO:
+      Ensure we do this actually)
+    - This automatically calls `resetCursor()`.
 2.  `nextInstruction()`
-    -   Moves the cursor to the next instruction. Throws an exception if
-        out of bounds. (TODO: Ensure we do this actually)
+    - Moves the cursor to the next instruction. Throws an exception if
+      out of bounds. (TODO: Ensure we do this actually)
 3.  `previousInstruction()`
-    -   Moves the cursor to the previous instruction. Throws an
-        exception if out of bounds. (TODO: Ensure we do this actually)
+    - Moves the cursor to the previous instruction. Throws an exception
+      if out of bounds. (TODO: Ensure we do this actually)
 4.  `resetCursor()`
-    -   Resets the position of the instruction pointer to 0.
+    - Resets the position of the instruction pointer to 0.
 5.  `getCurrentInstruction()`
-    -   Retrieves the current instruction at the cursor.
+    - Retrieves the current instruction at the cursor.
 
 ### Custom code emits
 
@@ -120,8 +120,8 @@ The renaming mechanism is hanlded by the `symbolLookup(Entity)` method
 from the `SymbolMapper` class. This method takes in a single argument:
 
 1.  `entity`
-    -   This must be a type-of `Entity`, this is the entity of which the
-        symbol renaming should be applied on.
+    - This must be a type-of `Entity`, this is the entity of which the
+      symbol renaming should be applied on.
 
 This allows one do then translate the symbol name with the following
 usage. In this case we want to translate the symbol of the entity named

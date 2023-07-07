@@ -19,41 +19,39 @@ which to write the final emitted code to. This type provides the
 following methods:
 
 1.  `this(string sourceCode, File emitOutFile)`
-    -   Constructs a new compiler object with the given source code and
-        the file to write the emitted code out to
-    -   An newly initialized `File` struct that doesn’t contain a valid
-        file handle can be passed in in the case whereby the emitter
-        won’t be used but an instance of the compiler is required
+    - Constructs a new compiler object with the given source code and
+      the file to write the emitted code out to
+    - An newly initialized `File` struct that doesn’t contain a valid
+      file handle can be passed in in the case whereby the emitter won’t
+      be used but an instance of the compiler is required
 2.  `doLex()`
-    -   Performs the tokenization of the input source code,
-        `sourceCode`.
-    -   A `LexerException` may be thrown if an error occurs during the
-        toeknization process.
+    - Performs the tokenization of the input source code, `sourceCode`.
+    - A `LexerException` may be thrown if an error occurs during the
+      toeknization process.
 3.  `getTokens()`
-    -   Returns the tokens produced by a call to `doLex()`
-    -   A `CompilerException` will be thrown if called without `doLex()`
-        having been called.
+    - Returns the tokens produced by a call to `doLex()`
+    - A `CompilerException` will be thrown if called without `doLex()`
+      having been called.
 4.  `doParse()`
-    -   Peforms parsing on the tokens and returns the generated
-        super-container parse node, `Module`.
-    -   A `CompilerException` will be thrown if called without `doLex()`
-        having been called.
-    -   A `CompilerException` will be thrown if called without and no
-        tokens were produced by the call to `doLex()`.
+    - Peforms parsing on the tokens and returns the generated
+      super-container parse node, `Module`.
+    - A `CompilerException` will be thrown if called without `doLex()`
+      having been called.
+    - A `CompilerException` will be thrown if called without and no
+      tokens were produced by the call to `doLex()`.
 5.  `doTypeCheck()`
-    -   Performs typechecking and code generation.
-    -   A `CompilerException` will be thrown is the previous stages,
-        including `doParse()` and its requirements, have not been
-        called.
+    - Performs typechecking and code generation.
+    - A `CompilerException` will be thrown is the previous stages,
+      including `doParse()` and its requirements, have not been called.
 6.  `doEmit()`
-    -   Performs emitting of C code
-    -   A `CompilerException` will be thrown is the previous stages,
-        including `doTypeCheck()` and its requirements, have not been
-        called.
+    - Performs emitting of C code
+    - A `CompilerException` will be thrown is the previous stages,
+      including `doTypeCheck()` and its requirements, have not been
+      called.
 7.  `compile()`
-    -   Performs all of the above stages.
-    -   A `CompilerException` can be thrown for any of the
-        aforementioned reasons.
+    - Performs all of the above stages.
+    - A `CompilerException` can be thrown for any of the aforementioned
+      reasons.
 
 TODO: Document `CompilerException` exception and `CompilerError` enum.
 
@@ -70,49 +68,48 @@ that can be used via the `compiler.config` field at any time.
 The `CompilerConfiguration` exposes the following API:
 
 1.  `bool hasConfig(string key)`
-    -   Checks if the given `key` exists in the key-value store, returns
-        `false` if not, `true` otherwise
+    - Checks if the given `key` exists in the key-value store, returns
+      `false` if not, `true` otherwise
 2.  `addConfig(ConfigEntry entry)`
-    -   Stores the given entry in the cnfiguration store
-    -   Throws a `CompilerException` if you are trying to update an
-        entry to a different tye than the existing one
+    - Stores the given entry in the cnfiguration store
+    - Throws a `CompilerException` if you are trying to update an entry
+      to a different tye than the existing one
 3.  `ConfigEntry getConfig(string key)`
-    -   Returns the `ConfigEntry` at the provided name
-    -   Throws a `CompilerException` if no such entry exists
+    - Returns the `ConfigEntry` at the provided name
+    - Throws a `CompilerException` if no such entry exists
 4.  `CompilerConfiguration defaultConfig()`
-    -   Returns the [default compiler configuration]() (TODO: link to
-        it)
+    - Returns the [default compiler configuration]() (TODO: link to it)
 
 #### The `ConfigEntry` API
 
 The `ConfigEntry` represents a configuration entry, this is composed of:
 
 1.  An entry name
-    -   Fetched via `string getName()`
+    - Fetched via `string getName()`
 2.  An entry type
-    -   This is fetched via `ConfigType getType()`
+    - This is fetched via `ConfigType getType()`
 3.  An entry value
-    -   This is fetched via `getX()`
-    -   There are several getter functions which will interpret the
-        union space dependent on which one you call, however, in reality
-        a misinterpretation will cause a runtime error as we catch it
-        before you attempt to do a reinterpattion of it, therefore
-        throwing a `CompilerException`
+    - This is fetched via `getX()`
+    - There are several getter functions which will interpret the union
+      space dependent on which one you call, however, in reality a
+      misinterpretation will cause a runtime error as we catch it before
+      you attempt to do a reinterpattion of it, therefore throwing a
+      `CompilerException`
 
 The types that can be stored and their respectives methods are:
 
 1.  Boolean
-    -   Values: `true` or `false`
-    -   Use `getBoolean()`
+    - Values: `true` or `false`
+    - Use `getBoolean()`
 2.  Number
-    -   Values: A valid D `ulong`
-    -   Use `getNumber()`
+    - Values: A valid D `ulong`
+    - Use `getNumber()`
 3.  Text
-    -   Values: A D `string`
-    -   Use `getText()`
+    - Values: A D `string`
+    - Use `getText()`
 4.  Tex array
-    -   Values: A D `string[]`
-    -   Use `getArray()`
+    - Values: A D `string[]`
+    - Use `getArray()`
 
 #### Example usage
 

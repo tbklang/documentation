@@ -52,32 +52,22 @@ void function()
 }
 ```
 
-No explicit cast was required for the statement `il = 1`
-
 This [example](TODO: add link) is available as part of the test suite.
 
 #### Literals
 
-There is one case whereby automatic conversion (known as _"coercion"_) is applied and that is with the usage of numeric literals. Firstly, however, we must discuss the default encoding scheme.
-
-Below we have a table of ranges of values (literal values) and the types they can be coerced to. By this we mean that if you had a statement where you were, for example, assigning one of these literals to a variable of type `T` that you _would infact_ be able to assign such a value to said type `T`. That "type `T`" is what we have in the _Coercible-to_ column:
-
-| Range                                   | Coercible-to                                                       |
-|-----------------------------------------|--------------------------------------------------------------------|
-| `0` ... `255`                           | `ubyte`, `ushort`, `uint`, `ulong`                                 |
-| `0` ... `65_535`                        | `ushort`, `uint`, `ulong`                                          |
-| `0` ... `4_294_967_295`                 | `uint`, `ulong`                                                    |
-| `0` ... `18_446_744_073_709_551_615`    | `ulong`                                                            |
-| `0` ... `127`                           | `byte`, `ubyte`, `short`, `ushort`, `int`, `uint`, `long`, `ulong` |
-| `0` ... `32_7676`                       | `short`, `ushort`, `int`, `uint`, `long`, `ulong`                  |
-| `0` ... `2_147_483_647`                 | `int`, `uint`, `long`, `ulong`                                     |
-| `0` ... `9_223_372_036_854_775_807`     | `long`, `ulong`                                                    |
-
+There is one case whereby automatic conversion (known as _"coercion"_) is applied and that is with the usage of numeric literals. Firstly, however, we must discuss the default encoding scheme.... (TODO: do this)
 
 TODO: Add information about how literals are ranged checked and then coercion applies (this is the **ONLY** case were coercion applies)
 
 | To-type | Provided-type |
 
 1. TODO: Sign/zero extension
+    * This is technically a code emit point to be made and can now be made eaisly due to `feature/universal_coercion` having `CastedValueInstruction` support
 2. Promotion?
 3. Precedence in interpretation when the first two don't apply
+
+
+What really happens:
+
+> So far the smaller type is always promoted to the bigger type of the two

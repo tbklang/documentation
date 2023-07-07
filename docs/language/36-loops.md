@@ -27,13 +27,13 @@ One can declare a for loop using the `for` keyword. A for loop consists
 of 4 parts:
 
 1.  A pre-run statement
-    -   This is run once before the loop begins
+    - This is run once before the loop begins
 2.  A condition
-    -   Checked before starting the next iteration
+    - Checked before starting the next iteration
 3.  The body
-    -   The code in-between the `{` and `}`
+    - The code in-between the `{` and `}`
 4.  A post-iteration statement
-    -   Run at the end of each iteration
+    - Run at the end of each iteration
 
 !!! info Currently it is required that your provide 1, 2 and 4 or else
 the program will not compile (see

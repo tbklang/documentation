@@ -1,11 +1,10 @@
 ## Lexical analysis
 
 Lexical analysis is the process of taking a program as an input string
-*A* and splitting it into a list of *n* sub-strings
-*A*<sub>1</sub>, *A*<sub>2</sub>…*A*<sub>*n*</sub> called tokens. The
-length *n* of this list of dependent on several rules that determine
-how, when and where new tokens are built - this set of rules is called a
-*grammar*.
+$A$ and splitting it into a list of $n$ sub-strings
+$A_{1},\,A_{2}\ldots A_{n}$ called tokens. The length $n$ of this list
+of dependent on several rules that determine how, when and where new
+tokens are built - this set of rules is called a *grammar*.
 
 ### Grammar
 
@@ -17,30 +16,28 @@ The source code for the lexical analysis part of the compiler is located
 in `source/tlang/lexer.d` which contains two important class
 definitions:
 
--   `Token` - This represents a token
-    -   Complete with the token string itself, `token`. Retrivebale with
-        a call to `getToken()`
-    -   The coordinates in the source code where the token begins as
-        `line` and `column`
-    -   Overrides equality (`opEquals`) such that doing,
+- `Token` - This represents a token
+  - Complete with the token string itself, `token`. Retrivebale with a
+    call to `getToken()`
+  - The coordinates in the source code where the token begins as `line`
+    and `column`
+  - Overrides equality (`opEquals`) such that doing,
 
-    ``` d
-    new Token("int") == new Token("int")
-    ```
+  ``` d
+  new Token("int") == new Token("int")
+  ```
 
-    -   …would evaluate to `true`, rather than false by reference
-        equality (the default in D)
--   `Lexer` - The token builder
-    -   `sourceCode`, the whole input program (as a string) to be
-        tokenized
-    -   `position`, holds the index to the current character in the
-        string array `sourceCode`
-    -   `currentChar`, the current character at index-`position`
-    -   Contains a list of the currently built tokens, `Token[] tokens`
-    -   Current line and column numbers as `line` and `column`
-        respectively
-    -   A “build up” - this is the token (in string form) currently
-        being built - `currentToken`
+  - …would evaluate to `true`, rather than false by reference equality
+    (the default in D)
+- `Lexer` - The token builder
+  - `sourceCode`, the whole input program (as a string) to be tokenized
+  - `position`, holds the index to the current character in the string
+    array `sourceCode`
+  - `currentChar`, the current character at index-`position`
+  - Contains a list of the currently built tokens, `Token[] tokens`
+  - Current line and column numbers as `line` and `column` respectively
+  - A “build up” - this is the token (in string form) currently being
+    built - `currentToken`
 
 ### Implementation
 
@@ -91,20 +88,20 @@ position += 2;
 Helper functions relating to character and token availability.
 
 1.  `hasToken()`
-    -   Returns `true` if there is a token currently built
-        i.e. `currentToken.length != 0`, `false` otherwise.
+    - Returns `true` if there is a token currently built
+      i.e. `currentToken.length != 0`, `false` otherwise.
 2.  `isBackward()`
-    -   Returns `true` if we can move the character pointer backwards,
-        `false` otherwise.
+    - Returns `true` if we can move the character pointer backwards,
+      `false` otherwise.
 3.  `isForward()`
-    -   Returns `true` if we can move the character pointer forward,
-        `false` otherwise.
+    - Returns `true` if we can move the character pointer forward,
+      `false` otherwise.
 4.  `isNumericalStr()`
-    -   This method is called in order to chck if the build up,
-        `currentToken`, is a valid numerical string. If the string is
-        empty, then it returns `false`. If the string is non-empty and
-        contains anything other than digits then it returns `false`,
-        otherwise is returns `true`.
+    - This method is called in order to chck if the build up,
+      `currentToken`, is a valid numerical string. If the string is
+      empty, then it returns `false`. If the string is non-empty and
+      contains anything other than digits then it returns `false`,
+      otherwise is returns `true`.
 
 TODO
 
@@ -127,8 +124,7 @@ character == ':';
 
 •              
 
-•  \| (TODO: make it texttt) \\texttt{^}  (TODO: not
-appearing) \\texttt{\~}  
+•  \| (TODO: make it texttt)   (TODO: not appearing)   
 
 Whenever this method returns `true` it generally means you should flush
 the current token, start a new token add the offending spliter token and

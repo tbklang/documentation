@@ -36,15 +36,15 @@ token stream), fetching the token and acting upon the type or value of
 said token. Therefore we have the methods summarised below:
 
 1.  `nextToken()`
-    -   Moves the token pointer to the next token
+    - Moves the token pointer to the next token
 2.  `previousToken()`
-    -   Moves the token pointer to the previous token
+    - Moves the token pointer to the previous token
 3.  `getCurrentToken()`
-    -   Returns the current `Token` instance at the current token
-        pointer position
+    - Returns the current `Token` instance at the current token pointer
+      position
 4.  `hasTokens()`
-    -   Returns `true` if there are tokens still left in the stream
-        (i.e. `tokenPtr < tokens.length`), `false` otherwise
+    - Returns `true` if there are tokens still left in the stream
+      (i.e. `tokenPtr < tokens.length`), `false` otherwise
 
 ### Initialization
 
@@ -53,9 +53,9 @@ The initialization of the parser is rather simple, an instance of the
 arguments must be provided to the constructor:
 
 1.  `Token[] tokens`
-    -   This is an array of `Token` to be provided to the parser for
-        parsing. This would have been derived from the `Lexer` via its
-        `performLex()` and `getTokens()` call.
+    - This is an array of `Token` to be provided to the parser for
+      parsing. This would have been derived from the `Lexer` via its
+      `performLex()` and `getTokens()` call.
 
 A new instance woud therefore be created with something akin to:
 
@@ -120,21 +120,20 @@ The API for working with and using `SymbolType`s is made available
 within the `parsing/data/check.d` and contains the following methods:
 
 1.  `isType(string)`
-    -   Returns `true` if the given string (a token) is a built-in type
-    -   Built-in type strings would be:
-        `byte, ubyte, short, ushort, int, uint, long, ulong, void`
+    - Returns `true` if the given string (a token) is a built-in type
+    - Built-in type strings would be:
+      `byte, ubyte, short, ushort, int, uint, long, ulong, void`
 2.  `getSymbolType(Token)`
-    -   Returns the `SymbolType` associated with the given `Token`
-    -   If the token is not of a valid type then `SymbolType.UNKNOWN` is
-        returned
+    - Returns the `SymbolType` associated with the given `Token`
+    - If the token is not of a valid type then `SymbolType.UNKNOWN` is
+      returned
 3.  `getCharacter(SymbolType)`
-    -   This performs the reverse of `getSymbolType(Token)` in the sense
-        that you provide it a `SymbolType` and it will return the
-        corresponding string that is of that type.
-    -   This will work only for back-mapping a sub-section of tokens as
-        you won’t get anything back if you provide
-        `SymbolType.IDENT_TYPE` as there are infinite possibiltiies for
-        that - not a fixed token.
+    - This performs the reverse of `getSymbolType(Token)` in the sense
+      that you provide it a `SymbolType` and it will return the
+      corresponding string that is of that type.
+    - This will work only for back-mapping a sub-section of tokens as
+      you won’t get anything back if you provide `SymbolType.IDENT_TYPE`
+      as there are infinite possibiltiies for that - not a fixed token.
 
 ### Data types
 
@@ -148,21 +147,21 @@ The `Statement` type is the top-type for most parse nodes, it has the
 following important methods and fields:
 
 1.  `weight`
-    -   This holds a `byte` value which is used for when statements are
-        required to be re-ordered. It starts default at 0 whereby that
-        is the most prioritized re-ordering value (i.e. smaller means
-        you appear first)
+    - This holds a `byte` value which is used for when statements are
+      required to be re-ordered. It starts default at 0 whereby that is
+      the most prioritized re-ordering value (i.e. smaller means you
+      appear first)
 2.  `parentOf()`
-    -   This returns an instance of `Container`, specifically indicating
-        of which container this Statement is a parent of.
-    -   It can be `null` if this Statement was not parented.
+    - This returns an instance of `Container`, specifically indicating
+      of which container this Statement is a parent of.
+    - It can be `null` if this Statement was not parented.
 3.  `parentTo(Container)`
-    -   Set the parenting `Container` of this Statement to the one
-        provided.
+    - Set the parenting `Container` of this Statement to the one
+      provided.
 4.  `toString()`
-    -   The default string representtion method for Statements (unless
-        overridden) is to show a rolling count which is increment with
-        every instantiation of a Statement object.
+    - The default string representtion method for Statements (unless
+      overridden) is to show a rolling count which is increment with
+      every instantiation of a Statement object.
 
 #### `Entity`
 
@@ -172,25 +171,25 @@ implemented semantically and accessor types) (TODO: these are not yet
 implemented semantically.) The following methods and fields are to note:
 
 1.  `this(string)`
-    -   Constructs a new instance of an Entity with the provided name.
+    - Constructs a new instance of an Entity with the provided name.
 2.  `getName()`
-    -   Returns the name of the entity.
+    - Returns the name of the entity.
 3.  `setAccessorType(AccessorType accessorType)`
-    -   TODO: Describe this
+    - TODO: Describe this
 4.  `getAccessorType()`
-    -   TODO: Describe this
+    - TODO: Describe this
 5.  `setModifierType(InitScope initScope)`
-    -   TODO: Describe this
+    - TODO: Describe this
 6.  `InitScope getModifierType()`
-    -   TODO: Describe this
+    - TODO: Describe this
 7.  `bool isExternal()`
-    -   If this returns `true` then it is a signal that this Entity
-        should be emitted in a manner pertaining to an external symbol
-        rather than one found in the current T module
+    - If this returns `true` then it is a signal that this Entity should
+      be emitted in a manner pertaining to an external symbol rather
+      than one found in the current T module
 8.  `void makeExternal()`
-    -   Mark this Entity as external
-    -   You will see this used in `parseExtern()` as that is where we
-        need to mark entities as external for link-time resolution
+    - Mark this Entity as external
+    - You will see this used in `parseExtern()` as that is where we need
+      to mark entities as external for link-time resolution
 
 #### `Container`
 
@@ -215,15 +214,15 @@ The basic flow of the parser involves the following process:
     represents the module - the TLang program.
 2.  Every `parseX()` method gets called by another such method dependent
     on the current symbol (and sometimes a lookahead)
-    -   For example, sometimes when we come across
-        `SymbolType.IDENTIFIER` we call `parseName()` which can then
-        either call `parseFuncCall()`, `parseTypedDeclaration()` or
-        `parseAssignment()`. This requires a lookahead to check what
-        follows the identifier because just by itself it is too
-        ambuguous grammatically.
-    -   After determining what comes next the token is pushed back using
-        `previousToken()` and then we proceed into the correct function
-    -   Lookaheads are rare but they do appear in situations like that
+    - For example, sometimes when we come across `SymbolType.IDENTIFIER`
+      we call `parseName()` which can then either call
+      `parseFuncCall()`, `parseTypedDeclaration()` or
+      `parseAssignment()`. This requires a lookahead to check what
+      follows the identifier because just by itself it is too ambuguous
+      grammatically.
+    - After determining what comes next the token is pushed back using
+      `previousToken()` and then we proceed into the correct function
+    - Lookaheads are rare but they do appear in situations like that
 3.  The `parseX()` methods return instances of `Statement` which is the
     top type for all parser-generated nodes or *AST nodes*.
 4.  When you are about to parse a sub-section (like an if statement) of

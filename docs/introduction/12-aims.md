@@ -30,13 +30,13 @@ which encapsulate both data fields and methods which act upon said data.
 Tristan supports:
 
 1.  Class-based object orientation
-    -   Classes as the base of user-defined types and objects are
-        instances of these types
-    -   Single inheritance hierachy
-    -   Runtime polymorhpism
+    - Classes as the base of user-defined types and objects are
+      instances of these types
+    - Single inheritance hierachy
+    - Runtime polymorhpism
 2.  Interfaces
-    -   Multiple inheritance
-    -   Runtime polomprhism (thinking\\hyperref{})
+    - Multiple inheritance
+    - Runtime polomprhism (thinking\hyperref{})
 
 It is with this lean approach to object orientation that we keep things
 simple enough (only single inheritance) but with enough power to model
@@ -108,26 +108,24 @@ balance between what the compiler should do and what the user should
 make sure they are doing is tipped quite heavily in favor of the latter
 in my viewpoint and hence we support such features as:
 
--   Weak typing
-    -   By default this is not the behavior when using `cast()`
-    -   Casting to an incompatible type is allowed - even when a
-        run-time type-check is invalid you can still force a cast with
-        `castunsafe()`
-    -   The user should be able to do what *he* wants if requested
--   Pointers
-    -   The mere *support* of pointers allowing one to take a
-        memory-level view of objects in memory rather than the normal
-        “safe access” means
--   Inline assembly
-    -   Inserting of arbitrary assembler is allowed, providing the
-        programmer with access to systems level registers,
-        interrupts/syscall instructions and so on
--   Custom byte-packing
-    -   Allowing the user to deviate from the normal struct packing
-        structure in favor of a tweaked packing technique
-    -   Custom packing on a system that doesn’t agree with the alignment
-        of your data **is** allowed but the default is to pack
-        accordingly to the respective platform
+- Weak typing
+  - By default this is not the behavior when using `cast()`
+  - Casting to an incompatible type is allowed - even when a run-time
+    type-check is invalid you can still force a cast with `castunsafe()`
+  - The user should be able to do what *he* wants if requested
+- Pointers
+  - The mere *support* of pointers allowing one to take a memory-level
+    view of objects in memory rather than the normal “safe access” means
+- Inline assembly
+  - Inserting of arbitrary assembler is allowed, providing the
+    programmer with access to systems level registers,
+    interrupts/syscall instructions and so on
+- Custom byte-packing
+  - Allowing the user to deviate from the normal struct packing
+    structure in favor of a tweaked packing technique
+  - Custom packing on a system that doesn’t agree with the alignment of
+    your data **is** allowed but the default is to pack accordingly to
+    the respective platform
 
 ### Specified behaviour
 
