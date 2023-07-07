@@ -34,20 +34,25 @@ TODO: Add this
 
 There are a few rules that the type system abides by and which one should know about when dealing with types in T.
 
-#### No explicit conversion
+#### Promotion
 
-There is no automatic conversion in TLang, therefore one must explicitly cast. An example of this is that if one has a function of type `uint` and returns an expression of type `ubyte` (say now `return myByte` where `myByte` is a `ubyte`-typed variable) then it will _still_ not automatically convert it for you, you would be required to do a `cast(uint)` as such:
+T has the concept of type promotion meaning that certain types when used in expressions with other _different_ types will have some kind of automatic conversion take place.
 
-```{.d numberLines="1"}
-ubyte myByte = 255;
+Promotion takes place for integral types, below we have an example where a smaller type (`byte`) is automatically coerced to the bigger type (the `long`) when assigned to the variable of the type `long`:
 
-uint function()
+```d
+module simple_coerce_literal_good_stdalone_ass;
+
+void function()
 {
-    return cast(uint)myByte;
+    byte i = 1UL;
+    long i1;
+
+    i1 = i;
 }
 ```
 
-This is seen as a benefit as one always knows what they are doing at any time with the type-system by having to conciosuly cast data in such a manner.
+This [example](TODO: add link) is available as part of the test suite.
 
 #### Literals
 
