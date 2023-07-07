@@ -74,6 +74,9 @@ Below we have a table of ranges of values (literal values) and the types they ca
 | `0` ... `9_223_372_036_854_775_807`     | `long`, `ulong`                                                    |
 
 
+**TODO:** Add the negative ranges (i.e. when a -<value> (UnaryOpExp) is present and the range checking applied then
+and what types are coercible to)
+
 TODO: Add information about how literals are ranged checked and then coercion applies (this is the **ONLY** case were coercion applies)
 
 | To-type | Provided-type |

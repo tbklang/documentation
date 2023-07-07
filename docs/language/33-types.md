@@ -87,6 +87,10 @@ value to said type `T`. That “type `T`” is what we have in the
 | `0` … `2_147_483_647`              | `int`, `uint`, `long`, `ulong`                                     |
 | `0` … `9_223_372_036_854_775_807`  | `long`, `ulong`                                                    |
 
+**TODO:** Add the negative ranges (i.e. when a -<value> (UnaryOpExp) is
+present and the range checking applied then and what types are coercible
+to)
+
 TODO: Add information about how literals are ranged checked and then
 coercion applies (this is the **ONLY** case were coercion applies)
 
