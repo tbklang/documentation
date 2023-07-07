@@ -63,5 +63,11 @@ TODO: Add information about how literals are ranged checked and then coercion ap
 | To-type | Provided-type |
 
 1. TODO: Sign/zero extension
+    * This is technically a code emit point to be made and can now be made eaisly due to `feature/universal_coercion` having `CastedValueInstruction` support
 2. Promotion?
 3. Precedence in interpretation when the first two don't apply
+
+
+What really happens:
+
+> So far the smaller type is always promoted to the bigger type of the two
