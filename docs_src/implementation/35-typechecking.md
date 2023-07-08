@@ -213,9 +213,17 @@ digraph CodequeueProcess {
 
 Enforcement is the procedure of ensuring that a given `Value`-based instruction, $instr_{i}$, conforms to the target type or _"to-type"_, $type_{i}$. An optional flag can be passed such that if the $typeof(instr_{i}) \neq type_{i}$ that it can then attempt coercion as to bring it to the equal type.
 
-#### TODO: isSameType
+The method by which this is done is:
 
-TODO: Document isSameTYpe
+```d
+typeEnforce(Type toType, Value v2, ref Instruction coercedInstruction, bool allowCoercion = false)
+```
+
+#### Type equality
+
+In order to check strict equality the type enforcer will initially check the following condition. We label the `toType` as $t_{1}$ and the the type of `v2` as $typeof(v_{2})$ (otherwise referred to as $t_{2}$).
+
+The method `isSameType(Type t1, Type t2)` provides exact quality checking between the two given types in the form of $t_{1} = t_{2}$.
 
 #### Coercion
 
