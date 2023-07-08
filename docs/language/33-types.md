@@ -23,6 +23,13 @@ attributes:
 | `long`   | `64`  | signed long (two’s complement)  |
 | `ulong`  | `64`  | unsigned long                   |
 
+There are also some types aliases to be aware of:
+
+| Type      | Width                                   | Intended interpretation        |
+|-----------|-----------------------------------------|--------------------------------|
+| `size_t`  | Value of config entry `types:max_width` | unsigned                       |
+| `ssize_t` | Value of config entry `types:max_width` | signed byte (two’s complement) |
+
 #### Decimal
 
 TODO: Add this
