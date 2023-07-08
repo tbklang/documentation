@@ -219,6 +219,8 @@ The method by which this is done is:
 typeEnforce(Type toType, Value v2, ref Instruction coercedInstruction, bool allowCoercion = false)
 ```
 
+We will discuss exact equality and exact equality through coercion in the next two sections.
+
 #### Type equality
 
 In order to check strict equality the type enforcer will initially check the following condition. We label the `toType` as $t_{1}$ and the the type of `v2` as $typeof(v_{2})$ (otherwise referred to as $t_{2}$).
@@ -230,3 +232,7 @@ The method `isSameType(Type t1, Type t2)` provides exact quality checking betwee
 In the case of coercion an application of $coerce()$ is applied to the incoming instruction, as to produce an instruction $coerceInstr_{i}$, a `CastedValueInstruction`, which wraps the original instruction inside of it but allows for a type cast/conversion to the target type, therefore making the statement, $type_{i} = typeof(coerce(instr_{i}))$ (which is the same as $type_{i} = typeof(coerceInstr_{i})$), valid.
 
 TODO: Document this now
+
+Coercion has a set of rules (TODO: docuemnt them) in terms of what can be coerced. AT the end of the day if the coercion fails then a `CoercionException` is thrown, if, however it succeeds then a `CastedValueInstruction` will be placed into the memory location (the variable) pointed to by the `ref` parameter of `typeEnforce(..., ..., ref Instruction coercedInstruction, true)`.
+
+TODO: Document the usage of this for variable assignments for example
