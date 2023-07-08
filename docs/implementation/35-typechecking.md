@@ -106,13 +106,17 @@ This would result in a situation where we have the following production
 
 ### Enforcement
 
-$A_{1},\,A_{2}\ldots A_{n}$
-
 Enforcement is the procedure of ensuring that a given `Value`-based
 instruction, $instr_{i}$, conforms to the target type or *“to-type”*,
 $type_{i}$. An optional flag can be passed such that if the
 $typeof(instr_{i}) \neq type_{i}$ that it can then attempt coercion as
 to bring it to the equal type.
+
+#### TODO: isSameType
+
+TODO: Document isSameTYpe
+
+#### Coercion
 
 In the case of coercion an application of $coerce()$ is applied to the
 incoming instruction, as to produce an instruction $coerceInstr_{i}$, a

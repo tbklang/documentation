@@ -211,8 +211,6 @@ digraph CodequeueProcess {
 
 ### Enforcement
 
-$A_{1},\,A_{2}\ldots A_{n}$
-
 Enforcement is the procedure of ensuring that a given `Value`-based instruction, $instr_{i}$, conforms to the target type or _"to-type"_, $type_{i}$. An optional flag can be passed such that if the $typeof(instr_{i}) \neq type_{i}$ that it can then attempt coercion as to bring it to the equal type.
 
 #### TODO: isSameType
