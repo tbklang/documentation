@@ -17,3 +17,4 @@ texput.pdf
 graphs/*.html
 docs/graphs/*.html
 plots/
+pandoc-plot
