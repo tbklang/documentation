@@ -206,3 +206,9 @@ digraph CodequeueProcess {
         Codequeue5:ss1 -> cl3_value
 }
 ```
+
+---
+
+### Type checking, coercion and enforcement
+
+TODO: Document this now
