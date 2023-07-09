@@ -238,8 +238,6 @@ TODO: Document this now
 
 Coercion has a set of rules (TODO: docuemnt them) in terms of what can be coerced. AT the end of the day if the coercion fails then a `CoercionException` is thrown, if, however it succeeds then a `CastedValueInstruction` will be placed into the memory location (the variable) pointed to by the `ref` parameter of `typeEnforce(..., ..., ref Instruction coercedInstruction, true)`.
 
-TODO: Document the usage of this for variable assignments for example
-
 ##### Example
 
 Below we have an example of the code which processes variable declarations _with assignments_ (think of `byte i = 2`):
@@ -278,7 +276,7 @@ What the above code is doing is:
         * The third argument, is `ref`-based, meaning what we provide it is the variable which will have the result of the enforcement (if coercion is required) placed into
         * The last argument is `true`, meaning _"Please attemt coercion if the types are not exactly equal, please"_
 
-The last line ocnatining an asssertion:
+The last line containing an asssertion:
 
 ```{.d .numberLines}
 assert(isSameType(
