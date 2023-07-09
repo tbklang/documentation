@@ -216,7 +216,10 @@ Enforcement is the procedure of ensuring that a given `Value`-based instruction,
 The method by which this is done is:
 
 ```d
-typeEnforce(Type toType, Value v2, ref Instruction coercedInstruction, bool allowCoercion = false)
+typeEnforce(Type toType,
+            Value v2,
+            ref Instruction coercedInstruction,
+            bool allowCoercion = false)
 ```
 
 We will discuss exact equality and exact equality through coercion in the next two sections.

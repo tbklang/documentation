@@ -115,8 +115,14 @@ to bring it to the equal type.
 The method by which this is done is:
 
 ``` d
-typeEnforce(Type toType, Value v2, ref Instruction coercedInstruction, bool allowCoercion = false)
+typeEnforce(Type toType,
+            Value v2,
+            ref Instruction coercedInstruction,
+            bool allowCoercion = false)
 ```
+
+We will discuss exact equality and exact equality through coercion in
+the next two sections.
 
 #### Type equality
 
@@ -137,3 +143,12 @@ making the statement, $type_{i} = typeof(coerce(instr_{i}))$ (which is
 the same as $type_{i} = typeof(coerceInstr_{i})$), valid.
 
 TODO: Document this now
+
+Coercion has a set of rules (TODO: docuemnt them) in terms of what can
+be coerced. AT the end of the day if the coercion fails then a
+`CoercionException` is thrown, if, however it succeeds then a
+`CastedValueInstruction` will be placed into the memory location (the
+variable) pointed to by the `ref` parameter of
+`typeEnforce(..., ..., ref Instruction coercedInstruction, true)`.
+
+TODO: Document the usage of this for variable assignments for example
