@@ -188,13 +188,13 @@ Whenever this method returns `true` it generally means you should flush the curr
 
 TODO: Document the other methods remaining
 
-|   Method name             | Return type   |     Description                                                               |
+|   Method name                           | Return type   |     Description                                                               |
 |-----------------------------------------|---------------|-------------------------------------------------------------------------------|
-| `numbericalEncoderSegmentFetch()`       | `x`       | Desc.                 |
-| `isBuildUpNumerical()`                  | `x`       | Desc.                                                 |
-| `isNumericalStr(string)`                | `x`       | Desc.                                               |
-| `isSpliter(char)`                       | `x`       | Desc.                                |
-| `isNumericalEncoder(char)`              | `x`       | Desc.             |
-| `isNumericalEncoder_Size(char)`         | `x`       | Desc.     |
-| `isNumericalEncoder_Signage(char)`      | `x`       | Desc.                                      |
-| `isValidEscape_String(char)`            | `x`       | Desc.                                    |
+| `numbericalEncoderSegmentFetch()`       | `x`           | Desc.                 |
+| `isBuildUpNumerical()`                  | `x`           | Desc.                                                 |
+| `isNumericalStr(string)`                | `x`           | Desc.                                               |
+| `isSpliter(char)`                       | `x`           | Desc.                                |
+| `isNumericalEncoder(char)`              | `x`           | Desc.             |
+| `isNumericalEncoder_Size(char)`         | `x`           | Desc.     |
+| `isNumericalEncoder_Signage(char)`      | `x`           | Desc.                                      |
+| `isValidEscape_String(char)`            | `x`           | Desc.                                    |
