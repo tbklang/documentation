@@ -8,13 +8,43 @@ tokens are built - this set of rules is called a *grammar*.
 
 ### Grammar
 
-TODO: Add link to other seciton or remove this
+TODO: fix the link The grammar is described in the [language
+section](31-grammar.md) and can be viewed alongside this section for
+some context.
 
-### Overview of implementation
+### Overview of files
 
 The source code for the lexical analysis part of the compiler is located
-in `source/tlang/lexer.d` which contains two important class
-definitions:
+in `source/tlang/compiler/lexer/` which contains a few important module
+and class definitions.
+
+#### Lexer API
+
+The **Lexer API** describes the required methods that a tokenizer must
+have in order to be used within the TLang compiler infrastructure. The
+reason for describing such an interface is such that more improved
+tokenizers can be easily integrated down the line in a manner that does
+not require much churn in the parts of the code base that use the lexer
+(namely the parser).
+
+The API is described in the table below and the file in question is in
+`source/tlang/compiler/lexer/core/lexer.d` which contains the
+`LexerInterface` described below:
+
+| Method name         | Return type | Description                                                                   |
+|---------------------|-------------|-------------------------------------------------------------------------------|
+| `getCurrentToken()` | `Token`     | Returns the `Token` at the current cursor position                            |
+| `nextToken()`       | `void`      | Moves the cursor forward once                                                 |
+| `previousToken()`   | `void`      | Moves the cursor backwards once                                               |
+| `setCursor(ulong)`  | `void`      | Set’s the cursor’s position to the given index                                |
+| `getCursor()`       | `ulong`     | Returns the cursor’s current position                                         |
+| `hasTokens()`       | `bool`      | Returns `true` if there are more tokens to be consumed, otherwise `false`     |
+| `getLine()`         | `ulong`     | Return’s the line number the lexer is at                                      |
+| `getColumn()`       | `ulong`     | Return’s the column number the lexer is at                                    |
+| `getTokens()`       | `Token[]`   | Exhausts the lexer’s token stream and returns all gathered tokens in an array |
+
+Some auxillary types which are used in `LexerInterface` are that of the
+below:
 
 - `Token` - This represents a token
   - Complete with the token string itself, `token`. Retrivebale with a
@@ -29,7 +59,10 @@ definitions:
 
   - …would evaluate to `true`, rather than false by reference equality
     (the default in D)
-- `Lexer` - The token builder
+
+### impl basicLexer
+
+- `BasicLexer` - The token builder
   - `sourceCode`, the whole input program (as a string) to be tokenized
   - `position`, holds the index to the current character in the string
     array `sourceCode`
