@@ -199,7 +199,10 @@ What the above code is doing is:
 The last line ocnatining an asssertion:
 
 ``` d
-assert(isSameType(variableDeclarationType, assignmentInstr.getInstrType())); // Sanity check
+assert(isSameType(
+        variableDeclarationType,
+        assignmentInstr.getInstrType()
+        ); // Sanity check
 ```
 
 This is a sanity check, as if the type coercion failed then an exception
