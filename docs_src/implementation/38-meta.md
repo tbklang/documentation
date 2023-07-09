@@ -4,7 +4,7 @@ The _meta processor_ is a mechanism that acts somewhat like a _shim_ (something 
 
 ### Meta API
 
-There are some core interfaces which various `Statement`(s) (parser nodes) can implement in order to be able to be manipulated by the meta-processor, we describe these in this section.
+There are some core interfaces which various `Statement`(s) (parser nodes) can implement in order to be able to be manipulated by the meta-processor, we describe these in this section. These are all defined in `source/tlang/compiler/symbols/mcro.d`.
 
 #### the `MStatementSearchable`
 
@@ -56,3 +56,8 @@ Anything which implements this can make a full deep clone of itself.
 | `clone()`        | `Statement`  | Returns the deeply cloned `Statement`       |
 
 TODO: Add an example of it being used here please
+
+
+### the `MetaProcessor`
+
+TODO: Document me
