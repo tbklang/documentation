@@ -152,3 +152,57 @@ variable) pointed to by the `ref` parameter of
 `typeEnforce(..., ..., ref Instruction coercedInstruction, true)`.
 
 TODO: Document the usage of this for variable assignments for example
+
+##### Example
+
+Below we have an example of the code which processes variable
+declarations *with assignments* (think of `byte i = 2`):
+
+``` d
+Value assignmentInstr;
+if(variablePNode.getAssignment())
+{
+  Instruction poppedInstr = popInstr();
+  assert(poppedInstr);
+
+  // Obtain the value instruction of the variable assignment
+  // ... along with the assignment's type
+  assignmentInstr = cast(Value)poppedInstr;
+  assert(assignmentInstr);
+  Type assignmentType = assignmentInstr.getInstrType();
+
+  /** 
+   * Here we can call the `typeEnforce` with the popped
+   * `Value` instruction and the type to coerce to
+   * (our variable's type)
+   */
+  typeEnforce(variableDeclarationType, assignmentInstr, assignmentInstr, true);
+  assert(isSameType(variableDeclarationType, assignmentInstr.getInstrType())); // Sanity check
+}
+
+...
+```
+
+What the above code is doing is:
+
+1.  Firstly popping off an `Instruction` from the stack-queue and then
+    downcasting it to `Value` (for `Value`-based instructions would be
+    required as an *expression* is being assigned)
+2.  We then call `typeEnforce()` providing it with: \* The variable’s
+    type - the `variableDeclarationType` \* The incoming `Value`-based
+    instruction `assignmentInstr` \* The third argument, is `ref`-based,
+    meaning what we provide it is the variable which will have the
+    result of the enforcement (if coercion is required) placed into \*
+    The last argument is `true`, meaning *“Please attemt coercion if the
+    types are not exactly equal, please”*
+
+The last line ocnatining an asssertion:
+
+``` d
+assert(isSameType(variableDeclarationType, assignmentInstr.getInstrType())); // Sanity check
+```
+
+This is a sanity check, as if the type coercion failed then an exception
+would be thrown and the assertion would not be reached, however if the
+types were an exact match **or** if they were not but could be coerced
+as such then the two types should match.
