@@ -52,18 +52,39 @@ Token token2 = new Token("int");
 assert(token1 == token2);
 ```
 
+TODO: Document `LexerException` and `LexerError` (see: https://deavmi.assigned.network/git/tlang/tlang/src/branch/vardec_varass_dependency/source/tlang/compiler/lexer/core/exceptions.d)
 
-### impl basicLexer
+---
 
-* `BasicLexer` - The token builder
-    * `sourceCode`, the whole input program (as a string) to be tokenized
-    * `position`, holds the index to the current character in the string array `sourceCode`
-    * `currentChar`, the current character at index-`position`
-    * Contains a list of the currently built tokens, `Token[] tokens`
-    * Current line and column numbers as `line` and `column` respectively
-    * A “build up” - this is the token (in string form) currently being built - `currentToken`
+### Implementation of the single-pass tokenizer
 
-### Implementation
+The current lexer implementation that is being used is the `BasicLexer` (available at `source/tlang/compiler/lexer/kinds/basic.d`) and it is a one-pass lexer, this means that before you use any methods such as `nextToken()` you must first have called `performLex()` on it such that the `Token[]` can be generated.
+
+This is not the most efficient way, but a streaming lexer is not yet implemented **however** it is planned.
+
+#### Overview
+
+A quick overview of some of the fields which are used for tracking the state of the token building process:
+
+
+| Name              | Type            | Purpose
+|-------------------|-----------------|----------------------------------------------------------------------------|
+| `sourceCode`      | `string`        | the whole input program (as a string) to be tokenized                      |
+| `position`        | `ulong`         | holds the index to the current character in the string array `sourceCode`  |
+| `currentChar`     | `char`          | the current character at index-`position`                                  |
+| `tokens`          | `Token[]`       | The list of the currently built tokens                                     |
+| `line`            | `ulong`         | Current line the tokenizer is on (with respect to the source code input)   |
+| `column`          | `ulong`         | Current column the tokenizer is on (with respect to the source code input) |
+| `currentToken`    | `string`        | The token string that is currently being built-up, char-by-char            |
+
+There are also some auxillary flags used for processing particular parts of the grammar:
+
+| Name              | Type            | Purpose
+|-------------------|-----------------|--------------------------------------------------------------------------------|
+| `stringMode`      | `bool`          | Whether we are current buliding up a string (e.g. `"we are here"`) or not      |
+| `floatMode`       | `bool`          | Whether we are current buliding up a floating-point literal (e.g. `3.5) or not |
+
+
 
 The implementation of the lexer, the `Lexer` class, is explained in detail in this section. (TODO: constructor) The lexical analysis is done one-shot via the `performLex()` method which will attempt to tokenize the input program, on failure returning `false`, `true` otherwise. In the successful case the `tokens` array will be filled with the created tokens and can then later be retrieved via a call to `getTokens()`.
 
