@@ -29,17 +29,28 @@ The API is described in the table below and the file in question is in `source/t
 | `getColumn()`             | `ulong`       | Return's the column number the lexer is at                                    |
 | `getTokens()`             | `Token[]`     | Exhausts the lexer's token stream and returns all gathered tokens in an array |
 
+##### the `Token`
 
-Some auxillary types which are used in `LexerInterface` are that of the below:
+A `Token` represents, well, a token which is produced in following the grammar.
 
-* `Token` - This represents a token
-    * Complete with the token string itself, `token`. Retrivebale with a call to `getToken()`
-    * The coordinates in the source code where the token begins as `line` and `column`
-    * Overrides equality (`opEquals`) such that doing,
-    ```d
-    new Token("int") == new Token("int")
-    ```
-    * ...would evaluate to `true`, rather than false by reference equality (the default in D)
+|   Method name                 | Return type   |     Description                                                                       |
+|-------------------------------|---------------|---------------------------------------------------------------------------------------|
+| `this(string, ulong, ulong)`  | Constructor   | Constructs a new `Token` with the given contents, followed by line and column numbers |
+| `opEquals(Object other)`      | `bool`        | Overrides the behaviour of `==` to allow for comparing `Token`(s) based on content    |
+| `getToken()`                  | `string`      | Returns the contents of this token                                                    |
+| `toString()`                  | `string`      | Returns a string representation of the token including its data and line information  |
+
+Below, as an example of the API, we show how you con compare tokens (if you ever needed to):
+
+```{.d .numberLines}
+// Create two tokens containing contents "int"
+Token token1 = new Token("int");
+Token token2 = new Token("int");
+
+// Compare them for equality 
+// (would evaluate to true rather than false by reference equality (the default in D))
+assert(token1 == token2);
+```
 
 
 ### impl basicLexer
@@ -99,7 +110,7 @@ TODO
 
 This method checks if the given character is one of the following:
 
-```d
+```{.d .numberLines}
 character == ';' || character == ',' || character == '(' || 
 character == ')' || character == '[' || character == ']' || 
 character == '+' || character == '-' || character == '/' || 
