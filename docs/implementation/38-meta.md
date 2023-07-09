@@ -89,10 +89,15 @@ is just the original program.
 
 TODO: Document me
 
-| Method name                                  | Return type | Description                                                                |
-|----------------------------------------------|-------------|----------------------------------------------------------------------------|
-| `process(Container)`                         | `void`      | Processes the various types of meta statements in the provided `Container` |
-| `doTypeAlias(     Container,     Statement)` | `void`      | Performs the replacement of type aliases such as `size_t`, `ssize_t`       |
+| Method name                                  | Return type | Description                                                                                                             |
+|----------------------------------------------|-------------|-------------------------------------------------------------------------------------------------------------------------|
+| `process(Container)`                         | `void`      | Processes the various types of meta statements in the provided `Container`                                              |
+| `doTypeAlias(     Container,     Statement)` | `void`      | Performs the replacement of type aliases such as `size_t`, `ssize_t`                                                    |
+| `typeRewrite(     MTypeRewritable)`          | `void`      | Updates any type fields in `TypedEntity`s (these are the only ones really implementing the `MTypeRewritable` interface) |
+| `getConcreteType(     string)`               | `string`    | Given an assumed type alias this will try resolve it to its concrete type                                               |
+| `isTypeAlias(string)`                        | `bool`      | Given an assumed type alias this checks if it is a type alias                                                           |
+| `isSystemType(string)`                       | `bool`      | Checks if the given type is a system alias (so, is it `size_t`/`ssize_t`)                                               |
+| `getSystemType(string)`                      | `string`    | Resolves `size_t`/`ssize_t` to their concrete types using the `CompilerConfig`                                          |
 
 #### AST processing
 
@@ -134,3 +139,5 @@ This does two checks:
       would be that of `size_t` within the argument to `sizeof(...)`.
     - We can then replace the `IdentExpression` there with one referring
       to the concrete type
+    - The concrete type is retrieved by calling
+      `getConcreteType(string)` (with `"size_t"` in this case)

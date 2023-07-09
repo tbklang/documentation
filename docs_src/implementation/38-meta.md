@@ -69,18 +69,19 @@ TODO: Add an example of it being used here please
 
 The `MetaProcessor` is the actual processing facility which can apply different types of AST manipulations to a given `Container`. It is run prior to type checking but after parsing. This makes sense as we want to do AST node manipulation _just_ after the parse tree has been constructed, then we can pass the changed program to the `TypeChecker` and it wouldn't know any different. For all the type checker knows, this is just the original program.
 
-
-TODO: Document me
-
-
-
 |   Method name                         | Return type  |     Description                                                                  |
 |---------------------------------------|--------------|----------------------------------------------------------------------------------|
 | `process(Container)`                  | `void`       | Processes the various types of meta statements in the provided `Container`       |
 | `doTypeAlias(
     Container,
     Statement)`   | `void`       | Performs the replacement of type aliases such as `size_t`, `ssize_t`             |
-
+| `typeRewrite(
+    MTypeRewritable)`        | `void`       | Updates any type fields in `TypedEntity`s (these are the only ones really implementing the `MTypeRewritable` interface)       |
+| `getConcreteType(
+    string)`             | `string`     | Given an assumed type alias this will try resolve it to its concrete type        |
+| `isTypeAlias(string)`                 | `bool`       | Given an assumed type alias this checks if it is a type alias                    |
+| `isSystemType(string)`                | `bool`       | Checks if the given type is a system alias (so, is it `size_t`/`ssize_t`)        |
+| `getSystemType(string)`               | `string`     | Resolves `size_t`/`ssize_t` to their concrete types using the `CompilerConfig`   |
 
 #### AST processing
 
@@ -109,3 +110,4 @@ This does two checks:
     * A search is normally done via the `Container`, however, for any AST node of type `IdentExpression`
     * We search for `IdentExpression` because, for example if you have `1+sizeof(size_t)`, then the identity expression (named variable) would be that of `size_t` within the argument to `sizeof(...)`.
     * We can then replace the `IdentExpression` there with one referring to the concrete type
+    * The concrete type is retrieved by calling `getConcreteType(string)` (with `"size_t"` in this case)
