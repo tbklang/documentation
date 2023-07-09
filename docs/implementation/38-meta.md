@@ -9,6 +9,15 @@ that *consumes the AST tree*, applies manipulations to its nodes or
 completely replaces some, and then finally returns to let the type
 checker begin its process.
 
+Examples of things which require AST manipulation are:
+
+1.  Type aliases
+    - `size_t` and `ssize_t` need to be resolved to their concrete types
+2.  Macros
+    - Macros such as `sizeof(<type>)` need to be replaced with a
+      `NumberLiteral` with the value that is equal to the bit-width (in
+      bytes) of the type `<type>`
+
 ### Meta API
 
 There are some core interfaces which various `Statement`(s) (parser
@@ -70,4 +79,16 @@ TODO: Add an example of it being used here please
 
 ### the `MetaProcessor`
 
+The `MetaProcessor` is the actual processing facility which can apply
+different types of AST manipulations to a given `Container`. It is run
+prior to type checking but after parsing. This makes sense as we want to
+do AST node manipulation *just* after the parse tree has been
+constructed, then we can pass the changed program to the `TypeChecker`
+and it wouldn’t know any different. For all the type checker knows, this
+is just the original program.
+
 TODO: Document me
+
+| Method name | Return type | Description                           |
+|-------------|-------------|---------------------------------------|
+| `clone()`   | `Statement` | Returns the deeply cloned `Statement` |
