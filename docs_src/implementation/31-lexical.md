@@ -123,9 +123,7 @@ unittest
 }
 ```
 
-#### performLex()
-
-TODO: This is going to change sometime soonish, so I want the final version of how it works here. I may as well, however, give a brief explanation as I doubt _much_ will change - only specific parsing cases.
+#### Using `performLex()`
 
 This method contains a looping structure which will read character-by-character from the `sourceCode` string and follow the rules of the grammar (TODO: add link), looping whilst there are still characters available for consumption (`position < sourceCode.length`).
 
@@ -148,16 +146,16 @@ position += 2;
 
 Helper functions relating to character and token availability.
 
-1. `hasToken()`
-    * Returns `true` if there is a token currently built i.e. `currentToken.length != 0`, `false` otherwise.
-2. `isBackward()`
-    * Returns `true` if we can move the character pointer backwards, `false` otherwise.
-3. `isForward()`
-    * Returns `true` if we can move the character pointer forward, `false` otherwise.
-4. `isNumericalStr()`
-    * This method is called in order to chck if the build up, `currentToken`, is a valid numerical string. If the string is empty, then it returns `false`. If the string is non-empty and contains anything other than digits then it returns `false`, otherwise is returns `true`.
+|   Method name                 | Return type   |     Description                                                                                        |
+|-------------------------------|---------------|--------------------------------------------------------------------------------------------------------|
+| `hasToken()`                  | `bool`        | Returns `true` if there is a token currently built i.e. `currentToken.length != 0`, `false` otherwise. |
+| `isBackward()`                | `bool`        | Returns `true` if we can move the character pointer backwards, `false` otherwise.                      |
+| `isForward()`                 | `bool`        | Returns `true` if we can move the character pointer forward, `false` otherwise.                        |
+| `isNumericalStr()`            | `bool`        | This method is called in order to chck if the build up, `currentToken`, is a valid numerical string. If the string is empty, then it returns `false`. If the string is non-empty and contains anything other than digits then it returns `false`, otherwise is returns `true`.  |
 
-TODO
+
+
+TODO: There are probably some missing but the above are the most general/used helper methods
 
 #### isSpliter()
 
