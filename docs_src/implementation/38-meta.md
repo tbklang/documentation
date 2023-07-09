@@ -83,7 +83,7 @@ The `MetaProcessor` is the actual processing facility which can apply different 
 | `isSystemType(string)`                | `bool`       | Checks if the given type is a system alias (so, is it `size_t`/`ssize_t`)        |
 | `getSystemType(string)`               | `string`     | Resolves `size_t`/`ssize_t` to their concrete types using the `CompilerConfig`   |
 
-#### AST processing
+### AST processing
 
 The `process(Container)` method is the entry point to the whole meta-processor engine and it is called by the `TypeChecker`
 by passing in the parsed `Module` instance such that the meta-proessing and AST manipulation can be applied to the entire
@@ -94,7 +94,7 @@ to each body `Statement` of the current container. Right at the end after all th
 check if the current `Statement` is a kind-of `Container`, if so then we recurse by calling `process(childContainer)` on
 the child container. Therefore reaching the depths of the AST tree.
 
-##### Type alias replacement
+#### Type alias replacement
 
 The first step which is applied is to replace all type aliases with their concrete values. This is accomplished
 by calling the `doTypeAlias(Container, Statement)` method from the current container with the `Statement` we have

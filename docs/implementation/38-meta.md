@@ -87,8 +87,6 @@ constructed, then we can pass the changed program to the `TypeChecker`
 and it wouldn’t know any different. For all the type checker knows, this
 is just the original program.
 
-TODO: Document me
-
 | Method name                                  | Return type | Description                                                                                                             |
 |----------------------------------------------|-------------|-------------------------------------------------------------------------------------------------------------------------|
 | `process(Container)`                         | `void`      | Processes the various types of meta statements in the provided `Container`                                              |
@@ -99,7 +97,7 @@ TODO: Document me
 | `isSystemType(string)`                       | `bool`      | Checks if the given type is a system alias (so, is it `size_t`/`ssize_t`)                                               |
 | `getSystemType(string)`                      | `string`    | Resolves `size_t`/`ssize_t` to their concrete types using the `CompilerConfig`                                          |
 
-#### AST processing
+### AST processing
 
 The `process(Container)` method is the entry point to the whole
 meta-processor engine and it is called by the `TypeChecker` by passing
@@ -114,7 +112,7 @@ is a kind-of `Container`, if so then we recurse by calling
 `process(childContainer)` on the child container. Therefore reaching the
 depths of the AST tree.
 
-##### Type alias replacement
+#### Type alias replacement
 
 The first step which is applied is to replace all type aliases with
 their concrete values. This is accomplished by calling the
