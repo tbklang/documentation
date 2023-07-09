@@ -149,6 +149,8 @@ unittest
 }
 ```
 
+------------------------------------------------------------------------
+
 #### Using `performLex()`
 
 This method contains a looping structure which will read
@@ -216,3 +218,18 @@ character == ':';
 Whenever this method returns `true` it generally means you should flush
 the current token, start a new token add the offending spliter token and
 flush that as well.
+
+### Others
+
+TODO: Document the other methods remaining
+
+| Method name                        | Return type | Description |
+|------------------------------------|-------------|-------------|
+| `numbericalEncoderSegmentFetch()`  | `x`         | Desc.       |
+| `isBuildUpNumerical()`             | `x`         | Desc.       |
+| `isNumericalStr(string)`           | `x`         | Desc.       |
+| `isSpliter(char)`                  | `x`         | Desc.       |
+| `isNumericalEncoder(char)`         | `x`         | Desc.       |
+| `isNumericalEncoder_Size(char)`    | `x`         | Desc.       |
+| `isNumericalEncoder_Signage(char)` | `x`         | Desc.       |
+| `isValidEscape_String(char)`       | `x`         | Desc.       |

@@ -123,6 +123,8 @@ unittest
 }
 ```
 
+---
+
 #### Using `performLex()`
 
 This method contains a looping structure which will read character-by-character from the `sourceCode` string and follow the rules of the grammar (TODO: add link), looping whilst there are still characters available for consumption (`position < sourceCode.length`).
@@ -180,3 +182,19 @@ character == ':';
 • \texttt{=} | (TODO: make it texttt) \texttt{\^} \texttt{!} \texttt{\\n}(TODO: \n not appearing) \texttt{\~} \texttt{.} \texttt{\:}
 
 Whenever this method returns `true` it generally means you should flush the current token, start a new token add the offending spliter token and flush that as well.
+
+
+### Others
+
+TODO: Document the other methods remaining
+
+|   Method name             | Return type   |     Description                                                               |
+|-----------------------------------------|---------------|-------------------------------------------------------------------------------|
+| `numbericalEncoderSegmentFetch()`       | `x`       | Desc.                 |
+| `isBuildUpNumerical()`                  | `x`       | Desc.                                                 |
+| `isNumericalStr(string)`                | `x`       | Desc.                                               |
+| `isSpliter(char)`                       | `x`       | Desc.                                |
+| `isNumericalEncoder(char)`              | `x`       | Desc.             |
+| `isNumericalEncoder_Size(char)`         | `x`       | Desc.     |
+| `isNumericalEncoder_Signage(char)`      | `x`       | Desc.                                      |
+| `isValidEscape_String(char)`            | `x`       | Desc.                                    |
