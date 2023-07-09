@@ -111,3 +111,8 @@ This does two checks:
     * We search for `IdentExpression` because, for example if you have `1+sizeof(size_t)`, then the identity expression (named variable) would be that of `size_t` within the argument to `sizeof(...)`.
     * We can then replace the `IdentExpression` there with one referring to the concrete type
     * The concrete type is retrieved by calling `getConcreteType(string)` (with `"size_t"` in this case)
+
+#### Macro replacement
+
+To support macros such as `sizeof(<type>)` we need to be able to find where they occur and then, no matter how deep in the AST tree, replace
+them with some other node (in this example an `IntegerLiteral`) which makes sense. We make heavy use of the `MStatementSearchable` (for **searching**) and the `MStatementReplaceable` (for **replacing**) interfaces as part of this process.
