@@ -116,3 +116,18 @@ This does two checks:
 
 To support macros such as `sizeof(<type>)` we need to be able to find where they occur and then, no matter how deep in the AST tree, replace
 them with some other node (in this example an `IntegerLiteral`) which makes sense. We make heavy use of the `MStatementSearchable` (for **searching**) and the `MStatementReplaceable` (for **replacing**) interfaces as part of this process.
+
+The method of replacement is to examine the current `Statement` being iterated on in the call to `process(Container)`, we then check the following things:
+
+1. Is the current statement both `MStatementSearchable` and `MStatementReplaceable` compatible?
+2. **If so**, search for all `FunctionCall` AST nodes
+3. Of all the `FunctionCall` AST node(s) found:
+    * If the name of the function being called is `sizeof`?
+    * If their is only a single argument passed to said function call?
+    * If the argument passed is an `IdentExpression`?
+4. **If the above are all true**, then we proceed to do:
+    * Extract the `IdentExpression`'s name field
+    * Pass this to `sizeOf_Literalize(string)`
+    * Now replace this `IdentExpression` with the `IntegerLiteral` returned by `sizeOf_Literalize(string)`
+
+The replacement is done from the current container, and we pass it the `FunctionCall` (the `sizeof<type>`) we found as the first argument (what to search for) and then the second argument is our newly created `IntegerLiteral` which is what will replace the spot that `FunctionCall` occupies in the AST tree.
