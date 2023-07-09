@@ -89,6 +89,48 @@ is just the original program.
 
 TODO: Document me
 
-| Method name | Return type | Description                           |
-|-------------|-------------|---------------------------------------|
-| `clone()`   | `Statement` | Returns the deeply cloned `Statement` |
+| Method name                                  | Return type | Description                                                                |
+|----------------------------------------------|-------------|----------------------------------------------------------------------------|
+| `process(Container)`                         | `void`      | Processes the various types of meta statements in the provided `Container` |
+| `doTypeAlias(     Container,     Statement)` | `void`      | Performs the replacement of type aliases such as `size_t`, `ssize_t`       |
+
+#### AST processing
+
+The `process(Container)` method is the entry point to the whole
+meta-processor engine and it is called by the `TypeChecker` by passing
+in the parsed `Module` instance such that the meta-proessing and AST
+manipulation can be applied to the entire program tree.
+
+This method is recursive in that what it first does is apply the AST
+manipulations, that you will see in the next sectiom, to each body
+`Statement` of the current container. Right at the end after all these
+manipulations have taken place we then check if the current `Statement`
+is a kind-of `Container`, if so then we recurse by calling
+`process(childContainer)` on the child container. Therefore reaching the
+depths of the AST tree.
+
+##### Type alias replacement
+
+The first step which is applied is to replace all type aliases with
+their concrete values. This is accomplished by calling the
+`doTypeAlias(Container, Statement)` method from the current container
+with the `Statement` we have iterated to.
+
+This does two checks:
+
+1.  Is the current statement `MTypeRewritable`-compatible?
+    - If so then it means that the statement is some sort of
+      `TypedEntity` which has a type field
+    - This field is then updated by calling `setType(string)` with the
+      new concrete type
+2.  Is the current statement `MStatementSearchable` and
+    `MStatementReplaceable`?
+    - This means that the statement can be **searched** and have parts
+      of it **replaced**
+    - A search is normally done via the `Container`, however, for any
+      AST node of type `IdentExpression`
+    - We search for `IdentExpression` because, for example if you have
+      `1+sizeof(size_t)`, then the identity expression (named variable)
+      would be that of `size_t` within the argument to `sizeof(...)`.
+    - We can then replace the `IdentExpression` there with one referring
+      to the concrete type
