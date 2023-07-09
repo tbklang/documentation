@@ -114,7 +114,40 @@ the input program, on failure returning `false`, `true` otherwise. In
 the successful case the `tokens` array will be filled with the created
 tokens and can then later be retrieved via a call to `getTokens()`.
 
-Example usage: TODO
+Below is an example usage of the `BasicLexer` which makes use of it in
+order to process the following input source code:
+
+``` d
+new A().l.p.p;
+```
+
+Here is the code to do so:
+
+``` d
+/**
+* Test correct handling of dot-operator for
+* non-floating point cases
+*
+* Input: `new A().l.p.p;`
+*/
+unittest
+{
+    import std.algorithm.comparison;
+    string sourceCode = "new A().l.p.p;";
+    BasicLexer currentLexer = new BasicLexer(sourceCode);
+    currentLexer.performLex();
+    gprintln("Collected "~to!(string)(currentLexer.getTokens()));
+    assert(currentLexer.getTokens() == [
+        new Token("new", 0, 0),
+        new Token("A", 0, 0),
+        new Token("(", 0, 0),
+        new Token(")", 0, 0),
+        new Token(".", 0, 0),
+        new Token("l.p.p", 0, 0),
+        new Token(";", 0, 0)
+    ]);
+}
+```
 
 #### performLex()
 
