@@ -44,7 +44,7 @@ digraph CompilationProcess {
 			<tr> <td> <b>Symbols</b> </td> </tr>
 			<tr> <td>
 				<table border="0" cellborder="0" cellspacing="0" >
-					
+					<tr> <td port="ss1" align="left" >- Meta processing			    </td> </tr>
 					<tr> <td port="ss1" align="left" >- Pseudo-entity resolution    </td> </tr>
 					<tr> <td port="ss2" align="left" >- Name collision detection    </td> </tr>
 				</table>

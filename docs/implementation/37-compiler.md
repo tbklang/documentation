@@ -9,7 +9,7 @@ that if a requirement for a decision to be taken based on compiler flags
 is specified then such configuration paremeters can be obtained via each
 module of the compilation stage.
 
-![](/projects/tlang/graphs/pandocplot6118349527803707673.svg)
+![](/projects/tlang/graphs/pandocplot8423820173807207517.svg)
 
 ### Compiler system
 
