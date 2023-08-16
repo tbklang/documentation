@@ -9,6 +9,16 @@ are placed into sections whereby they are related.
 
 **TODO:** Finish implementing this
 
+### Comments
+
+These are the basic types of comments supported.
+
+    (* TODO: I need to define all symbols as well so we can get this right *)
+    (* As I don't like the ?-based special sequence *)
+    singleComment  ::= "//", { anything };
+
+    anything       ::= ? all ASCII characters excluding newline ?
+
 ### Literals
 
 These make are the basic atoms that define literals.
@@ -18,7 +28,10 @@ These make are the basic atoms that define literals.
                 | "W" | "X" | "Y" | "Z" | "a" | "b" | "c" | "d" | "e" | "f" | "g"
                 | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r"
                 | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z";
-    number    ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+    number    ::= ("0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9") [encoder];
+
+    encoder   ::= "S" | "B" | "W" | "I" | "L" | "UB" | "UW" | "UI" | "UL" | "SB"
+                  "SW" | "SI" | "SL";
 
     float     ::= (number | {number}), ".", (number | {number});
 
@@ -61,7 +74,7 @@ in some cases as well.
 
 
 
-
+    comment   ::= singleComment | multiComment;
 
 
 

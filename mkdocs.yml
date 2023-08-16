@@ -17,19 +17,20 @@ nav:
   - Language:
     - Introduction: language/30-index.md
     - Grammar: language/31-grammar.md
-    - Literals: language/32-literals.md
-    - Types: language/33-types.md
-    - Variables: language/34-variables.md
-    - Conditionals: language/35-conditionals.md
-    - Loops: language/36-loops.md
-    - Funtions: language/37-functions.md
-    - Arrays: language/38-arrays.md
-    - Pointers: language/39-pointers.md
-    - Extern: language/43-extern.md
-    - Structs: language/40-structs.md
-    - OOP: language/41-oop.md
-    - Modules: language/42-modules.md
-    - Annotations: language/44-annotations.md
+    - Comments: language/32-comments.md
+    - Literals: language/33-literals.md
+    - Types: language/34-types.md
+    - Variables: language/35-variables.md
+    - Conditionals: language/36-conditionals.md
+    - Loops: language/37-loops.md
+    - Funtions: language/38-functions.md
+    - Arrays: language/39-arrays.md
+    - Pointers: language/40-pointers.md
+    - Extern: language/44-extern.md
+    - Structs: language/41-structs.md
+    - OOP: language/42-oop.md
+    - Modules: language/43-modules.md
+    - Annotations: language/45-annotations.md
     - Configuration: language/50-configuration.md
   - Implementation:
     - Introduction: implementation/30-introduction.md

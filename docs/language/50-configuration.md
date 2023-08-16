@@ -25,13 +25,7 @@ These options configure the C code emitter.
       will be correctly indented. If `false` then no such prettifying
       will occur.
     - Default: `true`
-
-### `emit`
-
-This controls aspects of the `CodeEmitter` API, meaning irrespective of
-which emitter (such as `dgen`) is used.
-
-1.  `emit:mapper`
+2.  `dgen:mapper`
     - This entry holds a string value
     - This controls how symbol names within T are translated
     - The two available options are:
@@ -39,3 +33,27 @@ which emitter (such as `dgen`) is used.
       2.  `"lebanese"` - all periods (`.`) within T symbols are replaced
           by underscores (`_`)
     - Default: `"hashmapper"`
+3.  `dgen:emit_entrypoint_test`
+    - This entry holds a boolean value
+    - If `true` then instrumentation code will be added to the final
+      output source code prior to compilation
+    - Default: `true`
+4.  `dgen:preinline_args`
+    - This entry holds a boolean value
+    - If `true` then the arguments (expressions) given to a function
+      call will be placed in adhoc variables declared in order of
+      appearance
+    - These *variables* will be passed to the function call then
+    - Default: `false` (TODO: change)
+5.  `dgen:compiler`
+    - This entry holds a string value
+    - This is the path to the compiler executable that should be used to
+      compile the generated C code
+    - Default: `clang`
+
+### `emit`
+
+This controls aspects of the `CodeEmitter` API, meaning irrespective of
+which emitter (such as `dgen`) is used.
+
+TODO: Move `dgen_emit_entrypoint_test` and `dgen:pretty_code` here.

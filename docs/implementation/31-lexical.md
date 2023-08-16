@@ -184,12 +184,12 @@ position += 2;
 
 Helper functions relating to character and token availability.
 
-| Method name        | Return type | Description                                                                                                                                                                                                                                                                    |
-|--------------------|-------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `hasToken()`       | `bool`      | Returns `true` if there is a token currently built i.e. `currentToken.length != 0`, `false` otherwise.                                                                                                                                                                         |
-| `isBackward()`     | `bool`      | Returns `true` if we can move the character pointer backwards, `false` otherwise.                                                                                                                                                                                              |
-| `isForward()`      | `bool`      | Returns `true` if we can move the character pointer forward, `false` otherwise.                                                                                                                                                                                                |
-| `isNumericalStr()` | `bool`      | This method is called in order to chck if the build up, `currentToken`, is a valid numerical string. If the string is empty, then it returns `false`. If the string is non-empty and contains anything other than digits then it returns `false`, otherwise is returns `true`. |
+| Method name        | Return type | Description                                                                                                                                                                                                                                                                     |
+|--------------------|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `hasToken()`       | `bool`      | Returns `true` if there is a token currently built i.e. `currentToken.length != 0`, `false` otherwise.                                                                                                                                                                          |
+| `isBackward()`     | `bool`      | Returns `true` if we can move the character pointer backwards, `false` otherwise.                                                                                                                                                                                               |
+| `isForward()`      | `bool`      | Returns `true` if we can move the character pointer forward, `false` otherwise.                                                                                                                                                                                                 |
+| `isNumericalStr()` | `bool`      | This method is called in order to check if the build up, `currentToken`, is a valid numerical string. If the string is empty, then it returns `false`. If the string is non-empty and contains anything other than digits then it returns `false`, otherwise is returns `true`. |
 
 TODO: There are probably some missing but the above are the most
 general/used helper methods
@@ -208,12 +208,6 @@ character == '|' || character == '^' || character == '!' ||
 character == '\n' || character == '~' || character =='.' || 
 character == ':';
 ```
-
-!!! error FInish this page
-
-•              
-
-•  \| (TODO: make it texttt)   (TODO: not appearing)   
 
 Whenever this method returns `true` it generally means you should flush
 the current token, start a new token add the offending spliter token and

@@ -129,7 +129,7 @@ config.addConfig(ConfigEntry("dgen:pretty_code", true));
 config.addConfig(ConfigEntry("dgen:emit_entrypoint_test", true));
 
 /* Set the mapping to hashing of entity names (TODO: This should be changed before release) */
-config.addConfig(ConfigEntry("emit:mapper", "hashmapper"));
+config.addConfig(ConfigEntry("dgen:mapper", "hashmapper"));
 ```
 
 ##### Retrieval of entries
