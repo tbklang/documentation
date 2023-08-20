@@ -24,3 +24,15 @@ Before we get into how it all works let's first see the API offered to us by the
 | `isDescendant(
     Container,
     Entity)`   | `bool`       | Checks if the given `Entity` can be found _somewhere_ within the provided `Container` |
+| `resolveWithin(
+    Container,
+    string)` | `Entity` | Looksup an `Entity` with the given name from within the provided `Container` |
+| `resolveUp(
+    Container,
+    string)` | `Entity` | Looksup an `Entity` with the name provided, starting from the `Container` given but it may resolve upwards past it if it isn't found within it |
+| `resolveBest(
+    Container,
+    string)` | `Entity` | Comibines the above two to allow resolving downwards and upwards in case not found when going downwards |
+| `findContainerOfType(
+    TypeInfo_Class,
+    Statement)` | `Container` | Given a type-of `Container` and a `Statement` this will try find a container that the provided statement apears in by traversing upwards through any nested containers and stopping at the one which **exactly** matches the given type |
