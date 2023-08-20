@@ -37,7 +37,93 @@ us by the resolver (in `source/`):
 | `generateNameBest(     Entity)`                           | `string`    | Given an `Entity` this will return the absolute path to it                                                                                                                                                                              |
 | `generateName(     Container,     Entity)`                | `string`    | Returns the path of the `Entity` relative to the `Container`                                                                                                                                                                            |
 | `isDescendant(     Container,     Entity)`                | `bool`      | Checks if the given `Entity` can be found *somewhere* within the provided `Container`                                                                                                                                                   |
-| `resolveWithin(     Container,     string)`               | `Entity`    | Looksup an `Entity` with the given name from within the provided `Container`                                                                                                                                                            |
+| `resolveWithin(     Container,     string)`               | `Entity`    | Looksup an `Entity` with the given name from within the provided `Container`, does **not** recurse                                                                                                                                      |
 | `resolveUp(     Container,     string)`                   | `Entity`    | Looksup an `Entity` with the name provided, starting from the `Container` given but it may resolve upwards past it if it isn’t found within it                                                                                          |
-| `resolveBest(     Container,     string)`                 | `Entity`    | Comibines the above two to allow resolving downwards and upwards in case not found when going downwards                                                                                                                                 |
+| `resolveBest(     Container,     string)`                 | `Entity`    | Combines the above two to resolution all the way down but also, if given an anchor `Container` and not found it can then trickle upwards till it is found                                                                               |
 | `findContainerOfType(     TypeInfo_Class,     Statement)` | `Container` | Given a type-of `Container` and a `Statement` this will try find a container that the provided statement apears in by traversing upwards through any nested containers and stopping at the one which **exactly** matches the given type |
+
+#### How resolution works
+
+Let’s start off with an example program of which we can attempt to show
+the resolution process:
+
+``` d
+module example_1;
+
+int myVar;
+
+class MyClass
+{
+    int myVar;
+}
+```
+
+Once we have parsed the above program we would be able to use various
+methods such as `resolveWithin(Container, string)`,
+`resolveUp(Container, string)` and `resolveBest(Container, string)`.
+After parsing we get a `Module` object so we can make use of this if we
+see fit, we can, however, also lookup other containers *within* this
+module and use that as a lookup anhor for some of the methods.
+
+Let’s try and resolve the class declared with the name `MyClass`. For
+this we can use `resolveWithin` and pass it the `Module` instance to
+tell it to look for some entity named `"My Entity"`. One thing to note
+is that this method only checks members of the given `Container` and not
+the container itself (so you cannot lookup the `Module` itself via this
+method, as an example). Anyways, in this case the container is the
+*module* and the entity, `MyClass`, is within it:
+
+``` d
+// Get our resolver
+Resolver res = typeChecker.getResolver();
+
+// Get out module
+Module anchor = typeChecker.getModule();
+
+// Resolve the class
+Entity foundEntity = res.resolveWithin(anchor, "MyClass");
+
+// If found
+if(foundEntity !is null)
+{
+    Clazz myClass = cast(Clazz)foundEntity;
+
+    // Do whatever you want with the Clazz
+    // ...
+}
+```
+
+------------------------------------------------------------------------
+
+What if we want to now lookup the `myVar` within the `MyClass` class but
+we don’t don’t want to have to effectively find the direct parent of
+each AST node being looked up, but rather just want to give a
+dotted-path (pathdot-identifier) which describes how to reach it? Well,
+that’s very easy, we can use `resolveBest(Container, string)` in order
+to do that. We will anchor the lookup at the `Module` instance and
+provide it the path of `"example_1.MyClass.myVar"`.
+
+``` d
+// Get our resolver
+Resolver res = typeChecker.getResolver();
+
+// Get out module
+Module anchor = typeChecker.getModule();
+
+// Resolve the class
+Entity foundEntity - res.resolveBest(anchor, "example_1.MyClass.myVar");
+
+// If found
+if(foundEntity !is null)
+{
+    Clazz myClass = cast(Clazz)foundEntity;
+
+    // Do whatever you want with the Clazz
+    // ...
+}
+```
+
+It should be noted that if you have a path start with the name of a
+module then it will *always* actually anchor to the module, so even if
+we did `resolveBest(foundEntity, "example_1.MyClass.myVar")` it would
+start at the module anyways.
