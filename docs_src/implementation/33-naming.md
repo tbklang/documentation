@@ -104,3 +104,56 @@ if(foundEntity !is null)
 ```
 
 It should be noted that if you have a path start with the name of a module then it will _always_ actually anchor to the module, so even if we did `resolveBest(foundEntity, "example_1.MyClass.myVar")` it would start at the module anyways.
+
+#### Nearest parent of a given type
+
+There are few places in the compiler's source code, in fact only one actually as of writing, whereby one requires to lookup the `Container` somewhere in the anscetor tree of a given AST node. For example, let us look at the below example (this was the reason this method was actually created in the first place). The below example can be found in `source/tlang/testing/simple_function_recursion_factorial.t`:
+
+```{.d .numberLines}
+module simple_function_recursion_factorial;
+
+ubyte factorial(ubyte i)
+{
+    if(i == 0)
+    {
+        return 1;
+    }
+    else
+    {
+        return i*factorial(i-1);
+    }
+}
+```
+
+What we have above is a simple recursive function but where the problem comes in is that when we are doing typechecking on the type of the expression contained within the `return` expression, the `return i*factorial(i-1)`, if that we need to find the enclosing `Function`. Now a function is a kind-of `Container` however we cannot simply do something akin to:
+
+```{.d .numberLines}
+// Our return expression
+ReturnExpr retExp = ....
+
+// Parent of return expression
+Container retContainer = retExp.parentOf();
+
+// Cast to Function
+Function func = cast(Function)retContainer; // ERROR: Runtime type check failure
+
+// Type check the func.getType() and retExp's expression's type
+```
+
+The reason for this is that the `else {}` branch is a `Branch`, **also** a kind-of container and we'd have a runtime type check failure when we do that cast. We need a way to travel up the parenting/container tree until we hit a a container of a _certain type_ - in this case of type `Function`. This is where the `findContainerOfType(TypeInfo_Class containerType, Statement startingNode)` method comes in handy. So now, repeating the above code using this method we would have something that looks like this:
+
+```{.d .numberLines}
+// Get the resolver
+Resolver res =  typeChecker.getResolver();
+
+// Our return expression
+ReturnExpr retExp = ....
+
+// Parent of return expression
+Container retContainer = res.findContainerOfType(typeid(Function), retExp)
+
+// Cast to Function
+Function func = cast(Function)retContainer; // Works!
+
+// Type check the func.getType() and retExp's expression's type
+```
