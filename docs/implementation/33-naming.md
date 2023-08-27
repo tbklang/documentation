@@ -200,4 +200,5 @@ Container retContainer = res.findContainerOfType(typeid(Function), retExp)
 Function func = cast(Function)retContainer; // Works!
 
 // Type check the func.getType() and retExp's expression's type
+...
 ```
