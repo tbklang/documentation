@@ -204,3 +204,18 @@ while(hasTokens())
 }
 ```
 
+---
+
+## Modules
+
+TODO: Add this
+
+It is worth dedicating a section to how the module lookup system works. This is discussed as part of the overarching _"Parsing"_ chapter because this code is made of use within the `parseImport(string)` method.
+
+Let's start off with a module which we are parsing, and let's say that it looks like this:
+
+```{.d .numberLines}
+TODO: Add code
+```
+
+When we examine each of the import statements, how is it that we actually go about looking up the module it refers to on disk? How do we know which directories to scan in the first place. How is the name finally determined? All of these questions will be answered but before we can do so we must first take a look at the sub-system known as the `ModuleManager`.
