@@ -1,16 +1,16 @@
 ## Configuration
 
-The T compiler can have various variables tweaked to control the bahviour of the compiler
+The T compiler can have various variables tweaked to control the behavior of the compiler
 
 ### `types`
 
 Anything regarding the type system (this includes the type checker and the meta processor).
 
 1. `types:max_width`
-    * This entry holds an integrak value
+    * This entry holds an integral value
     * This sets the maximum bit-width of a machine (in bytes)
     * This can either be `1`, `2`, `4` or `8`
-    * It affects how alises such as `size_t` and `ssize_t` behave in terms of what the resolve to
+    * It affects how aliases such as `size_t` and `ssize_t` behave in terms of what the resolve to
 
 ### `dgen`
 
