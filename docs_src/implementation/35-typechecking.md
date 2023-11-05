@@ -289,5 +289,52 @@ This is a sanity check, as if the type coercion failed then an exception would b
 
 ### Variable referencing counting
 
-Firstly let me make it clear that this has nothing to do with **runtime** reference counting but rather a simple mechanism used to maintain a count or _number of_ references to variables after their declaration. This aids us in implementing a single feature _unsued variable detection_. It's rather simple, reference counts are incremented by using a `touch(Variable)` method defined in the `TypeChecker` and this is called whilst doing dependency generation in the dependency generator.
+Firstly let me make it clear that this has nothing to do with **runtime** reference counting but rather a simple mechanism used to maintain a count or _number of_ references to variables after their declaration.
 
+Below is a method table of the methods of concern:
+
+| Method | Description | Return |
+|--------|-------------|--------|
+| `touch(Variable)` | Increments the count by 1 for the given variable, creates a mapping if one does not yet exist | `void` |
+| `getUnusedVariables()` | Returns an array of all `Variable`s which have a reference count above `1` | `Variable[]` |
+
+This aids us in implementing a single feature _unused variable detection_. It's rather simple, reference counts are incremented by using a `touch(Variable)` method defined in the `TypeChecker` and this is called whilst doing dependency generation in the dependency generator.
+
+The first time a variable is encountered, such as even its declaration, we will then `touch(...)`-it. At the end of type checking we then call the `getUnusedVariables()` method which returns a list of the undeclared variables. These are variables with a reference count higher than `1`. We then print these out so the user can see which are unused.
+
+#### Usage
+
+Example usage below shows us `touch`-ing a variable when we process them in expressions such as a `VariableExpression` in the dependency module:
+
+```{.d .numberLines}
+...
+
+/* Get the entity as a Variable */
+Variable variable = cast(Variable)namedEntity;
+
+/* Variable reference count must increase */
+tc.touch(variable);
+
+...
+```
+
+We then, after typechecking, run the following in the type checker module's `doPostChecks()` method:
+
+```{.d .numberLines}
+/** 
+ * Find the variables which were declared but never used
+ */
+if(this.config.hasConfig("typecheck:warnUnusedVars") & this.config.getConfig("typecheck:warnUnusedVars").getBoolean())
+{
+        Variable[] unusedVariables = getUnusedVariables();
+        gprintln("There are "~to!(string)(unusedVariables.length)~" unused variables");
+        if(unusedVariables.length)
+        {
+                foreach(Variable unusedVariable; unusedVariables)
+                {
+                        // TODO: Get a nicer name, full path-based
+                        gprintln("Variable '"~to!(string)(unusedVariable.getName())~"' is declared but never");
+                }
+        }
+}
+```
