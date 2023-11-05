@@ -1,7 +1,7 @@
 ## Configuration
 
 The T compiler can have various variables tweaked to control the
-bahviour of the compiler
+behavior of the compiler
 
 ### `types`
 
@@ -9,10 +9,10 @@ Anything regarding the type system (this includes the type checker and
 the meta processor).
 
 1.  `types:max_width`
-    - This entry holds an integrak value
+    - This entry holds an integral value
     - This sets the maximum bit-width of a machine (in bytes)
     - This can either be `1`, `2`, `4` or `8`
-    - It affects how alises such as `size_t` and `ssize_t` behave in
+    - It affects how aliases such as `size_t` and `ssize_t` behave in
       terms of what the resolve to
 
 ### `dgen`
@@ -57,3 +57,13 @@ This controls aspects of the `CodeEmitter` API, meaning irrespective of
 which emitter (such as `dgen`) is used.
 
 TODO: Move `dgen_emit_entrypoint_test` and `dgen:pretty_code` here.
+
+### `typecheck`
+
+This controls the aspects of the `TypeChecker`.
+
+1.  `typecheck:warnUnusedVars`
+    - If this is set to `true` then at the end of the typechecking
+      process a scan for all variables will be done and any variable
+      that is unused will be printed out
+    - Default: `true`
