@@ -286,3 +286,8 @@ assert(isSameType(
 ```
 
 This is a sanity check, as if the type coercion failed then an exception would be thrown and the assertion would not be reached, however if the types were an exact match **or** if they were not but could be coerced as such then the two types should match.
+
+### Variable referencing counting
+
+Firstly let me make it clear that this has nothing to do with **runtime** reference counting but rather a simple mechanism used to maintain a count or _number of_ references to variables after their declaration. This aids us in implementing a single feature _unsued variable detection_. It's rather simple, reference counts are incremented by using a `touch(Variable)` method defined in the `TypeChecker` and this is called whilst doing dependency generation in the dependency generator.
+
