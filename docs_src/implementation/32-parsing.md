@@ -219,3 +219,10 @@ TODO: Add code
 ```
 
 When we examine each of the import statements, how is it that we actually go about looking up the module it refers to on disk? How do we know which directories to scan in the first place. How is the name finally determined? All of these questions will be answered but before we can do so we must first take a look at the sub-system known as the `ModuleManager`.
+
+
+Things added to search path:
+
+* Current working directory
+* `modman:paths`
+* COntaining directory of each module on command0line
