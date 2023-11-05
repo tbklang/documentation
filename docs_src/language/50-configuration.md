@@ -47,3 +47,10 @@ This controls aspects of the `CodeEmitter` API, meaning irrespective of which em
 
 TODO: Move `dgen_emit_entrypoint_test` and `dgen:pretty_code` here.
     
+### `typecheck`
+
+This controls the aspects of the `TypeChecker`.
+
+1. `typecheck:warnUnusedVars`
+    * If this is set to `true` then at the end of the typechecking process a scan for all variables will be done and any variable that is unused will be printed out
+    * Default: `true`
