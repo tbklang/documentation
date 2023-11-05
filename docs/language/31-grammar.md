@@ -62,7 +62,7 @@ before adding them here
 ### Statements
 
 Statements are inevitably the building blocks of a program and make use
-of all the former defined sections of the grammar and more of themsleves
+of all the former defined sections of the grammar and more of themselves
 in some cases as well.
 
     module    ::= "module", ident, ";", {decl, ";"};
