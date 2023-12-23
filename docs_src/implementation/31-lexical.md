@@ -81,8 +81,8 @@ There are also some auxillary flags used for processing particular parts of the 
 
 | Name              | Type            | Purpose
 |-------------------|-----------------|--------------------------------------------------------------------------------|
-| `stringMode`      | `bool`          | Whether we are current buliding up a string (e.g. `"we are here"`) or not      |
-| `floatMode`       | `bool`          | Whether we are current buliding up a floating-point literal (e.g. `3.5) or not |
+| `stringMode`      | `bool`          | Whether we are current building up a string (e.g. `"we are here"`) or not      |
+| `floatMode`       | `bool`          | Whether we are current building up a floating-point literal (e.g. `3.5) or not |
 
 
 
