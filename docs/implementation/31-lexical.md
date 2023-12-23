@@ -227,3 +227,58 @@ TODO: Document the other methods remaining
 | `isNumericalEncoder_Size(char)`    | `x`         | Desc.       |
 | `isNumericalEncoder_Signage(char)` | `x`         | Desc.       |
 | `isValidEscape_String(char)`       | `x`         | Desc.       |
+
+### Character constants
+
+For completion we include the commonly used character constant
+definitions. These come in the form of an enumeration type as shown
+below:
+
+``` d
+public enum LexerSymbols : char
+{
+    L_PAREN = '(',
+    R_PAREN = ')',
+    SEMI_COLON = ';',
+    COMMA = ',',
+    L_BRACK =  '[' ,
+    R_BRACK =  ']' ,
+    PLUS =  '+' ,
+    MINUS =  '-' ,
+    FORWARD_SLASH =  '/' ,
+    PERCENT =  '%' ,
+    STAR =  '*' ,
+    AMPERSAND =  '&' ,
+    L_BRACE =  '{' ,
+    R_BRACE =  '}' ,
+    EQUALS =  '=' ,
+    SHEFFER_STROKE =  '|' ,
+    CARET =  '^' ,
+    EXCLAMATION =  '!' ,
+    TILDE =  '~' ,
+    DOT =  '.' ,
+    COLON =  ':',
+    SPACE = ' ',
+    TAB = '\t',
+    NEWLINE = '\n',
+    DOUBLE_QUOTE = '"',
+    SINGLE_QUOTE =  '\'' ,
+    BACKSLASH =  '\\' ,
+    UNDERSCORE =  '_' ,
+    LESS_THAN =  '<' ,
+    BIGGER_THAN =  '>' ,
+
+    ESC_NOTHING =  '0' ,
+    ESC_CARRIAGE_RETURN =  'r' ,
+    ESC_TAB =  't' ,
+    ESC_NEWLINE =  'n' ,
+    ESC_BELL=  'a' ,
+
+    ENC_BYTE =  'B' ,
+    ENC_INT =  'I' ,
+    ENC_LONG =  'L' ,
+    ENC_WORD =  'W' ,
+    ENC_UNSIGNED =  'U' ,
+    ENC_SIGNED =  'S' ,
+}
+```
