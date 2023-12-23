@@ -104,8 +104,8 @@ of the grammar:
 
 | Name         | Type   | Purpose                                                                         |
 |--------------|--------|---------------------------------------------------------------------------------|
-| `stringMode` | `bool` | Whether we are current buliding up a string (e.g. `"we are here"`) or not       |
-| `floatMode`  | `bool` | Whether we are current buliding up a floating-point literal (e.g. \`3.5) or not |
+| `stringMode` | `bool` | Whether we are current building up a string (e.g. `"we are here"`) or not       |
+| `floatMode`  | `bool` | Whether we are current building up a floating-point literal (e.g. \`3.5) or not |
 
 The implementation of the lexer, the `Lexer` class, is explained in
 detail in this section. (TODO: constructor) The lexical analysis is done
