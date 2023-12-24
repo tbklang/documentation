@@ -224,9 +224,9 @@ unittest
 
 #### Using `performLex()`
 
-This method contains a looping structure which will read character-by-character from the `sourceCode` string and follow the rules of the grammar (TODO: add link), looping whilst there are still characters available for consumption (`position < sourceCode.length`).
+This method contains a looping structure which will read character-by-character from the `sourceCode` string and follow the rules of the [grammar](../../language/31-grammar/), looping whilst there are still characters available for consumption (`position < sourceCode.length`).
 
-We loop through each character and dependent on its value we start building new tokens, certain characters will cause a token to finish being built which will sometimes be caused by `isSpliter(character)` being `true`. A typical token building process looks something like the following, containing the final character to be tacked onto the current token build up, the creation of a new token object and the addition of it to the `tokens` list, finishing with flushing the build up string and incrementing the coordinates:
+We loop through each character and dependent on its value we start building new tokens, certain characters will cause a token to finish being built which will sometimes be caused by `isSplitter(character)` being `true`. A typical token building process looks something like the following, containing the final character to be tacked onto the current token build up, the creation of a new token object and the addition of it to the `tokens` list, finishing with flushing the build up string and incrementing the coordinates:
 
 A typical token building procedure looks something like this:
 
