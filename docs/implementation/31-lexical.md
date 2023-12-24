@@ -8,9 +8,9 @@ tokens are built - this set of rules is called a *grammar*.
 
 ### Grammar
 
-TODO: fix the link The grammar is described in the [language
-section](31-grammar.md) and can be viewed alongside this section for
-some context.
+The grammar is described in the [language
+section](../../language/31-grammar/) and can be viewed alongside this
+section for some context.
 
 ### Overview of files
 
@@ -259,8 +259,8 @@ unittest
 
 This method contains a looping structure which will read
 character-by-character from the `sourceCode` string and follow the rules
-of the [grammar](../../language/31-grammar/) (TODO: add link), looping
-whilst there are still characters available for consumption
+of the [grammar](../../language/31-grammar/), looping whilst there are
+still characters available for consumption
 (`position < sourceCode.length`).
 
 We loop through each character and dependent on its value we start

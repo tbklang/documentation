@@ -4,8 +4,7 @@ Lexical analysis is the process of taking a program as an input string $A$ and s
 
 ### Grammar
 
-TODO: fix the link
-The grammar is described in the [language section](31-grammar.md) and can be viewed alongside this section for some context.
+The grammar is described in the [language section](../../language/31-grammar/) and can be viewed alongside this section for some context.
 
 ### Overview of files
 
