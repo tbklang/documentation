@@ -43,6 +43,77 @@ The API is described in the table below and the file in question is in
 | `getColumn()`       | `ulong`     | Return’s the column number the lexer is at                                    |
 | `getTokens()`       | `Token[]`   | Exhausts the lexer’s token stream and returns all gathered tokens in an array |
 
+##### Character constants
+
+For completion we include the commonly used character constant
+definitions. These come in the form of an enumeration type as shown
+below:
+
+``` d
+public enum LexerSymbols : char
+{
+    L_PAREN = '(',
+    R_PAREN = ')',
+    SEMI_COLON = ';',
+    COMMA = ',',
+    L_BRACK =  '[' ,
+    R_BRACK =  ']' ,
+    PLUS =  '+' ,
+    MINUS =  '-' ,
+    FORWARD_SLASH =  '/' ,
+    PERCENT =  '%' ,
+    STAR =  '*' ,
+    AMPERSAND =  '&' ,
+    L_BRACE =  '{' ,
+    R_BRACE =  '}' ,
+    EQUALS =  '=' ,
+    SHEFFER_STROKE =  '|' ,
+    CARET =  '^' ,
+    EXCLAMATION =  '!' ,
+    TILDE =  '~' ,
+    DOT =  '.' ,
+    COLON =  ':',
+    SPACE = ' ',
+    TAB = '\t',
+    NEWLINE = '\n',
+    DOUBLE_QUOTE = '"',
+    SINGLE_QUOTE =  '\'' ,
+    BACKSLASH =  '\\' ,
+    UNDERSCORE =  '_' ,
+    LESS_THAN =  '<' ,
+    BIGGER_THAN =  '>' ,
+
+    ESC_NOTHING =  '0' ,
+    ESC_CARRIAGE_RETURN =  'r' ,
+    ESC_TAB =  't' ,
+    ESC_NEWLINE =  'n' ,
+    ESC_BELL=  'a' ,
+
+    ENC_BYTE =  'B' ,
+    ENC_INT =  'I' ,
+    ENC_LONG =  'L' ,
+    ENC_WORD =  'W' ,
+    ENC_UNSIGNED =  'U' ,
+    ENC_SIGNED =  'S' ,
+}
+```
+
+##### Helper methods
+
+There are quite a few helper methods as well which are commonly used
+across the lexer implementation and therefore are worth being aware of.
+You can find these all within the `tlang.compiler.lexer.core.lexer`
+module.
+
+| Method name                        | Return type | Description                                                                                           |
+|------------------------------------|-------------|-------------------------------------------------------------------------------------------------------|
+| `isOperator(char c)`               | `bool`      | Checks if the provided character is an operator, returning `true` if so                               |
+| `isSplitter(char c)`               | `bool`      | Checks if the provided character is a splitter, returning `true` if so                                |
+| `isNumericalEncoder_Size(char)`    | `bool`      | Checks if the provided character is a numerical size encoder                                          |
+| `isNumericalEncoder_Signage(char)` | `bool`      | Checks if the provided character is a numerical signage encoder                                       |
+| `isNumericalEncoder(char)`         | `bool`      | Checks if the provided character is either a numerical size encoder or signage encoder                |
+| `isValidEscape_String(char)`       | `bool`      | Checks if the given character is a valid escape character (something which would have followed a `\`) |
+
 ##### the `Token`
 
 A `Token` represents, well, a token which is produced in following the
@@ -227,58 +298,3 @@ TODO: Document the other methods remaining
 | `isNumericalEncoder_Size(char)`    | `x`         | Desc.       |
 | `isNumericalEncoder_Signage(char)` | `x`         | Desc.       |
 | `isValidEscape_String(char)`       | `x`         | Desc.       |
-
-### Character constants
-
-For completion we include the commonly used character constant
-definitions. These come in the form of an enumeration type as shown
-below:
-
-``` d
-public enum LexerSymbols : char
-{
-    L_PAREN = '(',
-    R_PAREN = ')',
-    SEMI_COLON = ';',
-    COMMA = ',',
-    L_BRACK =  '[' ,
-    R_BRACK =  ']' ,
-    PLUS =  '+' ,
-    MINUS =  '-' ,
-    FORWARD_SLASH =  '/' ,
-    PERCENT =  '%' ,
-    STAR =  '*' ,
-    AMPERSAND =  '&' ,
-    L_BRACE =  '{' ,
-    R_BRACE =  '}' ,
-    EQUALS =  '=' ,
-    SHEFFER_STROKE =  '|' ,
-    CARET =  '^' ,
-    EXCLAMATION =  '!' ,
-    TILDE =  '~' ,
-    DOT =  '.' ,
-    COLON =  ':',
-    SPACE = ' ',
-    TAB = '\t',
-    NEWLINE = '\n',
-    DOUBLE_QUOTE = '"',
-    SINGLE_QUOTE =  '\'' ,
-    BACKSLASH =  '\\' ,
-    UNDERSCORE =  '_' ,
-    LESS_THAN =  '<' ,
-    BIGGER_THAN =  '>' ,
-
-    ESC_NOTHING =  '0' ,
-    ESC_CARRIAGE_RETURN =  'r' ,
-    ESC_TAB =  't' ,
-    ESC_NEWLINE =  'n' ,
-    ESC_BELL=  'a' ,
-
-    ENC_BYTE =  'B' ,
-    ENC_INT =  'I' ,
-    ENC_LONG =  'L' ,
-    ENC_WORD =  'W' ,
-    ENC_UNSIGNED =  'U' ,
-    ENC_SIGNED =  'S' ,
-}
-```
