@@ -182,8 +182,7 @@ A quick overview of some of the fields which are used for tracking the state of 
 | `currentToken`    | `string`        | The token string that is currently being built-up, char-by-char            |
 
 
-The implementation of the lexer, the `Lexer` class, is explained in detail in this section. (TODO: constructor) The lexical analysis is done one-shot via the `performLex()` method which will attempt to tokenize the input program, on failure returning `false`, `true` otherwise. In the successful case the `tokens` array will be filled with the created tokens and can then later be retrieved via a call to `getTokens()`.
-
+The implementation of the lexer, the `BasicLexer` class, is explained in detail in this section. The lexical analysis is done one-shot via the `performLex()` method which will attempt to tokenize the input program, on failure returning `false`, `true` otherwise. In the successful case the `tokens` array will be filled with the created tokens and can then later be retrieved via a call to `getTokens()`.
 
 Below is an example usage of the `BasicLexer` which makes use of it in order to process the following input source code:
 
