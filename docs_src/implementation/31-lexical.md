@@ -122,7 +122,42 @@ Token token2 = new Token("int");
 assert(token1 == token2);
 ```
 
-TODO: Document `LexerException` and `LexerError` (see: https://deavmi.assigned.network/git/tlang/tlang/src/branch/vardec_varass_dependency/source/tlang/compiler/lexer/core/exceptions.d)
+##### the `LexerException`
+
+This is a simple exception type of which extends the `TError` exception type (the base type used within the TLang compiler system).
+
+It is rather simple, the constructor takes in the following (in order of appearance):
+
+1. `LexerInterface`
+    * We take in the offending instance of the lexer used which generated this exception
+    * This is such that coordinate information (the $(x,y)$ source text pointer can be added into error messages)
+2. `LexerError`
+    * This is an **optional** parameter which defaults to `LexerError.OTHER`
+    * Base reason for the exception
+3. `string`
+    * This is an **optional** parameter which defaults to `""`
+    * This is the custom error text
+
+The `LexerError` is an enumeration type that is comprised of the following members:
+
+```{.d}
+/** 
+ * The specified error which occurred
+ */
+public enum LexerError
+{
+    /** 
+     * If all the characters were
+     * exhausted
+     */
+    EXHAUSTED_CHARACTERS,
+
+    /** 
+     * Generic error
+     */
+    OTHER
+}
+```
 
 ---
 
