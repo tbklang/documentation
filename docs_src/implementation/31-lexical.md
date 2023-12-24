@@ -251,6 +251,7 @@ reporting) and so forth.
 
 |   Method name             | Return type   |     Description                                                               |
 |---------------------------|---------------|-------------------------------------------------------------------------------|
-| `doIdentOrPath()`         | `bool`        | Processes an ident with or without a dot-path                                 |
-| `doChar()`                | `bool`        | Tokenizes a character                                                         |
-| `doString()`              | `bool`        | Tokenizes a string                                                            |
+| `flush()`                 | `void`        | Flush the current token to the token buffer.                                  |
+| `buildAdvance()`          | `bool`        | Consume the current char into the current token, returns `true` on non-empty buffer |
+| `improvedAdvance(int inc = 1, bool shouldFlush = false)` | `bool` | Advances the source code pointer |
+| `advanceLine()`           | `bool`        | Advance the position, line and current token, reset the column to 1. Returns `true` on non-empty buffer |
