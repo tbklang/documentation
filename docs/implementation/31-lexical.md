@@ -12,7 +12,7 @@ The grammar is described in the [language
 section](../../language/31-grammar/) and can be viewed alongside this
 section for some context.
 
-### Overview of files
+### Overview
 
 The source code for the lexical analysis part of the compiler is located
 in `source/tlang/compiler/lexer/` which contains a few important module
@@ -43,7 +43,7 @@ The API is described in the table below and the file in question is in
 | `getColumn()`       | `ulong`     | Return’s the column number the lexer is at                                    |
 | `getTokens()`       | `Token[]`   | Exhausts the lexer’s token stream and returns all gathered tokens in an array |
 
-##### Character constants
+#### Character constants
 
 For completion we include the commonly used character constant
 definitions. These come in the form of an enumeration type as shown
@@ -98,7 +98,7 @@ public enum LexerSymbols : char
 }
 ```
 
-##### Helper methods
+#### Helper methods
 
 There are quite a few helper methods as well which are commonly used
 across the lexer implementation and therefore are worth being aware of.
@@ -115,7 +115,7 @@ module.
 | `isValidEscape_String(char)`       | `bool`      | Checks if the given character is a valid escape character (something which would have followed a `\`) |
 | `isValidDotPrecede(char)`          | `bool`      | Given a character return whether it is valid entry for preceding a ‘.’.                               |
 
-##### the `Token`
+#### the `Token`
 
 A `Token` represents, well, a token which is produced in following the
 grammar.
@@ -140,7 +140,7 @@ Token token2 = new Token("int");
 assert(token1 == token2);
 ```
 
-##### the `LexerException`
+#### the `LexerException`
 
 This is a simple exception type of which extends the `TError` exception
 type (the base type used within the TLang compiler system).
