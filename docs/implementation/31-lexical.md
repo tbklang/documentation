@@ -263,39 +263,34 @@ Helper functions relating to character and token availability.
 | `isForward()`      | `bool`      | Returns `true` if we can move the character pointer forward, `false` otherwise.                                                                                                                                                                                                 |
 | `isNumericalStr()` | `bool`      | This method is called in order to check if the build up, `currentToken`, is a valid numerical string. If the string is empty, then it returns `false`. If the string is non-empty and contains anything other than digits then it returns `false`, otherwise is returns `true`. |
 
-TODO: There are probably some missing but the above are the most
-general/used helper methods
+#### Grammar-wise
 
-#### isSpliter()
+These are all the methods which pertain to the construction of tokens
+based on different states of the state machine.
 
-This method checks if the given character is one of the following:
+These methods follow a sort of methodology whereby they will return
+`true` if there are characters left in the buffer which can still be
+processed after return, or `false` if there are none left.
 
-``` d
-character == ';' || character == ',' || character == '(' || 
-character == ')' || character == '[' || character == ']' || 
-character == '+' || character == '-' || character == '/' || 
-character == '%' || character == '*' || character == '&' || 
-character == '{' || character == '}' || character == '=' || 
-character == '|' || character == '^' || character == '!' || 
-character == '\n' || character == '~' || character =='.' || 
-character == ':';
-```
+| Method name       | Return type | Description                                                                               |
+|-------------------|-------------|-------------------------------------------------------------------------------------------|
+| `doIdentOrPath()` | `bool`      | Processes an ident with or without a dot-path                                             |
+| `doChar()`        | `bool`      | Tokenizes a character                                                                     |
+| `doString()`      | `bool`      | Tokenizes a string                                                                        |
+| `doComment()`     | `bool`      | Processes various different types of comments                                             |
+| `doEscapeCode()`  | `bool`      | Lex an escape code. If valid one id found, add it to the token, else throw Exception      |
+| `doNumber()`      | `bool`      | Lex a number, this method lexes a plain number, float or numerically encoded.             |
+| `doEncoder()`     | `bool`      | Lex a numerical encoder                                                                   |
+| `doFloat()`       | `bool`      | Lex a floating point, the initial part of the number is lexed by the `doNumber()` method. |
 
-Whenever this method returns `true` it generally means you should flush
-the current token, start a new token add the offending spliter token and
-flush that as well.
+#### Buffer management
 
-### Others
+These are methods for managing the advancement of the lexing pointer,
+the position of $(x, y)$ coordinates (used for error reporting) and so
+forth.
 
-TODO: Document the other methods remaining
-
-| Method name                        | Return type | Description |
-|------------------------------------|-------------|-------------|
-| `numbericalEncoderSegmentFetch()`  | `x`         | Desc.       |
-| `isBuildUpNumerical()`             | `x`         | Desc.       |
-| `isNumericalStr(string)`           | `x`         | Desc.       |
-| `isSpliter(char)`                  | `x`         | Desc.       |
-| `isNumericalEncoder(char)`         | `x`         | Desc.       |
-| `isNumericalEncoder_Size(char)`    | `x`         | Desc.       |
-| `isNumericalEncoder_Signage(char)` | `x`         | Desc.       |
-| `isValidEscape_String(char)`       | `x`         | Desc.       |
+| Method name       | Return type | Description                                   |
+|-------------------|-------------|-----------------------------------------------|
+| `doIdentOrPath()` | `bool`      | Processes an ident with or without a dot-path |
+| `doChar()`        | `bool`      | Tokenizes a character                         |
+| `doString()`      | `bool`      | Tokenizes a string                            |
