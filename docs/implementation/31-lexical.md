@@ -113,6 +113,7 @@ module.
 | `isNumericalEncoder_Signage(char)` | `bool`      | Checks if the provided character is a numerical signage encoder                                       |
 | `isNumericalEncoder(char)`         | `bool`      | Checks if the provided character is either a numerical size encoder or signage encoder                |
 | `isValidEscape_String(char)`       | `bool`      | Checks if the given character is a valid escape character (something which would have followed a `\`) |
+| `isValidDotPrecede(char)`          | `bool`      | Given a character return whether it is valid entry for preceding a ‘.’.                               |
 
 ##### the `Token`
 
