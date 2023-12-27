@@ -4,10 +4,9 @@ Lexical analysis is the process of taking a program as an input string $A$ and s
 
 ### Grammar
 
-TODO: fix the link
-The grammar is described in the [language section](31-grammar.md) and can be viewed alongside this section for some context.
+The grammar is described in the [language section](../../language/31-grammar/) and can be viewed alongside this section for some context.
 
-### Overview of files
+### Overview
 
 The source code for the lexical analysis part of the compiler is located in `source/tlang/compiler/lexer/` which contains a few important module and class definitions.
 
@@ -29,7 +28,77 @@ The API is described in the table below and the file in question is in `source/t
 | `getColumn()`             | `ulong`       | Return's the column number the lexer is at                                    |
 | `getTokens()`             | `Token[]`     | Exhausts the lexer's token stream and returns all gathered tokens in an array |
 
-##### the `Token`
+#### Character constants
+
+For completion we include the commonly used character constant definitions. These come in
+the form of an enumeration type as shown below:
+
+```d
+public enum LexerSymbols : char
+{
+    L_PAREN = '(',
+    R_PAREN = ')',
+    SEMI_COLON = ';',
+    COMMA = ',',
+    L_BRACK =  '[' ,
+    R_BRACK =  ']' ,
+    PLUS =  '+' ,
+    MINUS =  '-' ,
+    FORWARD_SLASH =  '/' ,
+    PERCENT =  '%' ,
+    STAR =  '*' ,
+    AMPERSAND =  '&' ,
+    L_BRACE =  '{' ,
+    R_BRACE =  '}' ,
+    EQUALS =  '=' ,
+    SHEFFER_STROKE =  '|' ,
+    CARET =  '^' ,
+    EXCLAMATION =  '!' ,
+    TILDE =  '~' ,
+    DOT =  '.' ,
+    COLON =  ':',
+    SPACE = ' ',
+    TAB = '\t',
+    NEWLINE = '\n',
+    DOUBLE_QUOTE = '"',
+    SINGLE_QUOTE =  '\'' ,
+    BACKSLASH =  '\\' ,
+    UNDERSCORE =  '_' ,
+    LESS_THAN =  '<' ,
+    BIGGER_THAN =  '>' ,
+
+    ESC_NOTHING =  '0' ,
+    ESC_CARRIAGE_RETURN =  'r' ,
+    ESC_TAB =  't' ,
+    ESC_NEWLINE =  'n' ,
+    ESC_BELL=  'a' ,
+
+    ENC_BYTE =  'B' ,
+    ENC_INT =  'I' ,
+    ENC_LONG =  'L' ,
+    ENC_WORD =  'W' ,
+    ENC_UNSIGNED =  'U' ,
+    ENC_SIGNED =  'S' ,
+}
+```
+
+#### Helper methods
+
+There are quite a few helper methods as well which are commonly used across the lexer implementation
+and therefore are worth being aware of. You can find these all within the `tlang.compiler.lexer.core.lexer`
+module.
+
+|   Method name             | Return type   |     Description                                                               |
+|---------------------------|---------------|-------------------------------------------------------------------------------|
+| `isOperator(char c)`      | `bool`        | Checks if the provided character is an operator, returning `true` if so       |
+| `isSplitter(char c)`      | `bool`        | Checks if the provided character is a splitter, returning `true` if so        |
+| `isNumericalEncoder_Size(char)` | `bool`  | Checks if the provided character is a numerical size encoder                  |
+| `isNumericalEncoder_Signage(char)` | `bool` | Checks if the provided character is a numerical signage encoder             |
+| `isNumericalEncoder(char)` | `bool`       | Checks if the provided character is either a numerical size encoder or signage encoder |
+| `isValidEscape_String(char)` | `bool`     | Checks if the given character is a valid escape character (something which would have followed a `\`) |
+| `isValidDotPrecede(char)` | `bool`        | Given a character return whether it is valid entry for preceding a '.'.       |
+
+#### the `Token`
 
 A `Token` represents, well, a token which is produced in following the grammar.
 
@@ -52,7 +121,42 @@ Token token2 = new Token("int");
 assert(token1 == token2);
 ```
 
-TODO: Document `LexerException` and `LexerError` (see: https://deavmi.assigned.network/git/tlang/tlang/src/branch/vardec_varass_dependency/source/tlang/compiler/lexer/core/exceptions.d)
+#### the `LexerException`
+
+This is a simple exception type of which extends the `TError` exception type (the base type used within the TLang compiler system).
+
+It is rather simple, the constructor takes in the following (in order of appearance):
+
+1. `LexerInterface`
+    * We take in the offending instance of the lexer used which generated this exception
+    * This is such that coordinate information (the $(x,y)$ source text pointer can be added into error messages)
+2. `LexerError`
+    * This is an **optional** parameter which defaults to `LexerError.OTHER`
+    * Base reason for the exception
+3. `string`
+    * This is an **optional** parameter which defaults to `""`
+    * This is the custom error text
+
+The `LexerError` is an enumeration type that is comprised of the following members:
+
+```{.d}
+/** 
+ * The specified error which occurred
+ */
+public enum LexerError
+{
+    /** 
+     * If all the characters were
+     * exhausted
+     */
+    EXHAUSTED_CHARACTERS,
+
+    /** 
+     * Generic error
+     */
+    OTHER
+}
+```
 
 ---
 
@@ -77,17 +181,8 @@ A quick overview of some of the fields which are used for tracking the state of 
 | `column`          | `ulong`         | Current column the tokenizer is on (with respect to the source code input) |
 | `currentToken`    | `string`        | The token string that is currently being built-up, char-by-char            |
 
-There are also some auxillary flags used for processing particular parts of the grammar:
 
-| Name              | Type            | Purpose
-|-------------------|-----------------|--------------------------------------------------------------------------------|
-| `stringMode`      | `bool`          | Whether we are current buliding up a string (e.g. `"we are here"`) or not      |
-| `floatMode`       | `bool`          | Whether we are current buliding up a floating-point literal (e.g. `3.5) or not |
-
-
-
-The implementation of the lexer, the `Lexer` class, is explained in detail in this section. (TODO: constructor) The lexical analysis is done one-shot via the `performLex()` method which will attempt to tokenize the input program, on failure returning `false`, `true` otherwise. In the successful case the `tokens` array will be filled with the created tokens and can then later be retrieved via a call to `getTokens()`.
-
+The implementation of the lexer, the `BasicLexer` class, is explained in detail in this section. The lexical analysis is done one-shot via the `performLex()` method which will attempt to tokenize the input program, on failure returning `false`, `true` otherwise. In the successful case the `tokens` array will be filled with the created tokens and can then later be retrieved via a call to `getTokens()`.
 
 Below is an example usage of the `BasicLexer` which makes use of it in order to process the following input source code:
 
@@ -127,9 +222,9 @@ unittest
 
 #### Using `performLex()`
 
-This method contains a looping structure which will read character-by-character from the `sourceCode` string and follow the rules of the grammar (TODO: add link), looping whilst there are still characters available for consumption (`position < sourceCode.length`).
+This method contains a looping structure which will read character-by-character from the `sourceCode` string and follow the rules of the [grammar](../../language/31-grammar/), looping whilst there are still characters available for consumption (`position < sourceCode.length`).
 
-We loop through each character and dependent on its value we start building new tokens, certain characters will cause a token to finish being built which will sometimes be caused by `isSpliter(character)` being `true`. A typical token building process looks something like the following, containing the final character to be tacked onto the current token build up, the creation of a new token object and the addition of it to the `tokens` list, finishing with flushing the build up string and incrementing the coordinates:
+We loop through each character and dependent on its value we start building new tokens, certain characters will cause a token to finish being built which will sometimes be caused by `isSplitter(character)` being `true`. A typical token building process looks something like the following, containing the final character to be tacked onto the current token build up, the creation of a new token object and the addition of it to the `tokens` list, finishing with flushing the build up string and incrementing the coordinates:
 
 A typical token building procedure looks something like this:
 
@@ -156,37 +251,32 @@ Helper functions relating to character and token availability.
 | `isNumericalStr()`            | `bool`        | This method is called in order to check if the build up, `currentToken`, is a valid numerical string. If the string is empty, then it returns `false`. If the string is non-empty and contains anything other than digits then it returns `false`, otherwise is returns `true`.  |
 
 
+#### Grammar-wise
 
-TODO: There are probably some missing but the above are the most general/used helper methods
+These are all the methods which pertain to the construction of tokens based on different states of the state machine.
 
-#### isSpliter()
+These methods follow a sort of methodology whereby they will return `true` if there are characters left in the buffer
+which can still be processed after return, or `false` if there are none left.
 
-This method checks if the given character is one of the following:
+|   Method name             | Return type   |     Description                                                               |
+|---------------------------|---------------|-------------------------------------------------------------------------------|
+| `doIdentOrPath()`         | `bool`        | Processes an ident with or without a dot-path                                 |
+| `doChar()`                | `bool`        | Tokenizes a character                                                         |
+| `doString()`              | `bool`        | Tokenizes a string                                                            |
+| `doComment()`             | `bool`        | Processes various different types of comments                                 |
+| `doEscapeCode()`          | `bool`        | Lex an escape code. If valid one id found, add it to the token, else throw Exception |
+| `doNumber()`              | `bool`        | Lex a number, this method lexes a plain number, float or numerically encoded. |
+| `doEncoder()`             | `bool`        | Lex a numerical encoder                                                       |
+| `doFloat()`               | `bool`        | Lex a floating point, the initial part of the number is lexed by the `doNumber()` method. |
 
-```{.d .numberLines}
-character == ';' || character == ',' || character == '(' || 
-character == ')' || character == '[' || character == ']' || 
-character == '+' || character == '-' || character == '/' || 
-character == '%' || character == '*' || character == '&' || 
-character == '{' || character == '}' || character == '=' || 
-character == '|' || character == '^' || character == '!' || 
-character == '\n' || character == '~' || character =='.' || 
-character == ':';
-```
+#### Buffer management
 
-Whenever this method returns `true` it generally means you should flush the current token, start a new token add the offending spliter token and flush that as well.
+These are methods for managing the advancement of the lexing pointer, the position of $(x, y)$ coordinates (used for error
+reporting) and so forth.
 
-### Others
-
-TODO: Document the other methods remaining
-
-|   Method name                           | Return type   |     Description                                                               |
-|-----------------------------------------|---------------|-------------------------------------------------------------------------------|
-| `numbericalEncoderSegmentFetch()`       | `x`           | Desc.                 |
-| `isBuildUpNumerical()`                  | `x`           | Desc.                                                 |
-| `isNumericalStr(string)`                | `x`           | Desc.                                               |
-| `isSpliter(char)`                       | `x`           | Desc.                                |
-| `isNumericalEncoder(char)`              | `x`           | Desc.             |
-| `isNumericalEncoder_Size(char)`         | `x`           | Desc.     |
-| `isNumericalEncoder_Signage(char)`      | `x`           | Desc.                                      |
-| `isValidEscape_String(char)`            | `x`           | Desc.                                    |
+|   Method name             | Return type   |     Description                                                               |
+|---------------------------|---------------|-------------------------------------------------------------------------------|
+| `flush()`                 | `void`        | Flush the current token to the token buffer.                                  |
+| `buildAdvance()`          | `bool`        | Consume the current char into the current token, returns `true` on non-empty buffer |
+| `improvedAdvance(int inc = 1, bool shouldFlush = false)` | `bool` | Advances the source code pointer |
+| `advanceLine()`           | `bool`        | Advance the position, line and current token, reset the column to 1. Returns `true` on non-empty buffer |
