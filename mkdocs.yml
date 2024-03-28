@@ -42,6 +42,7 @@ nav:
     - Emit: implementation/36-emit.md
     - Compiler: implementation/37-compiler.md
     - Meta: implementation/38-meta.md
+    - Module management: implementation/39-module-management.md
   # - Journal:
   #   - Why: journal/why.md
   #   - First day: journal/first-day.md
