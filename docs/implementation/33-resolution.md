@@ -80,7 +80,8 @@ already being visited it should not be visited again).
 
 Now that we have a good idea of the types involved we can take a look at
 the API which the resolver has to offer and how it may be used in order
-to perform the resolution of *entities*.
+to generate names of *entities* and perform the resolution of
+*entities*.
 
 Let’s first take a look at the constructor that the `Resolver` has:
 
@@ -99,7 +100,10 @@ resolver.
 
 Now that we know how to construct a resolver, let’s see what methods it
 makes available to every component from the `TypeChecker` (as it is
-constructed here) and onwards:
+constructed here) and onwards.
+
+The first set of methods relate to the name generation of entities in
+the AST tree.
 
 | Method                             | Return type | Description                                                                                                                                                                                                                  |
 |------------------------------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -108,7 +112,15 @@ constructed here) and onwards:
 | `generateNameBest(Entity)`         | `string`    | Generate the absolute full path of the given entity without specifying which anchor point to use.                                                                                                                            |
 | `generateName(Container, Entity)`  | `string`    | Given an entity and a container this will generate the entity’s full path relative to the given container. If the container is a `Program` then the absolute name of the entity is derived.                                  |
 
-### How `isDescendant(Container, Entity)` works
+The second set of methods relate to the resolution facilities made
+available which allow one to search for entities based on various
+different sorts of custom *predicates* and by name.
+
+| Method | Return type | Description |
+|--------|-------------|-------------|
+|        |             |             |
+
+#### How `isDescendant(Container, Entity)` works
 
 The first check we do is an obvious one, check if the provided entity is
 equal to that of the provided container, in that case it is a descendant
