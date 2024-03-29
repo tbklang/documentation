@@ -423,10 +423,16 @@ the first `Entity` found when a positive verdict is returned from having
 the provided predicate applied to it. We can see this below:
 
 ``` d
-/* Try to find the Entity wthin the current Container */
-gprintln(format("resolveUp(c=%s, pred=%s)", currentContainer, predicate));
+/* Try to find the Entity within the current Container */
+gprintln
+(
+    format("resolveUp(c=%s, pred=%s)", currentContainer, predicate)
+);
 Entity entity = resolveWithin(currentContainer, predicate);
-gprintln(format("resolveUp(c=%s, pred=%s) within-search returned '%s'", currentContainer, predicate, entity));
+gprintln
+(
+    format("resolveUp(c=%s, pred=%s) within-search returned '%s'", currentContainer, predicate, entity)
+);
 
 /* If we found it return it */
 if(entity)
@@ -471,11 +477,23 @@ Container possibleParent = (cast(Entity) currentContainer).parentOf();
 
 gprintln
 (
-    format("resolveUp(c=%s, pred=%s) cur container typeid: %s", currentContainer, predicate, currentContainer)
+    format
+    (
+        "resolveUp(c=%s, pred=%s) cur container typeid: %s",
+        currentContainer,
+        predicate,
+        currentContainer
+    )
 );
 gprintln
 (
-    format("resolveUp(c=%s, pred=%s) possible parent: %s", currentContainer, predicate, possibleParent)
+    format
+    (
+        "resolveUp(c=%s, pred=%s) possible parent: %s",
+        currentContainer,
+        predicate,
+        possibleParent
+    )
 );
 
 /* Can we go up */
@@ -488,7 +506,12 @@ else
 {
     gprintln
     (
-        format("resolveUp(c=%s, pred=%s) Simply not found ", currentContainer, predicate)
+        format
+        (
+            "resolveUp(c=%s, pred=%s) Simply not found ",
+            currentContainer,
+            predicate
+        )
     );
     return null;
 }
