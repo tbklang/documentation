@@ -103,14 +103,28 @@ constructed here) and onwards:
 
 | Method                             | Return type | Description                                                                                                                                                                                                                  |
 |------------------------------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `isDescendant(Container, Entity)`  | `bool`      | Returns `true` entity `e` is `c` or is within (contained under `c`), `false` otherwise                                                                                                                                       |
 | `generateName0(Container, Entity)` | `string[]`  | Generates the components of the path from a given entity up to (and including) the given container. The latter implies that the given `Container` must also be a kind-of `Entity` such that a name can be generated from it. |
+| `generateNameBest(Entity)`         | `string`    | Generate the absolute full path of the given entity without specifying which anchor point to use.                                                                                                                            |
+| `generateName(Container, Entity)`  | `string`    | Given an entity and a container this will generate the entity’s full path relative to the given container. If the container is a `Program` then the absolute name of the entity is derived.                                  |
 
-`generateNameBest(Entity)`\| `string` \| Generate the absolute full path
-of the given entity without specifying which anchor point to use. \|  
-`generateName(Container, Entity)` \| `string` \| Given an entity and a
-container this will generate the entity’s full path relative to the
-given container. If the container is a `Program` then the absolute name
-of the entity is derived. \|
+### How `isDescendant(Container, Entity)` works
+
+TODO: Add this
+
+The first check we do is an obvious one, check if the provided entity is
+equal to that of the provided container, in that case it is a descendant
+by the rule.
+
+``` d
+/**
+ * If they are the same
+ */
+if (c == e)
+{
+    return true;
+}
+```
 
 #### How `generateNameBest(Entity)` works
 
@@ -139,19 +153,65 @@ anchor - hence giving you the absolute path (because remember, a
 #### How `generateName(Container, Entity)` works
 
 The definition of this method is where the real complexity is housed.
-THis also accounts for how the previous method,
+This also accounts for how the previous method,
 `generateNameBest(Entity)`, is implemented.
 
-TODO: Add this
+Firstly we ensure that both arguments are non-`null` with:
 
-#### How `generateName_Internal(Container relativeTo, Entity entity)` works
+``` d
+assert(relativeTo);
+assert(entity);
+```
+
+A special case is when the container is a `Program`, in that case the
+entity’s containing `Module` will be found and the name will be
+generated relative to that. Since `Program`’s have no names, doing such
+a call gives you the absolute (full path) of the entity within the
+entire program as the `Module` is the second highest in the AST tree and
+first `Entity`-typed object, meaning first “thing” with a name.
+
+``` d
+if(cast(Program)relativeTo)
+{
+    Container potModC = findContainerOfType(Module.classinfo, entity);
+    assert(potModC); // Should always be true (unless you butchered the AST)
+    Module potMod = cast(Module)potModC;
+    assert(potMod); // Should always be true (unless you butchered the AST)
+
+    return generateName(potMod, entity);
+}
+```
+
+Given an entity and a container this will generate the entity’s full
+path relative to the given container. This means calling
+`generateName0(Container, Entity)` and then joining each path element
+with a period.
+
+``` d
+string[] name = generateName0(relativeTo, entity);
+string path;
+for (ulong i = 0; i < name.length; i++)
+{
+    path ~= name[name.length - 1 - i];
+
+    if (i != name.length - 1)
+    {
+        path ~= ".";
+    }
+}
+
+return path;
+```
+
+Once `path` is calculated we then finally return with it.
+
+#### How `generateName0(Container, Entity)` works
 
 Let’s first look at how
-`generateName_Internal(Container relativeTo, Entity entity)` is
-implemented. The idea behind this method is to generate an array of
-strings, i.e. `string[]`, which contains the highest node in the
-hierachy to the lowest node (then given entity) from left to right
-respectively.
+`generateName0(Container relativeTo, Entity entity)` is implemented. The
+idea behind this method is to generate an array of strings,
+i.e. `string[]`, which contains the highest node in the hierachy to the
+lowest node (then given entity) from left to right respectively.
 
 As mentioned the given container, `relativeTo`, has to be a kind-of
 `Entity` as well such that a name can be generated for it, hence we
