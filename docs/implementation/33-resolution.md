@@ -426,12 +426,23 @@ the provided predicate applied to it. We can see this below:
 /* Try to find the Entity within the current Container */
 gprintln
 (
-    format("resolveUp(c=%s, pred=%s)", currentContainer, predicate)
+    format
+    (
+        "resolveUp(c=%s, pred=%s)",
+        currentContainer,
+        predicate
+    )
 );
 Entity entity = resolveWithin(currentContainer, predicate);
 gprintln
 (
-    format("resolveUp(c=%s, pred=%s) within-search returned '%s'", currentContainer, predicate, entity)
+    format
+    (
+        "resolveUp(c=%s, pred=%s) within-search returned '%s'",
+        currentContainer,
+        predicate,
+        entity
+    )
 );
 
 /* If we found it return it */
