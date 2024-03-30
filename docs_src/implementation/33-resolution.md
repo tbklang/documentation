@@ -314,12 +314,21 @@ With this understanding one can imagine that the implementation if rather simple
 ```d
 gprintln
 (
-    format("resolveWithin(cntnr=%s) entered", currentContainer)
+    format
+    (
+        "resolveWithin(cntnr=%s) entered",
+        currentContainer
+    )
 );
 Statement[] statements = currentContainer.getStatements();
 gprintln
 (
-    format("resolveWithin(cntnr=%s) container has statements %s", currentContainer, statements)
+    format
+    (
+        "resolveWithin(cntnr=%s) container has statements %s",
+        currentContainer,
+        statements
+    )
 );
 
 foreach(Statement statement; statements)
