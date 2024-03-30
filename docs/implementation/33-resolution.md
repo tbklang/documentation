@@ -536,7 +536,37 @@ else
 
 #### How *best-effort* resolution works
 
-TODO: Add this
+Best effort resolution is now described in this section. The method of
+concern for this is `resolveBest(Container c, string name)`.
+
+**Steps**:
+
+1.  We first obtain the `path` as a `string[]` by splitting the incoming
+    `name` by any periods present (`.`s)
+2.  *If* the container `c` is a kind-of `Program` *then*…
+    1.  *If* the `path` is a single element i.Search for a module with
+        the name of `path[0]`
+    2.  *If* the `path` is more than a single element then we take it
+        that `path[0]` is the name of a module, we first search for that
+        1.  *If **not** found* we return `null`
+        2.  *If found* we then call
+            `resolveBest(moduleFound, join(path[1..$], '.')`, so we
+            re-anchor our search based on the module as the container
+            node for the recursive call and the rest of the search path
+            is handed off to the nested call.
+3.  *If **not*** and we have a single element in the `path` then we have
+    a few more checks which follow
+    1.  We check if any of the *modules* within the current *program*
+        matches the name
+    2.  *If* no match is found *then* we try to resolve the `name` (in
+        other words `path[0]`) upwards
+4.  *If* the `path` has more than one element
+    1.  *If* `path[0]` refers to the container entity `c` then…
+        1.  *If* there is only one element left, namely, `path[1]`, then
+            we return with the result of calling
+            `resolveWithin(c, path[1])`.
+        2.  *If* there are more than two elements then what we
+            effectively do
 
 ### Worked examples
 
