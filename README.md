@@ -28,3 +28,18 @@ Once you have finished making your changes in the files in `docs_src/`, please t
 This should produce an updated file in `docs/` with the same name as the one you edited in `docs_src/`, **commit BOTH files** please.
 
 Then you're done!
+
+
+## Docker
+
+First build the image using:
+
+```bash
+sudo docker build . -t tlangdocs
+```
+
+Then run the build process whenever you need to:
+
+```bash
+sudo docker run -v $(pwd):/home/tlang/docs:z tlangdocs:latest
+```
