@@ -293,25 +293,21 @@ expect(SymbolType.SEMICOLON, lexer.getCurrentToken());
 lexer.nextToken();
 ```
 
-### Modules
+#### Visiting modules
 
-TODO: Add this
+We now have an array of modules wanting to be imported in the form of `collectedModuleNames`.
+But what do we do with these now?
 
-It is worth
+Well, we need to obviously open up the modules but that means ~~two~~ three things:
 
-It is worth dedicating a section to how the module lookup system works. This is discussed as part of the overarching _"Parsing"_ chapter because this code is made of use within the `parseImport(string)` method.
+1. How do we map a module name `b` to a filename?
+2. How do we prevent cycles when visiting modules
+3. How do we add them all to the correct _program_?
 
-Let's start off with a module which we are parsing, and let's say that it looks like this:
+Well, lucky for you the answers are all here - albeit, it did take a lot of time to get this
+albeit simple-sounding system right.
 
-```{.d .numberLines}
-TODO: Add code
-```
+The mapping of names is discussed in the _module management_ section but
+needless to say it is performed by the current `Program`'s `ModuleManager`
+which can be retrieved via `this.program.getModMan()`.
 
-When we examine each of the import statements, how is it that we actually go about looking up the module it refers to on disk? How do we know which directories to scan in the first place. How is the name finally determined? All of these questions will be answered but before we can do so we must first take a look at the sub-system known as the `ModuleManager`.
-
-
-Things added to search path:
-
-* Current working directory
-* `modman:paths`
-* COntaining directory of each module on command0line
