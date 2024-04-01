@@ -28,5 +28,8 @@ Therefore we could perform a compilation with these additional search
 paths as such:
 
 ``` bash
-./tlang compile source/tlang/testing/modules/a.t --paths "$(pwd)" --paths source/tlang/testing/ --paths /usr/lib
+./tlang compile source/tlang/testing/modules/a.t \
+    --paths "$(pwd)" \
+    --paths source/tlang/testing/ \
+    --paths /usr/lib \
 ```
