@@ -224,7 +224,7 @@ _module management_. All you are required to know here is that _programs_ can ho
 is **not** any kind-of `Entity` and hence has no name associated with it, the first such `Entity` within the tree
 which _does_ is that of its associated _modules_.
 
-#### Importing
+#### Determining what to import
 
 We can now move onto the crux of the matter which is _"How does the parser manage importing of modules?"_.
 
@@ -246,16 +246,52 @@ delving deeper into as compared to other topics of parsing which are rather stra
 **Steps**:
 
 The first few steps are rather simple, and are what you would expect from any other parsing
-method within the parser, but nontheless they aid us in determing a set of important variables:
+method within the parser, but nonetheless they aid us in determining a set of important variables:
 
 1. First consume the token `import`
-2. Now expect an identifier kind-of `SymboType`, i.e. a name, then save and consume
+2. Now expect an identifier kind-of `SymbolType`, i.e. a name, then save and consume
 3. Check if there is a `,` symbol, if so we then loop whilst we have a `,`
     i. Each iteration saving the name found (i.e. `a, b, c;`)
 4. Expect a semi-colon (`;`) and consume it
 
 At the end of this we should have a list of modules wanting to be imported, namely
 `collectedModuleNames`.
+
+The code is attached below:
+
+```{.d .numberLines}
+/* Consume the `import` keyword */
+lexer.nextToken();
+
+/* Get the module's name */
+expect(SymbolType.IDENT_TYPE, lexer.getCurrentToken());
+string moduleName = lexer.getCurrentToken().getToken();
+
+/* Consume the token */
+lexer.nextToken();
+
+/* All modules to be imported */
+string[] collectedModuleNames = [moduleName];
+
+/* Try process multi-line imports (if any) */
+while(getSymbolType(lexer.getCurrentToken()) == SymbolType.COMMA)
+{
+    /* Consume the comma `,` */
+    lexer.nextToken();
+
+    /* Get the module's name */
+    expect(SymbolType.IDENT_TYPE, lexer.getCurrentToken());
+    string curModuleName = lexer.getCurrentToken().getToken();
+    collectedModuleNames ~= curModuleName;
+
+    /* Consume the name */
+    lexer.nextToken();
+}
+
+/* Expect a semi-colon and consume it */
+expect(SymbolType.SEMICOLON, lexer.getCurrentToken());
+lexer.nextToken();
+```
 
 ### Modules
 
