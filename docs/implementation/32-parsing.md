@@ -401,32 +401,128 @@ expect(SymbolType.SEMICOLON, lexer.getCurrentToken());
 lexer.nextToken();
 ```
 
-### Modules
+#### Visiting modules
 
-TODO: Add this
+We now have an array of modules wanting to be imported in the form of
+`collectedModuleNames`. But what do we do with these now?
 
-It is worth
+Well, we need to obviously open up the modules but that means ~~two~~
+three things:
 
-It is worth dedicating a section to how the module lookup system works.
-This is discussed as part of the overarching *“Parsing”* chapter because
-this code is made of use within the `parseImport(string)` method.
+1.  How do we map a module name `b` to a filename?
+2.  How do we prevent cycles when visiting modules
+3.  How do we add them all to the correct *program*?
 
-Let’s start off with a module which we are parsing, and let’s say that
-it looks like this:
+Well, lucky for you the answers are all here - albeit, it did take a lot
+of time to get this albeit simple-sounding system right.
+
+The mapping of names is discussed in the *module management* section but
+needless to say it is performed by the current `Program`’s
+`ModuleManager` which can be retrieved via `this.program.getModMan()`.
+
+------------------------------------------------------------------------
+
+Let’s look at how this code works. Recall that we were still busy in
+`parseImport()`. Well, now we shall enter the following method
+`doImport(string[])` as follows:
 
 ``` d
-TODO: Add code
+/* Perform the actual import */
+doImport(collectedModuleNames);
 ```
 
-When we examine each of the import statements, how is it that we
-actually go about looking up the module it refers to on disk? How do we
-know which directories to scan in the first place. How is the name
-finally determined? All of these questions will be answered but before
-we can do so we must first take a look at the sub-system known as the
-`ModuleManager`.
+This method first of all starts off by obtaining a few important object
+instances:
 
-Things added to search path:
+``` d
+// Print out some information about the current program
+Program prog = this.compiler.getProgram();
 
-- Current working directory
-- `modman:paths`
-- COntaining directory of each module on command0line
+// Get the module manager
+ModuleManager modMan = compiler.getModMan();
+```
+
+------------------------------------------------------------------------
+
+Now, we must perform the following **steps**:
+
+1.  *For every* module name `i` in `collectedModuleNames`
+    1.  Find a `ModuleEntry` for *name* `i`
+    2.  Append this `ModuleEntry` to `foundEnts`
+
+This step is what satisfies the first 1/3 steps of ours. This maps the
+incoming module *name* to a module *filename*. The code for doing this
+is shown below:
+
+``` d
+// Search for all the module entries
+ModuleEntry[] foundEnts;
+foreach(string mod; modules)
+{
+    gprintln(format("Module wanting to be imported: %s", mod));
+
+    // Search for the module entry
+    ModuleEntry foundEnt = modMan.find(mod);
+    gprintln("Found module entry: "~to!(string)(foundEnt));
+    foundEnts ~= foundEnt;
+}
+```
+
+------------------------------------------------------------------------
+
+Now we have to do the following **steps**:
+
+1.  *For each* module entry `m` in `foundEnts`
+    1.  Check if `m` has been visited, **if so**, then go back to `1`
+        and process the next *module entry*
+    2.  *If **not*** then *mark the entry* as visited
+        1.  Then read the module’s source code
+        2.  Parse the module and obtain a `Module` object
+        3.  Save the obtained `Module` to the *module entry* `m`
+
+The code for the above algorithm can be seen below:
+
+``` d
+// For each module entry, only import
+// it if not already in the process
+// of being visited
+foreach(ModuleEntry modEnt; foundEnts)
+{
+    // Check here if already present, if so,
+    // then skip
+    if(prog.isEntryPresent(modEnt))
+    {
+        gprintln(format("Not parsing module '%s' as already marked as visited", modEnt));
+        continue;
+    }
+
+    // Mark it as visited
+    prog.markEntryAsVisited(modEnt);
+
+    // Read in the module's contents
+    string moduleSource = modMan.readModuleData_throwable(modEnt);
+    gprintln("Module has "~to!(string)(moduleSource.length)~" many bytes");
+
+    // Parse the module
+    import tlang.compiler.lexer.kinds.basic : BasicLexer;
+    LexerInterface lexerInterface = new BasicLexer(moduleSource);
+    (cast(BasicLexer)lexerInterface).performLex();
+    Parser parser = new Parser(lexerInterface, this.compiler);
+    Module pMod = parser.parse(modEnt.getPath());
+
+    // Map parsed module to its entry
+    prog.setEntryModule(modEnt, pMod);
+}
+```
+
+This whole process is important, especially the aspect whereby we mark a
+module as visited prior to finishing parsing it. One needs this because
+a module `b` might import a module `a` which imports a module `b` and it
+is at this last point that we want the check for visitation to return
+`true` even though parsing of the `b` module has not yet completed.
+
+Then at the end of the entire process we save the obtained *module
+object* to its respective *module entry*. The act of saving it basically
+maps the module’s *name* to the `Module` object itself and **also** adds
+it to the `Program`’s body - hence making this module a part of the
+larger program.
