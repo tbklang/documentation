@@ -73,7 +73,12 @@ This controls the aspects of the `TypeChecker`.
 This controls various aspects of the module management system:
 
 1.  `modman:strict_headers`
-    - if this is set to `true` then it will enforce that every modules’
+    - If this is set to `true` then it will enforce that every modules’
       declared name matches that of its filename *sans* the file
       extension
     - Default: `false`
+2.  `modman:paths`
+    - This contains additional search paths that the *module manager*
+      should use
+    - It is the form of a *textual array*
+    - Default: `[]`
