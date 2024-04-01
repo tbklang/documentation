@@ -301,9 +301,52 @@ while(hasTokens())
 
 ------------------------------------------------------------------------
 
+### Import system
+
+#### What is a program?
+
+Before we continue we should quickly discuss what *is a program*. The
+`Program` type is defined in a rather simple manner. It *is* a kind-of
+`Container` (a type ypu shall see described more in detail later) and
+hence has the methods for adding or querying `Statement`(s) from/in
+itself.
+
+What makes a program unique is that it will only allow you to add
+`Statement`(s) to it which are of the `Module` type, and here is where
+the definition comes in.
+
+> A program is a set of modules
+
+There are also methods that relate to how this is managed but that is
+discussed in a later section on the topic of *module management*. All
+you are required to know here is that *programs* can hold *modules*.
+Notably too, a program is **not** any kind-of `Entity` and hence has no
+name associated with it, the first such `Entity` within the tree which
+*does* is that of its associated *modules*.
+
+#### Importing
+
+We can now move onto the crux of the matter which is *“How does the
+parser manage importing of modules?”*.
+
+First we must observe that `import` statements are only valid at the
+module-level, meaning that you will only ever see a call to
+`parseImport()` from the code within the `parse(string, boolean)` as
+follows:
+
+``` d
+/* If it is an import */
+else if(symbol == SymbolType.IMPORT)
+{
+    parseImport();
+}
+```
+
 ### Modules
 
 TODO: Add this
+
+It is worth
 
 It is worth dedicating a section to how the module lookup system works.
 This is discussed as part of the overarching *“Parsing”* chapter because

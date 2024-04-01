@@ -206,9 +206,62 @@ while(hasTokens())
 
 ---
 
+### Import system
+
+#### What is a program?
+
+Before we continue we should quickly discuss what _is a program_. The `Program` type is defined in a rather simple
+manner. It _is_ a kind-of `Container` (a type ypu shall see described more in detail later) and hence has the methods
+for adding or querying `Statement`(s) from/in itself.
+
+What makes a program unique is that it will only allow you to add `Statement`(s) to it which are of the `Module` type,
+and here is where the definition comes in.
+
+>A program is a set of modules
+
+There are also methods that relate to how this is managed but that is discussed in a later section on the topic of
+_module management_. All you are required to know here is that _programs_ can hold _modules_. Notably too, a program
+is **not** any kind-of `Entity` and hence has no name associated with it, the first such `Entity` within the tree
+which _does_ is that of its associated _modules_.
+
+#### Importing
+
+We can now move onto the crux of the matter which is _"How does the parser manage importing of modules?"_.
+
+First we must observe that `import` statements are only valid at the module-level, meaning that you will
+only ever see a call to `parseImport()` from the code within the `parse(string, boolean)` as follows:
+
+```d
+/* If it is an import */
+else if(symbol == SymbolType.IMPORT)
+{
+    parseImport();
+}
+```
+
+So then, how does this work. Well, compared to _other_ parts of the parser this is one which actually
+has to maintain state and makes use of _multiple parsers_ in a recursive manner. Therefore it is worth
+delving deeper into as compared to other topics of parsing which are rather straight forward.
+
+**Steps**:
+
+The first few steps are rather simple, and are what you would expect from any other parsing
+method within the parser, but nontheless they aid us in determing a set of important variables:
+
+1. First consume the token `import`
+2. Now expect an identifier kind-of `SymboType`, i.e. a name, then save and consume
+3. Check if there is a `,` symbol, if so we then loop whilst we have a `,`
+    i. Each iteration saving the name found (i.e. `a, b, c;`)
+4. Expect a semi-colon (`;`) and consume it
+
+At the end of this we should have a list of modules wanting to be imported, namely
+`collectedModuleNames`.
+
 ### Modules
 
 TODO: Add this
+
+It is worth
 
 It is worth dedicating a section to how the module lookup system works. This is discussed as part of the overarching _"Parsing"_ chapter because this code is made of use within the `parseImport(string)` method.
 
