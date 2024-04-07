@@ -409,3 +409,104 @@ we want the check for visitation to return `true` even though parsing of the `b`
 Then at the end of the entire process we save the obtained _module object_ to its respective _module entry_. The act
 of saving it basically maps the module's _name_ to the `Module` object itself and **also** adds it to the `Program`'s
 body - hence making this module a part of the larger program.
+
+
+#### The first call to `parse(string, bool)`
+
+Now that we know how all of this fits together it is worth taking a look at where this all starts, the _first call
+to the parser_.
+
+If we take a look at the `doParser()` method inside the `Compiler` object then we can get an idea of how this all
+starts off.
+
+We firstly construct a new `Parser` and provide it an instance of the `Compiler` itself and _of course_ the
+tokens to parse. The compiler is important as it contains the `Program` instance whereby `Module`(s) will
+be attached to:
+
+```d
+/* Spawn a new parser with the provided tokens */
+this.parser = new Parser(lexer, this);
+```
+
+After this we then begin the parsing, notably we set the second parameter to `true` to indicate that the
+module being parsed is for the entrypoint (we shall see the effect of this later):
+
+```d
+// It is easier to grab the module
+// name from inside hence we should probably
+// have a default parameter isEntrypoint=false
+// and then add it from within
+Module modulle = parser.parse(this.inputFilePath, true);
+```
+
+Now, we look to the `parse(string, bool)` method inside `Parser`. Here we do some obvious steps
+of determing the module's name and then constructing an empty `Module` object to which the body
+of the module, of which is to be parsed shortly, shall be added:
+
+```{.d .numberLines}
+Module modulle;
+
+/* Expect `module` and module name and consume them (and `;`) */
+expect(SymbolType.MODULE, lexer.getCurrentToken());
+lexer.nextToken();
+
+/* Module name may NOT be dotted (TODO: Maybe it should be yeah) */
+expect(SymbolType.IDENT_TYPE, lexer.getCurrentToken());
+string moduleName = lexer.getCurrentToken().getToken();
+lexer.nextToken();
+
+expect(SymbolType.SEMICOLON, lexer.getCurrentToken());
+lexer.nextToken();
+
+/* Initialize Module */
+modulle = new Module(moduleName);
+```
+
+---
+
+We then also copy over the file path so that we can associate it with the module itself. This
+is not actually used anywhere else but it is here for now:
+
+```d
+/* Set the file system path of this module */
+modulle.setFilePath(moduleFilePath);
+```
+
+---
+
+Continuing on we now approach a vital step which relates to the boolean flag we set earlier. We
+want to add ourselves, the _current module_, to the program immediately such that we are known to
+have been visited already. The reason for this is because else only modules we import would be added
+and we would be skipped (unless added via another import of one of those aforementioned modules):
+
+```{.d .numberLines}
+/**
+ * If this is an entrypoint module (i.e. one
+ * specified on the command-line) then store
+ * it as visited
+ */
+if(isEntrypoint)
+{
+    gprintln
+    (
+        format
+        (
+            "parse(): Yes, this IS your entrypoint module '%s' about to be parsed",
+            moduleName
+        )
+    );
+
+    ModuleEntry curModEnt = ModuleEntry(moduleFilePath, moduleName);
+    Program prog = this.compiler.getProgram();
+
+    prog.markEntryAsVisited(curModEnt); // TODO: Could not call?
+    prog.setEntryModule(curModEnt, modulle);
+}
+```
+
+The reason the if statement is that because the `parse(string, bool)` method will be
+called several other times for _other modules_ when they are parsed because the entry
+point module had an import _for them_, and they follow semantics that we already mentioned
+earlier with the whole `parseImport()` mechanism. Hence this is just a special case that
+must be handled.
+
