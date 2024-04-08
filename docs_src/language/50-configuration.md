@@ -54,3 +54,15 @@ This controls the aspects of the `TypeChecker`.
 1. `typecheck:warnUnusedVars`
     * If this is set to `true` then at the end of the typechecking process a scan for all variables will be done and any variable that is unused will be printed out
     * Default: `true`
+
+### `modman`
+
+This controls various aspects of the module management system:
+
+1. `modman:strict_headers`
+    * If this is set to `true` then it will enforce that every modules' declared name matches that of its filename _sans_ the file extension
+    * Default: `false`
+2. `modman:paths`
+    * This contains additional search paths that the _module manager_ should use
+    * It is the form of a _textual array_
+    * Default: `[]`

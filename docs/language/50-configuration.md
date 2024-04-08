@@ -67,3 +67,18 @@ This controls the aspects of the `TypeChecker`.
       process a scan for all variables will be done and any variable
       that is unused will be printed out
     - Default: `true`
+
+### `modman`
+
+This controls various aspects of the module management system:
+
+1.  `modman:strict_headers`
+    - If this is set to `true` then it will enforce that every modules’
+      declared name matches that of its filename *sans* the file
+      extension
+    - Default: `false`
+2.  `modman:paths`
+    - This contains additional search paths that the *module manager*
+      should use
+    - It is the form of a *textual array*
+    - Default: `[]`

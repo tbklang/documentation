@@ -37,11 +37,13 @@ nav:
     - Lexical analysis: implementation/31-lexical.md
     - Parsing: implementation/32-parsing.md
     - Naming: implementation/33-naming.md
+    - Resolution: implementation/33-resolution.md
     - Dependency generation: implementation/34-dependency.md
     - Typechecking and codegen: implementation/35-typechecking.md
     - Emit: implementation/36-emit.md
     - Compiler: implementation/37-compiler.md
     - Meta: implementation/38-meta.md
+    - Module management: implementation/39-modman.md
   # - Journal:
   #   - Why: journal/why.md
   #   - First day: journal/first-day.md
