@@ -78,5 +78,33 @@ There are quite a few instructions which sub-type this `Value` class.
 
 #### Other instructions
 
-There are some other instructions. You can find these in the source
-tree at `source/tlang/compiler/codegen/instruction.d`
+There are of course a multi-tude of instructions that make up
+the whole type hierachy.
+
+A few notable `Value`-based instructions are:
+
+1. `OperatorInstruction`
+    * It has a `SymbolType` as a field which holds the intended
+    operator
+    * This is an abstract class which is a kind-of `Value` instruciton
+2. `BinOpInstr`
+    * It holds two `Instruction`s, one for the left-hand operand
+    and another for the right-hand operand
+    * This is a kind-of `OperatorInstruction`
+3. `UnaryOpInstr`
+    * It holds a single `Instruction` which represents
+    the singular operand
+    * It is a kind of `OperatorInstruction`
+
+Some other instructions are:
+
+1. `BranchInstruction`
+    * This contains an _optional_ `Value`-based instruction
+    representing a conditional
+    * Along with this it contains a list of _body instructions_
+    in the form of an `Instruction[]`
+    * By itself it is not all that useful, however, it is
+    often used in instructions such as `IfStatementInstruction`,
+    `WhileLoopInstruction` and `ForLoopInstruction`
+
+You can find these in the source tree at `source/tlang/compiler/codegen/instruction.d`
