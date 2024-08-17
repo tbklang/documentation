@@ -64,8 +64,6 @@ of a `Container` which can, as we already know by now, be retrieved from
 the context object via a call to `getContainer()`. This is but just one
 of the many examples whereby this context is required.
 
-TODO: Any instruction interfaces (we don’t *yet* have any)
-
 #### Value-based instructions (`Value`)
 
 A `Value` instruction is a kind-of `Instruction` of which represents
