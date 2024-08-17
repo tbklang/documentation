@@ -1,5 +1,7 @@
 ## Instruction representation
 
+<!-- ![](/projects/tlang/uml/Instruction_in_memory_IR.svg) -->
+
 In this section we will be dicsussing the so-called *intermediate
 representation* (or **IR**) which is used for modeling instructions
 in-memory. This is of importance because it allows us to both *generate
@@ -24,6 +26,12 @@ you an idea of what could be done with them:
       consumes many `Instruction[]`(s) and then emits C code from it;
       after which is then compiled to binaries.
 
-This refers to the in-memory data model that is
+### Types
 
 ![](/projects/tlang/uml/Instruction_in_memory_IR.svg)
+
+We need not discuss all of the available instruction types that are out
+there, however it is worth dicussing a notable ones.
+
+TODO: `Instruction` TODO: Any instruction interfaces (we don’t *yet*
+have any)
