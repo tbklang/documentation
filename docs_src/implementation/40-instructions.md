@@ -41,12 +41,12 @@ instruction is unique to the specific type of instruction at hand).
 However, there are some important things I do want to mention
 about this class which are crucial.
 
-The methods:
+The methods available in this class are:
 
-| Method               | Returns   | Description                        |
-|----------------------|-----------|------------------------------------|
-| `getContext()`       | `Context` | Returns this instruction's context |
-| `setContext(Contxt)` | `void`    | Sets this instruction's context    |
+1. `getContext()`
+    * Returns this instruction's context
+2. `setContext(Context)`
+    * Sets this instruction's context
 
 The _context_ object (already mentioned by now) is a rather useful entity
 to have associated with the instructions. This is because it gives us, well,
@@ -63,6 +63,22 @@ to `getContainer()`. This is but just one of the many examples whereby this
 context is required.
 
 TODO: Any instruction interfaces (we don't _yet_ have any)
+
+#### Value-based instructions (`Value`)
+
+A `Value` instruction is a kind-of `Instruction` of which represents code
+which generates some sort of value, think of literals, arithmetic operations,
+pointer dereferences, variable reads and so on. Every such instruction always
+has an associated `Type` object associated with it in order to know the
+intended type of the instruction. Below we show the API usage of the `Value`
+class:
+
+1. `Type getType()`
+    * Returns the type associated with this instruction
+2. `setType(Type)`
+    * Set the type to be associated with this instruction
+
+There are quite a few instructions which sub-type this `Value` class.
 
 #### Other instructions
 
