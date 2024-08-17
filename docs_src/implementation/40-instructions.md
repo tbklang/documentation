@@ -1,7 +1,5 @@
 ## Instruction representation
 
-<!-- ![](docs/uml/Instruction_in_memory_IR.svg) -->
-
 In this section we will be dicsussing the so-called _intermediate representation_ (or **IR**)
 which is used for modeling instructions in-memory. This is of importance because it allows
 us to both _generate code_ during the type-checking/code-generation process. After this process

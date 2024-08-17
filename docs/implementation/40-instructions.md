@@ -1,7 +1,5 @@
 ## Instruction representation
 
-<!-- ![](/projects/tlang/uml/Instruction_in_memory_IR.svg) -->
-
 In this section we will be dicsussing the so-called *intermediate
 representation* (or **IR**) which is used for modeling instructions
 in-memory. This is of importance because it allows us to both *generate
