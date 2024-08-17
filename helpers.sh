@@ -11,6 +11,18 @@ function generateBook()
     mv texput.pdf book.pdf
 }
 
+# Copies across UML documents
+function doUML()
+{
+	mkdir docs/uml
+	umlPDFs=$(ls uml/*.svg)
+	for uml in $umlPDFs
+	do
+		cp $uml docs/$uml
+		echo "UML copy for '$uml'"
+	done
+}
+
 # Generates updated markdown based on sources
 function generateMarkdown()
 {
@@ -22,7 +34,10 @@ function generateMarkdown()
     do
         echo "Converting markdown for doc '$doc'..."
         # pandoc -F pandoc-plot -M plot-configuration=pandoc-plot.conf -f gfm -t gfm "$doc" -o "docs/$(echo $doc | cut -b 9-)"
-        cp -r $doc "docs/$(echo $doc | cut -b 9-)"
+
+		dest_doc="docs/$(echo $doc | cut -b 9-)"
+        echo "Destination is: $dest_doc"
+        cp -r $doc $dest_doc
 
         echo "Converting markdown for doc '$doc'... [done]"
     done

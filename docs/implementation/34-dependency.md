@@ -125,7 +125,9 @@ wraps the following methods and fields within it:
     - This adds the given `DNode` as a dependency to the current DNode,
       effectively appending it to the `dependencies` array.
 
-![](/projects/tlang/graphs/pandocplot390552161348119324.svg)
+<figure>
+<img src="/projects/tlang/graphs/pandocplot12632131454922389384.svg" />
+</figure>
 
 #### The `DNodeGenerator`
 
@@ -176,7 +178,9 @@ we would have done something akin to the following. Our scenario is that
 we have some sort of parse node, let’s assume it was a `Variable` parse
 node which would represent a variable declaration.
 
-![](/projects/tlang/graphs/pandocplot11037938885968638614.svg)
+<figure>
+<img src="/projects/tlang/graphs/pandocplot9631840384548153018.svg" />
+</figure>
 
 ------------------------------------------------------------------------
 
