@@ -107,6 +107,12 @@ Some other instructions are:
     - By itself it is not all that useful, however, it is often used in
       instructions such as `IfStatementInstruction`,
       `WhileLoopInstruction` and `ForLoopInstruction`
+2.  `PointerDereferenceAssignmentInstruction`
+    - This is represents the assignment of some *value* to some entity
+      referenced to by a pointer *value*
+    - It contains two `Value`-based instructions, one represents the
+      calculation of the pointer and another represents that of the
+      value to *assign* at the memory address calculated as the pointer
 
 You can find these in the source tree at
 `source/tlang/compiler/codegen/instruction.d`
