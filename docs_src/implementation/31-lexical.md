@@ -31,7 +31,7 @@ The API is described in the table below and the file in question is in `source/t
 #### Character constants
 
 For completion we include the commonly used character constant definitions. These come in
-the form of an enumeration type as shown below:
+the form of the `LexerSymbols` enumeration type as shown below:
 
 ```d
 public enum LexerSymbols : char
