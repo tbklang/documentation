@@ -28,7 +28,7 @@ you an idea of what could be done with them:
 
 ### Types
 
-[![](/projects/tlang/uml/Instruction_in_memory_IR.svg)](docs/uml/Instruction_in_memory_IR.svg)
+[![](/projects/tlang/uml/Instruction_in_memory_IR.svg)](/docs/uml/Instruction_in_memory_IR.svg)
 
 We need not discuss all of the available instruction types that are out
 there, however it is worth dicussing a notable ones.
