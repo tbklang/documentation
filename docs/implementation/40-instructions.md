@@ -64,5 +64,9 @@ of a `Container` which can, as we already know by now, be retrieved from
 the context object via a call to `getContainer()`. This is but just one
 of the many examples whereby this context is required.
 
-TODO: `Instruction` TODO: Any instruction interfaces (we don’t *yet*
-have any)
+TODO: Any instruction interfaces (we don’t *yet* have any)
+
+#### Other instructions
+
+There are some other instructions. You can find these in the source tree
+at `source/tlang/compiler/codegen/instruction.d`
