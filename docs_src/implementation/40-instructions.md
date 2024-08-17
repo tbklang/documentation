@@ -30,7 +30,7 @@ with them:
 We need not discuss all of the available instruction types that are out
 there, however it is worth dicussing a notable ones.
 
-#### Base class
+#### Base class (`Instruction`)
 
 For anything to be considered a kind-of _instruction_ it must inherit
 from the `Instruction` class. There is not much to say about this
