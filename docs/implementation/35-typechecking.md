@@ -157,7 +157,51 @@ would be thrown and the assertion would not be reached, however if the
 types were an exact match **or** if they were not but could be coerced
 as such then the two types should match.
 
-### Variable referencing counting
+------------------------------------------------------------------------
+
+### Validation
+
+Validation performs the partial filling of certain aspects of the given
+instruction via the provided context. This can vary from setting the
+correct type for the instruction to performing further type checking on
+the instruction. The reason this exists is that certain instructions can
+only have such information determined (and thereafter set) once certain
+context is provided - which normally is only available in **later**
+instructions used in tandum with the one provided here.
+
+| Method                                           | Description                                                                                            |
+|--------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| `validate(InstrCtx ctx, Instruction inputInstr)` | *ctx* is the instruction context (`InstrCtx`) and *inputInstr* is the `Instruction` to validate itself |
+
+The `InstrCtx` is defined as follows:
+
+``` d
+struct InstrCtx
+{
+    /** 
+     * The container with which
+     * the instruction being validated
+     * is a member of
+     */
+    Container memberOf;
+}
+```
+
+| Method                                          | Description                            |
+|-------------------------------------------------|----------------------------------------|
+| `void setContainer(Container membersContainer)` | Sets the container part of the context |
+| `Optional!(Container) getContainer()`           | Returns an optional of the container   |
+
+------------------------------------------------------------------------
+
+TODO: Maybe put variable stuff in some other place
+
+#### Misc.
+
+These are interesting tid-bits on how some of the other features are
+implemented.
+
+#### Variable referencing counting
 
 Firstly let me make it clear that this has nothing to do with
 **runtime** reference counting but rather a simple mechanism used to
