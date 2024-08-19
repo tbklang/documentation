@@ -115,3 +115,60 @@ Some other instructions are:
     at the memory address calculated as the pointer
 
 You can find these in the source tree at `source/tlang/compiler/codegen/instruction.d`
+
+### Rendering
+
+When we speak about _render_ or _instruction rendering_ we are referring to
+those instructions which implement the `IRenderable` interface found in the
+`source/tlang/compiler/codegen/render.d` module.
+
+This is a single-method interface, with the following sole method:
+
+| Method            | Description             |
+|-------------------|-------------------------|
+| `string render()` | Renders the instruction |
+
+Any instruction which implements this method can have a string representation
+of itself generated in such a manner as to visually represent the structure
+of the instruction itself.
+
+In order to perform the rendering, a handy function in `render.d` is provided:
+
+| Method                                | Description             |
+|---------------------------------------|-------------------------|
+| `string tryRender(Instruction instr)` | Renders the instruction |
+
+This function attempts to render the given instruction. If the
+instruction supports the `IRenderable` interface then that will
+be used, otherwise the name of the instruction will be the fallback.
+
+#### Example render
+
+To make this example explicit we have implemented the `render()` method for
+the `BinOpInstr` and `LiteralValue`. We then construct a binary operation
+with two operands which are literal values:
+
+```{.numberLines .d}
+LiteralValue lhs = new LiteralValue("1", new Type("int"));
+LiteralValue rhs = new LiteralValue("2", new Type("int"));
+Instruction binOp = new BinOpInstr(lhs, rhs, SymbolType.ADD);
+```
+
+After this we can attempt rendering with the `tryRender` function as follows:
+
+```{.numberLines .d}
+string s_out = tryRender(binOp);
+DEBUG("s_out: ", s_out);
+assert(s_out == "1 + 2");
+```
+
+The `render()` implementation for binay operations uses `tryRender` on both
+of its operands as so: $tryRender(operand_{lhs})\space operator\space tryRender(operand_{rhs})$. In this case those operands, the literal value instructions.
+also have implemented `render()`. The latter implemented it in such a manner
+so as to simply return the `LiteralValue`'s internal value itself, $1$ and $2$ respectively. 
+
+$$
+1 + 2
+$$
+
+Finally we end up with the render above.
