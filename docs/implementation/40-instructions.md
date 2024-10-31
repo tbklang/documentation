@@ -116,3 +116,27 @@ Some other instructions are:
 
 You can find these in the source tree at
 `source/tlang/compiler/codegen/instruction.d`
+
+### `IRenderable`
+
+An instruction which implements this interface must be able to provide
+the following methods:
+
+| Method     | Return type |
+|------------|-------------|
+| `render()` | `string`    |
+
+This method must produce a human-readable serialization of the
+instruction. This is not “hard-core” serialization in that it isn’t used
+for purposes of deserialization, hence the reason we call it *rendering*
+rather.
+
+For example, calling `render()` on an `UnaryOpInstr` would produce
+something like:
+
+    "<operator> <operand>"
+
+Where `<operand>` is *also* rendered recursively.
+
+You can find more information in the source at
+`source/tlang/compiler/codegen/render.d`
