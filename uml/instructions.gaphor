@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<gaphor xmlns="http://gaphor.sourceforge.net/model" version="3.0" gaphor-version="2.26.0">
+<gaphor xmlns="http://gaphor.sourceforge.net/model" version="3.0" gaphor-version="2.27.0">
 <StyleSheet id="58d6989a-66f8-11ec-b4c8-0456e5e540ed"/>
 <Package id="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed">
 <name>
@@ -64,6 +64,7 @@
 <ref refid="733419bb-4b5e-11ef-b8c2-afd771b39f77"/>
 <ref refid="81c4fd2c-4b5e-11ef-8934-afd771b39f77"/>
 <ref refid="e8703108-4c09-11ef-a1cb-afd771b39f77"/>
+<ref refid="4226d4cd-60a7-11ef-903d-47effb530b8c"/>
 </reflist>
 </ownedType>
 </Package>
@@ -121,6 +122,7 @@
 <ref refid="55a672a5-4b32-11ef-a1f1-871ef85b8bde"/>
 <ref refid="b9f1be4a-4b32-11ef-b964-871ef85b8bde"/>
 <ref refid="e8716ec6-4c09-11ef-bdbd-afd771b39f77"/>
+<ref refid="42279e92-60a7-11ef-9f3d-47effb530b8c"/>
 <ref refid="2f9e05d7-4acb-11ef-80ab-871ef85b8bde"/>
 <ref refid="34926033-4acb-11ef-8f39-871ef85b8bde"/>
 <ref refid="d7db414c-4acb-11ef-af2c-871ef85b8bde"/>
@@ -6094,4 +6096,72 @@
 <ref refid="e8703108-4c09-11ef-a1cb-afd771b39f77"/>
 </subject>
 </ClassItem>
+<Interface id="4226d4cd-60a7-11ef-903d-47effb530b8c">
+<name>
+<val>IRenderable</val>
+</name>
+<note>
+<val>Allows the rendering of an instruction to human-readable text.</val>
+</note>
+<ownedOperation>
+<reflist>
+<ref refid="51ac34c3-60a7-11ef-838d-47effb530b8c"/>
+</reflist>
+</ownedOperation>
+<package>
+<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
+</package>
+<presentation>
+<reflist>
+<ref refid="42279e92-60a7-11ef-9f3d-47effb530b8c"/>
+</reflist>
+</presentation>
+</Interface>
+<InterfaceItem id="42279e92-60a7-11ef-9f3d-47effb530b8c">
+<matrix>
+<val>(1.0, 0.0, 0.0, 1.0, 505.8936649914465, 143.50459766515922)</val>
+</matrix>
+<top-left>
+<val>(0.0, 0.0)</val>
+</top-left>
+<width>
+<val>130.0</val>
+</width>
+<height>
+<val>91.0</val>
+</height>
+<diagram>
+<ref refid="58d6c536-66f8-11ec-b4c8-0456e5e540ed"/>
+</diagram>
+<subject>
+<ref refid="4226d4cd-60a7-11ef-903d-47effb530b8c"/>
+</subject>
+<folded>
+<val>0</val>
+</folded>
+</InterfaceItem>
+<Operation id="51ac34c3-60a7-11ef-838d-47effb530b8c">
+<interface_>
+<ref refid="4226d4cd-60a7-11ef-903d-47effb530b8c"/>
+</interface_>
+<name>
+<val>render</val>
+</name>
+<ownedParameter>
+<reflist>
+<ref refid="51b17e43-60a7-11ef-87a4-47effb530b8c"/>
+</reflist>
+</ownedParameter>
+</Operation>
+<Parameter id="51b17e43-60a7-11ef-87a4-47effb530b8c">
+<direction>
+<val>return</val>
+</direction>
+<ownerFormalParam>
+<ref refid="51ac34c3-60a7-11ef-838d-47effb530b8c"/>
+</ownerFormalParam>
+<typeValue>
+<val>string</val>
+</typeValue>
+</Parameter>
 </gaphor>
