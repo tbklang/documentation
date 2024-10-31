@@ -63,7 +63,6 @@
 <ref refid="6fb44163-4b5e-11ef-a20f-afd771b39f77"/>
 <ref refid="733419bb-4b5e-11ef-b8c2-afd771b39f77"/>
 <ref refid="81c4fd2c-4b5e-11ef-8934-afd771b39f77"/>
-<ref refid="e8703108-4c09-11ef-a1cb-afd771b39f77"/>
 <ref refid="4226d4cd-60a7-11ef-903d-47effb530b8c"/>
 <ref refid="4559072a-9752-11ef-a378-47f3f1093aca"/>
 <ref refid="75a019c9-9752-11ef-bd5a-47f3f1093aca"/>
@@ -123,7 +122,6 @@
 <ref refid="4c2e795a-4b32-11ef-867a-871ef85b8bde"/>
 <ref refid="55a672a5-4b32-11ef-a1f1-871ef85b8bde"/>
 <ref refid="b9f1be4a-4b32-11ef-b964-871ef85b8bde"/>
-<ref refid="e8716ec6-4c09-11ef-bdbd-afd771b39f77"/>
 <ref refid="42279e92-60a7-11ef-9f3d-47effb530b8c"/>
 <ref refid="45595cfd-9752-11ef-b8a1-47f3f1093aca"/>
 <ref refid="2f9e05d7-4acb-11ef-80ab-871ef85b8bde"/>
@@ -5424,7 +5422,6 @@
 <ownedAttribute>
 <reflist>
 <ref refid="5e1257b6-4b31-11ef-9d03-871ef85b8bde"/>
-<ref refid="6cde3179-4b31-11ef-99ed-871ef85b8bde"/>
 <ref refid="707966be-4b31-11ef-a2cc-871ef85b8bde"/>
 <ref refid="32f0b6e8-4b32-11ef-9919-871ef85b8bde"/>
 </reflist>
@@ -5470,10 +5467,10 @@
 <ref refid="4f7e0f28-4b31-11ef-b649-871ef85b8bde"/>
 </class_>
 <name>
-<val>arrayName</val>
+<val>arrAndIndex</val>
 </name>
 <typeValue>
-<val>string</val>
+<val>ArrayIndexInstruction</val>
 </typeValue>
 <visibility>
 <val>private</val>
@@ -5537,20 +5534,6 @@
 <ref refid="4f7e6379-4b31-11ef-b1f8-871ef85b8bde"/>
 </tail-connection>
 </CommentLineItem>
-<Property id="6cde3179-4b31-11ef-99ed-871ef85b8bde">
-<class_>
-<ref refid="4f7e0f28-4b31-11ef-b649-871ef85b8bde"/>
-</class_>
-<name>
-<val>index</val>
-</name>
-<typeValue>
-<val>Value</val>
-</typeValue>
-<visibility>
-<val>private</val>
-</visibility>
-</Property>
 <Property id="707966be-4b31-11ef-a2cc-871ef85b8bde">
 <class_>
 <ref refid="4f7e0f28-4b31-11ef-b649-871ef85b8bde"/>
@@ -5570,7 +5553,7 @@
 <ref refid="4f7e0f28-4b31-11ef-b649-871ef85b8bde"/>
 </class_>
 <name>
-<val>getArrayName</val>
+<val>getArrayInstr</val>
 </name>
 <ownedParameter>
 <reflist>
@@ -5586,7 +5569,7 @@
 <ref refid="0ed98acd-4b32-11ef-8fc7-871ef85b8bde"/>
 </ownerFormalParam>
 <typeValue>
-<val>string</val>
+<val>Value</val>
 </typeValue>
 </Parameter>
 <Operation id="163cdf5a-4b32-11ef-9e7e-871ef85b8bde">
@@ -6183,39 +6166,6 @@
 <ref refid="4c2e010b-4b32-11ef-99d1-871ef85b8bde"/>
 </type>
 </Property>
-<Class id="e8703108-4c09-11ef-a1cb-afd771b39f77">
-<name>
-<val>New Class</val>
-</name>
-<package>
-<ref refid="58d6c2e8-66f8-11ec-b4c8-0456e5e540ed"/>
-</package>
-<presentation>
-<reflist>
-<ref refid="e8716ec6-4c09-11ef-bdbd-afd771b39f77"/>
-</reflist>
-</presentation>
-</Class>
-<ClassItem id="e8716ec6-4c09-11ef-bdbd-afd771b39f77">
-<matrix>
-<val>(1.0, 0.0, 0.0, 1.0, 3354.0, 65.5)</val>
-</matrix>
-<top-left>
-<val>(0.0, 0.0)</val>
-</top-left>
-<width>
-<val>100.0</val>
-</width>
-<height>
-<val>57.0</val>
-</height>
-<diagram>
-<ref refid="58d6c536-66f8-11ec-b4c8-0456e5e540ed"/>
-</diagram>
-<subject>
-<ref refid="e8703108-4c09-11ef-a1cb-afd771b39f77"/>
-</subject>
-</ClassItem>
 <Interface id="4226d4cd-60a7-11ef-903d-47effb530b8c">
 <name>
 <val>IRenderable</val>
