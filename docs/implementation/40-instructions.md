@@ -26,7 +26,7 @@ you an idea of what could be done with them:
 
 ### Types
 
-[![](/projects/tlang/uml/Instruction_in_memory_IR.svg)](../../uml/Instruction_in_memory_IR.svg)
+[![](/projects/tlang/uml/instructions.svg)](../../uml/instructions.svg)
 
 We need not discuss all of the available instruction types that are out
 there, however it is worth dicussing a notable ones.
@@ -117,31 +117,6 @@ Some other instructions are:
 You can find these in the source tree at
 `source/tlang/compiler/codegen/instruction.d`
 
-<<<<<<< HEAD
-### `IRenderable`
-
-An instruction which implements this interface must be able to provide
-the following methods:
-
-| Method     | Return type |
-|------------|-------------|
-| `render()` | `string`    |
-
-This method must produce a human-readable serialization of the
-instruction. This is not “hard-core” serialization in that it isn’t used
-for purposes of deserialization, hence the reason we call it *rendering*
-rather.
-
-For example, calling `render()` on an `UnaryOpInstr` would produce
-something like:
-
-    "<operator> <operand>"
-
-Where `<operand>` is *also* rendered recursively.
-
-You can find more information in the source at
-`source/tlang/compiler/codegen/render.d`
-=======
 ### Rendering
 
 When we speak about *render* or *instruction rendering* we are referring
@@ -203,4 +178,3 @@ $$
 $$
 
 Finally we end up with the render above.
->>>>>>> 7bdf3bfa8221d5648c78511af4995f323fd32cb9
