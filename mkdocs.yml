@@ -26,6 +26,7 @@ nav:
     - Funtions: language/38-functions.md
     - Arrays: language/39-arrays.md
     - Pointers: language/40-pointers.md
+    - Enumerations: language/46-enumeration-types.md
     - Extern: language/44-extern.md
     - Structs: language/41-structs.md
     - OOP: language/42-oop.md
