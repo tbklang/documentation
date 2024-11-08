@@ -27,3 +27,18 @@ int answer()
 ```
 
 When `answer()` is called it will return a result of $1$ (as $0+1$).
+
+### Explicit member typing
+
+The default member-type of an enumeration type is that of an `int` (when there are _no_ value-assignment).
+This, however, can be changed by using an explicit type declaration when declaring your enumeration type.
+
+In this case I have chosen to declare `Numberless` with an explicit member-type, a `long`:
+
+```{.d}
+enum Numberless : long
+{
+    ONE,
+    TWO
+}
+```
