@@ -45,3 +45,30 @@ enum Numberless : long
     TWO
 }
 ```
+
+### Explicitly assigned values
+
+The ordinal values of any enumeration types are automatically filled in
+for supported types. For example if we have an enumeraiton type like so:
+
+``` d
+enum Numberless : long
+{
+    ONE,
+    TWO
+}
+```
+
+Then the value of `Numberless.ONE` will be $0$ and
+`Numberless.TWO$ will be $1$. This is a useful default behavior however sometimes we want to specify such numbers ourselves, and in the case of this enumeration type`Numberless\` -
+it may make more sense to do the following:
+
+``` d
+enum Numberless : long
+{
+    ONE = 1,
+    TWO = 2
+}
+```
+
+Now `Numberless.ONE` will be $1$ and `Numberless.TWO` will be $2$.
