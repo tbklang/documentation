@@ -70,3 +70,19 @@ enum Numberless : long
 
 Now `Numberless.ONE` will be $1$ and `Numberless.TWO` will be $2$.
 
+---
+
+In the case that omit the value for one of the enum members, like so:
+
+```{.d}
+enum Numberless : long
+{
+    ONE = 1,
+    TWO
+}
+```
+
+Then the value of `Numberless.ONE` will be $1$ and that of `Numberless.TWO`
+will be $0$, this is because members _without_ explicit values are filled from
+their member-type's smallest value upwards (0 upwards) and only using values
+that are not already assigned.
