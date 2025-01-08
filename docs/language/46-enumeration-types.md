@@ -89,3 +89,33 @@ Then the value of `Numberless.ONE` will be $1$ and that of
 `Numberless.TWO` will be $0$, this is because members *without* explicit
 values are filled from their member-type’s smallest value upwards (0
 upwards) and only using values that are not already assigned.
+
+#### String enumerations
+
+We also support string enumerations. This is something that can be
+rather useful if you perhaps have several messages you want to store and
+re-use at a later stage *but* want to have an easy-to-remember name
+associated with.
+
+Here is an example:
+
+``` d
+enum Message
+{
+    WELCOME = "Welcome to my app!",
+    EXIT = "Shutting down..."
+}
+```
+
+This is the only case were a non-integral typed value (`ubyte*` in this
+case as it is a string literal) can be used as the enum’s member type.
+This does, however, mean that we can do things like this:
+
+``` d
+int main()
+{
+    return Message.WELCOME[0];
+}
+```
+
+This would return $127$ - the ASCII value of the character `W`.
