@@ -68,6 +68,23 @@ This controls the aspects of the `TypeChecker`.
       that is unused will be printed out
     - Default: `true`
 
+### `tir`
+
+This controls the aspects of the *TIR* or **T**Lang **I**ntermediate
+**R**epresentation.
+
+1.  `tir:flatten_enum_refs`
+    - If this is set to `true` then the values of enumeration-type
+      members will be used directly. This is opposed to when this option
+      is set to `false` which will then make use of a new
+      `EnumMemberReference` instruction it is place rather.
+    - The `false` case is useful for emitters who want to know something
+      is specifically an enum member, which may be handy. As to the
+      makeup, the original `Value`-based instruction is simply nested
+      within the `EnumMemberReference` instruction when this option is
+      set to `false`.
+    - Default: `true`
+
 ### `modman`
 
 This controls various aspects of the module management system:
