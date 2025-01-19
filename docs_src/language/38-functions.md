@@ -53,6 +53,3 @@ Calling such a function is accomplished as such:
 ```d
 sum(2,1)
 ```
-
-!!! warning
-    Calling a  function like this is not yet supported. It must be in an expression, hence one can do `discard sum(2,1)` for now till we have direct function calls implemented. See issue #71.
