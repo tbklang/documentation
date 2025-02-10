@@ -7,7 +7,7 @@ documentclass: scrbook
 classoption:
   - oneside
 
-# headers-includes:
+header-includes: 
 #   - \usepackage{titling}
 #   - \pretitle{\begin{center}
 #     \includegraphics[width=2in,height=2in]{docs_src/logo.png}\LARGE\\
