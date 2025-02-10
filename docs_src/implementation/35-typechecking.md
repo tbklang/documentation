@@ -294,16 +294,16 @@ We then, after typechecking, run the following in the type checker module's `doP
  */
 if(this.config.hasConfig("typecheck:warnUnusedVars") & this.config.getConfig("typecheck:warnUnusedVars").getBoolean())
 {
-        Variable[] unusedVariables = getUnusedVariables();
-        gprintln("There are "~to!(string)(unusedVariables.length)~" unused variables");
-        if(unusedVariables.length)
+    Variable[] unusedVariables = getUnusedVariables();
+    gprintln("There are "~to!(string)(unusedVariables.length)~" unused variables");
+    if(unusedVariables.length)
+    {
+        foreach(Variable unusedVariable; unusedVariables)
         {
-                foreach(Variable unusedVariable; unusedVariables)
-                {
-                        // TODO: Get a nicer name, full path-based
-                        gprintln("Variable '"~to!(string)(unusedVariable.getName())~"' is declared but never");
-                }
+            // TODO: Get a nicer name, full path-based
+            gprintln("Variable '"~to!(string)(unusedVariable.getName())~"' is declared but never");
         }
+    }
 }
 ```
 
@@ -338,17 +338,17 @@ This is all simpler said than done; we will know examine the implementation of t
 ```{.d}
 Result!(bool, string) doesImplement
 (
-        TypeChecker tc,
-        Clazz cl,
-        Interfaze i
+    TypeChecker tc,
+    Clazz cl,
+    Interfaze i
 )
 
 Result!(bool, string) doesImplement0
 (
-        TypeChecker tc,
-        Clazz cl,
-        Interfaze i,
-        ref bool[Interfaze] _visited
+    TypeChecker tc,
+    Clazz cl,
+    Interfaze i,
+    ref bool[Interfaze] _visited
 )
 ```
 
@@ -357,3 +357,43 @@ With some familiar faces:
 1. `TypeChecker` - the typechecking instance (required for lookups)
 2. `Clazz` - the AST node representing our $class_c$
 3. `Interfaze` - the AST node representing our $interface_i$
+
+The main work is done within `doesImplement0` whilst `doesImplement` is simply a nicer-to-use entry method that prepares the map data structure we see.
+
+#### Steps
+
+The first step we do when called is to check whether the provided interface `i` has an entry in the visitation map, if not we then create it and initialize its value to `false` - therefore indicating that it has not yet been visited:
+
+```{.d}
+// create entry with default `false`
+// if it doesn't exist yet
+if(i !in _visited)
+{
+    _visited[i] = false;
+}
+```
+
+With the guarantee that an entry does at the very least exist we now perform the visitation check, if we _have_ been visited then we return with an error. Such a case would only ever happen if there exists a cycle in the interface's type-hierarchy. This could be caused if $interface_a$ is defined as having $interface_b$ as a super-interface and $interface_b$ is defined as having $interface_a$ as a super-interface; such an error must be reported to the user as such.
+
+```{.d}
+// if already visited
+if(_visited[i])
+{
+    return error!(string, bool)
+    (
+        format
+        (
+            "Cyclic interface dependency found. Interface '%s' has aready been visited.",
+            i
+        )
+    );
+}
+```
+
+If interface `i` has **not** been visited we then set the status flag to indicate that _now_ it has been visited, and continue:
+
+```{.d}
+_visited[i] = true;
+```
+
+We now are going to perform the recursive ascent through the super interfaces of interface `i`, we loop through each 
