@@ -280,3 +280,9 @@ Result!(bool, string) doesImplement0
         ref bool[Interfaze] _visited
 )
 ```
+
+With some familiar faces:
+
+1.  `TypeChecker` - the typechecking instance (required for lookups)
+2.  `Clazz` - the AST node representing our $class_c$
+3.  `Interfaze` - the AST node representing our $interface_i$
