@@ -12,7 +12,7 @@ classoption:
 
 header-includes: 
 #   - \usepackage{titling}
-#   - \pretitle{\begin{center}
-#     \includegraphics[width=2in,height=2in]{docs_src/logo.png}\LARGE\\
-#   - \posttitle{\end{center}}
+ #  - \pretitle{\begin{center}
+  #   \includegraphics[width=2in,height=2in]{docs_src/logo.png}\LARGE\\
+   #- \posttitle{\end{center}} 
 ---

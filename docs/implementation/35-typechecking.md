@@ -221,3 +221,62 @@ if(this.config.hasConfig("typecheck:warnUnusedVars") & this.config.getConfig("ty
         }
 }
 ```
+
+### Structural typing
+
+The structural typing sub-system is comprised of an algorithm along with
+the related type definitoin that it makes use of. For a quick recap, the
+idea behind the structural type system is the following:
+
+We first define a type signature as $sig_i = (name_i, typesList)$ where
+we have $typesList$ defined as:
+
+$$
+typesList = (type_1, type_2, ..., type_i)
+$$
+
+Where each $type_i$ represents a named data type.
+
+We can then define an interface as the following pair:
+
+$$
+interface_i = (name_i, typesList)
+$$
+
+This is to say that an interface is therefore a pair containing a
+human-readable name $name_i$ and the set of type-signatures that
+*define* said interface.
+
+Now that we have a set of definitions we can head into the mechanism
+that performs the structural type matching. Provided we have a set of
+classes $\{ class_1, class_2, ..., class_k\}$ and we wish to determine
+which of these classes implement a given $interface_i$. We can then
+collect the subset of the aforementioned set (of classes) that are true
+to that statement by calling the $doesImplement(interface, class)$
+function on each of the classes:
+
+$$
+implementors = \{class_c | doesImplement(interface_i, class_c) = true \forall 1 \leq c \leq k\}
+$$
+
+This is all simpler said than done; we will know examine the
+implementation of the $doesImplement(interface_i, class_c)$ function.
+The form it takes on within the code base is that of two sets of
+functions with the following signatures themselves:
+
+``` d
+Result!(bool, string) doesImplement
+(
+        TypeChecker tc,
+        Clazz cl,
+        Interfaze i
+)
+
+Result!(bool, string) doesImplement0
+(
+        TypeChecker tc,
+        Clazz cl,
+        Interfaze i,
+        ref bool[Interfaze] _visited
+)
+```
