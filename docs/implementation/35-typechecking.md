@@ -334,6 +334,7 @@ If interface `i` has **not** been visited we then set the status flag to
 indicate that *now* it has been visited, and continue:
 
 ``` d
+// mark as visited
 _visited[i] = true;
 ```
 
