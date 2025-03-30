@@ -2,7 +2,7 @@
 title: Tristan Programming Language
 subtitle: _From start to finish_
 author: Tristan B. Velloza Kildaire
-date: 26 July 2023
+date: \today
 documentclass: scrbook
 #documentclass: willowtreebook 
 #documentclass: tufte-book 
