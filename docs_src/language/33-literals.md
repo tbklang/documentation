@@ -6,6 +6,18 @@ TODO: Add this section
 
 TODO: Add this
 
+By default the encoding of characters is done by assuming UTF-8, meaning that when you
+use `"ABBA"` it will encode to a byte array of `[65, 66, 66, 65]`.
+
+You can customize this however by using the `w` and `d` postfixes as seen
+below:
+
+| Literal | Encoding        | Generated
+|---------|-----------------|-------------------------------------------|
+| `"AB"`  | UTF-8           | `[65, 66]`                                |
+| `"AB"w` | UTF-16          | `[0, 65, 0, 66]`                          |
+| `"AB"d` | UTF-32          | `[0, 0, 0, 65, 0, 0, 0, 66]`              |
+
 #### Concatenation
 
 String literal concatenation allows two strings literals, at compile-time, to be joined
