@@ -34,3 +34,7 @@ therefore making it semantically the same as if you had rather done:
 ```d
 ubyte* myName = "Tristan Velloza Kildaire";
 ```
+
+If you combine two string literals of **different** encodings then the string
+literal of the smaller (by bit-width) encoding scheme will be up-converted to
+the greater (by bit-width) encoding scheme.
