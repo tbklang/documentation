@@ -127,6 +127,8 @@
 <ref refid="4226d4cd-60a7-11ef-903d-47effb530b8c"/>
 <ref refid="4559072a-9752-11ef-a378-47f3f1093aca"/>
 <ref refid="75a019c9-9752-11ef-bd5a-47f3f1093aca"/>
+<ref refid="701915b0-8448-11f0-9dfb-ab5f18b7be48"/>
+<ref refid="c065ffd0-8448-11f0-aca8-ab5f18b7be48"/>
 <ref refid="46d26cc0-9750-11ef-a2c4-037c8f131407"/>
 <ref refid="4a0838ba-9750-11ef-b954-037c8f131407"/>
 <ref refid="177c769c-9752-11ef-89a2-47f3f1093aca"/>
@@ -147,8 +149,6 @@
 <ref refid="0c0e048a-9753-11ef-81fa-47f3f1093aca"/>
 <ref refid="1310c7b1-9753-11ef-84af-47f3f1093aca"/>
 <ref refid="25518d58-9753-11ef-9cb4-47f3f1093aca"/>
-<ref refid="701915b0-8448-11f0-9dfb-ab5f18b7be48"/>
-<ref refid="c065ffd0-8448-11f0-aca8-ab5f18b7be48"/>
 </reflist>
 </packagedElement>
 </UML:Package>
@@ -275,7 +275,7 @@
 </reflist>
 </comment>
 <isAbstract>
-<val>1</val>
+<val>True</val>
 </isAbstract>
 <name>
 <val>Instruction</val>
@@ -7477,7 +7477,7 @@
 </UML:Property>
 <UML:Class id="701915b0-8448-11f0-9dfb-ab5f18b7be48">
 <name>
-<val>EmbeddedExpressionInstruction</val>
+<val>EmbeddedValueInstruction</val>
 </name>
 <note>
 <val>An instruction that represents a Value-based instruction but at the statement-level (hence the embedding).</val>
