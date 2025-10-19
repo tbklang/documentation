@@ -14,7 +14,7 @@ enum Numberless
 
 Each of these members will evaluate to an ordinal value of the enumeration type's member-type. The
 member-type of an enumeration-type _without_ any value-assignments (we will get to those later) is
-that of `int`. This implies then that `ONE` will eveluate to $0$ and `TWO` will
+that of `int`. This implies then that `ONE` will evaluate to $0$ and `TWO` will
 evaluate to $1$.
 
 Below is an example of the usage within a function:
