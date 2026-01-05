@@ -57,7 +57,7 @@ int main()
 ```
 
 > Notice here that we import modules in the same directory just with
-> their name. It’s basically $module_{path} = module_{name}+".t"$.
+> their name. It’s basically $`module_{path} = module_{name}+".t"`$.
 > Directory structure is also taken into account, hence in order to
 > reference the module `c` we must import it as `niks.c` as that will
 > resolve to `niks/c.t` as the file path.
@@ -225,7 +225,7 @@ public struct ModuleEntry
 
 The above definition is all you really need to know about this type,
 this simple is a tuple of sorts with some helper methods to extract the
-two tuple values of $(module_{name}, module_{path})$ and doing
+two tuple values of $`(module_{name}, module_{path})`$ and doing
 validation of these values.
 
 #### The module manager
@@ -233,18 +233,18 @@ validation of these values.
 The *module manager* defined in the `ModuleManager` type, it contains
 the following constructor method:
 
-| Constructor      | Description                                                                                                                                                                                                |
-|------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Constructor | Description |
+|----|----|
 | `this(Compiler)` | Constructs a new `ModuleManager` using the given `Compiler` instance. This will automatically add the search paths from the `"modman:path"` configuration entry to the module manager during construction. |
 
 It then also contains the following methods:
 
-| Method                         | Return type   | Description                                                                                                                                                               |
-|--------------------------------|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `addSearchPath(string)`        | `void`        | Adds the given path to the set of search paths                                                                                                                            |
-| `addSearchPaths(string[])`     | `void`        | Adds each of the provided paths to the set of search paths                                                                                                                |
-| `find(string)`                 | `ModuleEntry` | This searches all search paths for a *module file* with the given *module name* and then returns the `ModuleEntry` for it if found, else a `ModuleManagerError` is thrown |
-| `findAllTFilesShallow(string)` | `string[]`    | Searches the directory at the given path and returns the absolute paths of all files ending in `.t`                                                                       |
+| Method | Return type | Description |
+|----|----|----|
+| `addSearchPath(string)` | `void` | Adds the given path to the set of search paths |
+| `addSearchPaths(string[])` | `void` | Adds each of the provided paths to the set of search paths |
+| `find(string)` | `ModuleEntry` | This searches all search paths for a *module file* with the given *module name* and then returns the `ModuleEntry` for it if found, else a `ModuleManagerError` is thrown |
+| `findAllTFilesShallow(string)` | `string[]` | Searches the directory at the given path and returns the absolute paths of all files ending in `.t` |
 
 ##### How searching works
 

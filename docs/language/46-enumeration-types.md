@@ -15,8 +15,8 @@ enum Numberless
 Each of these members will evaluate to an ordinal value of the
 enumeration type’s member-type. The member-type of an enumeration-type
 *without* any value-assignments (we will get to those later) is that of
-`int`. This implies then that `ONE` will evaluate to $0$ and `TWO` will
-evaluate to $1$.
+`int`. This implies then that `ONE` will evaluate to $`0`$ and `TWO`
+will evaluate to $`1`$.
 
 Below is an example of the usage within a function:
 
@@ -27,7 +27,7 @@ int answer()
 }
 ```
 
-When `answer()` is called it will return a result of $1$ (as $0+1$).
+When `answer()` is called it will return a result of $`1`$ (as $`0+1`$).
 
 ### Explicit member typing
 
@@ -59,7 +59,7 @@ enum Numberless : long
 }
 ```
 
-Then the value of `Numberless.ONE` will be $0$ and
+Then the value of `Numberless.ONE` will be $`0`$ and
 `Numberless.TWO$ will be $1$. This is a useful default behavior however sometimes we want to specify such numbers ourselves, and in the case of this enumeration type`Numberless\` -
 it may make more sense to do the following:
 
@@ -71,7 +71,7 @@ enum Numberless : long
 }
 ```
 
-Now `Numberless.ONE` will be $1$ and `Numberless.TWO` will be $2$.
+Now `Numberless.ONE` will be $`1`$ and `Numberless.TWO` will be $`2`$.
 
 ------------------------------------------------------------------------
 
@@ -85,10 +85,10 @@ enum Numberless : long
 }
 ```
 
-Then the value of `Numberless.ONE` will be $1$ and that of
-`Numberless.TWO` will be $0$, this is because members *without* explicit
-values are filled from their member-type’s smallest value upwards (0
-upwards) and only using values that are not already assigned.
+Then the value of `Numberless.ONE` will be $`1`$ and that of
+`Numberless.TWO` will be $`0`$, this is because members *without*
+explicit values are filled from their member-type’s smallest value
+upwards (0 upwards) and only using values that are not already assigned.
 
 #### String enumerations
 
@@ -118,4 +118,4 @@ int main()
 }
 ```
 
-This would return $127$ - the ASCII value of the character `W`.
+This would return $`127`$ - the ASCII value of the character `W`.

@@ -17,11 +17,11 @@ system.
 There are a few operators that can be used on pointers which are shown
 below, most specific of which are the `*` and `&` unary operators:
 
-| Operator | Description                                                   | Example                    |
-|----------|---------------------------------------------------------------|----------------------------|
-| `&`      | Gets the address of the identifier                            | `int* myVarPtr = &myVar`   |
-| `*`      | Gets the value at the address held in the referred identifier | `int myVarVal = *myVarPtr` |
-| `*`      | Sets the value at the address held in the referred identifier | `*myVarPtr = 81`           |
+| Operator | Description | Example |
+|----|----|----|
+| `&` | Gets the address of the identifier | `int* myVarPtr = &myVar` |
+| `*` | Gets the value at the address held in the referred identifier | `int myVarVal = *myVarPtr` |
+| `*` | Sets the value at the address held in the referred identifier | `*myVarPtr = 81` |
 
 Below we will declare a module-level global variable `j` of type `int`
 and then use a function to indirectly update its value by the use of a
@@ -76,10 +76,10 @@ What `int function(int* ptr)` does is two things:
 Some of the existing operators such as those used for arithmetic have
 special usage when used on pointers:
 
-| Operator | Description                                                      | Example |
-|----------|------------------------------------------------------------------|---------|
-| `+`      | Allows one to offset the pointer by a `+ offset*sizeof(ptrType)` | `ptr+1` |
-| `-`      | Allows one to offset the pointer by a `- offset*sizeof(ptrType)` | `ptr-1` |
+| Operator | Description | Example |
+|----|----|----|
+| `+` | Allows one to offset the pointer by a `+ offset*sizeof(ptrType)` | `ptr+1` |
+| `-` | Allows one to offset the pointer by a `- offset*sizeof(ptrType)` | `ptr-1` |
 
 Below we show how one can use pointer arithmetic and the casting of
 pointers to work on sub-sections of data referenced to by a pointer:
@@ -187,10 +187,10 @@ fact the syntax `<compType>*` (for declaring a pointer to data of type
 table exists whereby instead of using `*` we use the `[<offset>]`
 operator:
 
-| Operator     | Description                                                   | Example                      |
-|--------------|---------------------------------------------------------------|------------------------------|
+| Operator | Description | Example |
+|----|----|----|
 | `[<offset>]` | Gets the value at the address held in the referred identifier | `int myVarVal = myVarPtr[0]` |
-| `[<offset>]` | Sets the value at the address held in the referred identifier | `myVarPtr[0] = 81`           |
+| `[<offset>]` | Sets the value at the address held in the referred identifier | `myVarPtr[0] = 81` |
 
 ``` d
 module simple_stack_array_coerce;

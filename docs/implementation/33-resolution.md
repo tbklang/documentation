@@ -41,11 +41,11 @@ Let us quickly provide a breakdown of what methods the `Container`
 interface type requires one to have implemented and readily available
 for usage on the *implementing type*.
 
-| Method                       | Return type   | Description                                                        |
-|------------------------------|---------------|--------------------------------------------------------------------|
-| `addStatement(Statement)`    | `void`        | Appends the given statement to this container’s body               |
-| `addStatements(Statement[])` | `void`        | Appends the list of statements (in order) to this container’s body |
-| `getStatements()`            | `Statement[]` | Returns the body of this container                                 |
+| Method | Return type | Description |
+|----|----|----|
+| `addStatement(Statement)` | `void` | Appends the given statement to this container’s body |
+| `addStatements(Statement[])` | `void` | Appends the list of statements (in order) to this container’s body |
+| `getStatements()` | `Statement[]` | Returns the body of this container |
 
 > We mentioned that the `Container` interface also implements the
 > `MStatementSearchable` and `MStatementReplaceable` interfaces. Those
@@ -59,12 +59,12 @@ being a `Container` type). A program,, unlike a module, is not an
 `Entity` - meaning it has no name associated with it **but** it is the
 root of the AST tree.
 
-| Method                                | Return type | Description                                                                                                                                                                                                    |
-|---------------------------------------|-------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `getModules()`                        | `Module[]`  | Returns the list of all modules which make up this program.                                                                                                                                                    |
-| `setEntryModule(ModuleEntry, Module)` | `void`      | Given a module entry this will assign (map) a module to it. Along with doing this the incoming module shall be added to the body of this `Program` and this module will have its parent set to said `Program`. |
-| `markEntryAsVisited(ModuleEntry)`     | `void`      | Marks the given entry as present. This effectively means simply adding the name of the incoming module entry as a key to the internal map but without it mapping to a module in particular.                    |
-| `isEntryPresent(ModuleEntry)`         | `bool`      | Check if the given module entry is present. This is based on whether a module entry within the internal map is present which has a name equal to the incoming entry.                                           |
+| Method | Return type | Description |
+|----|----|----|
+| `getModules()` | `Module[]` | Returns the list of all modules which make up this program. |
+| `setEntryModule(ModuleEntry, Module)` | `void` | Given a module entry this will assign (map) a module to it. Along with doing this the incoming module shall be added to the body of this `Program` and this module will have its parent set to said `Program`. |
+| `markEntryAsVisited(ModuleEntry)` | `void` | Marks the given entry as present. This effectively means simply adding the name of the incoming module entry as a key to the internal map but without it mapping to a module in particular. |
+| `isEntryPresent(ModuleEntry)` | `bool` | Check if the given module entry is present. This is based on whether a module entry within the internal map is present which has a name equal to the incoming entry. |
 
 Some of the methods above are related to the `Container`-side of the
 `Program` type. These methods are useful once the `Program` is already
@@ -107,12 +107,12 @@ constructed here) and onwards.
 The first set of methods relate to the name generation of entities in
 the AST tree.
 
-| Method                             | Return type | Description                                                                                                                                                                                                                  |
-|------------------------------------|-------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `isDescendant(Container, Entity)`  | `bool`      | Returns `true` entity `e` is `c` or is within (contained under `c`), `false` otherwise                                                                                                                                       |
-| `generateName0(Container, Entity)` | `string[]`  | Generates the components of the path from a given entity up to (and including) the given container. The latter implies that the given `Container` must also be a kind-of `Entity` such that a name can be generated from it. |
-| `generateNameBest(Entity)`         | `string`    | Generate the absolute full path of the given entity without specifying which anchor point to use.                                                                                                                            |
-| `generateName(Container, Entity)`  | `string`    | Given an entity and a container this will generate the entity’s full path relative to the given container. If the container is a `Program` then the absolute name of the entity is derived.                                  |
+| Method | Return type | Description |
+|----|----|----|
+| `isDescendant(Container, Entity)` | `bool` | Returns `true` entity `e` is `c` or is within (contained under `c`), `false` otherwise |
+| `generateName0(Container, Entity)` | `string[]` | Generates the components of the path from a given entity up to (and including) the given container. The latter implies that the given `Container` must also be a kind-of `Entity` such that a name can be generated from it. |
+| `generateNameBest(Entity)` | `string` | Generate the absolute full path of the given entity without specifying which anchor point to use. |
+| `generateName(Container, Entity)` | `string` | Given an entity and a container this will generate the entity’s full path relative to the given container. If the container is a `Program` then the absolute name of the entity is derived. |
 
 #### How `isDescendant(Container, Entity)` works
 
@@ -308,8 +308,8 @@ assert(containerEntity);
     descendant, either directly or indirectly, of the given container
     1.  *If so*, then we begin generating the elements by swimming up
         the ancestor tree, stopping once the `relativeTo` is reached
-3.  The last check, if neither checks $1$ or $2$ were true, is to return
-    `null` (an empty array)
+3.  The last check, if neither checks $`1`$ or $`2`$ were true, is to
+    return `null` (an empty array)
 
 The above steps are shown now below in their code form:
 
@@ -368,13 +368,13 @@ The second set of methods relate to the resolution facilities made
 available which allow one to search for entities based on various
 different sorts of custom *predicates* and by name.
 
-| Method                                                       | Return type | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-|--------------------------------------------------------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `resolveWithin(Container, Predicate!(Entity), ref Entity[])` | `void`      | Performs a horizontal-level search of the given `Container`, returning a found `Entity` when the predicate supplied returns a positive verdict on said entity then we add an entry to the ref parameter                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| `resolveWithin(Container, Predicate!(Entity))`               | `Entity`    | Performs a horizontal-level search of the given `Container`, returning a found `Entity` when the predicate supplied returns a positive verdict on said entity then we return it.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
-| `resolveUp(Container, Predicate!(Entity))`                   | `Entity`    | Performs a horizontal-based search of the given `Container`, returning the first `Entity` found when a positive verdict is returned from having the provided predicate applied to it. If the verdict is `false` then we do not give up immediately but rather recurse up the parental tree searching the container of the current container and applying the same logic.                                                                                                                                                                                                                                                                                                |
-| `resolveBest(Container, string)`                             | `Entity`    | This will do a best effort search starting for an entity with the given name. The search will start from the given container and perform a search within it, in the case no such entity is found there then it will recurse upwards, stopping when you reach the program-level. This also handles special cases such as dotted-paths, it can decode them and follow the trail to the intended entity. In the case that the container given is a `Program` then each name must either be solely a module name or a dotted-path beginning with one. In this mode nothing else is accepted, it effectively an absolute downwards (rather than potentially upwards search). |
-| `findContainerOfType(TypeInfo_Class, Statement)`             | `Container` | Given a type-of `Container` and a starting `Statement` (AST node) this will swim upwards to try and find the first matching parent of which is of the given type (exactly, not kind-of).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Method | Return type | Description |
+|----|----|----|
+| `resolveWithin(Container, Predicate!(Entity), ref Entity[])` | `void` | Performs a horizontal-level search of the given `Container`, returning a found `Entity` when the predicate supplied returns a positive verdict on said entity then we add an entry to the ref parameter |
+| `resolveWithin(Container, Predicate!(Entity))` | `Entity` | Performs a horizontal-level search of the given `Container`, returning a found `Entity` when the predicate supplied returns a positive verdict on said entity then we return it. |
+| `resolveUp(Container, Predicate!(Entity))` | `Entity` | Performs a horizontal-based search of the given `Container`, returning the first `Entity` found when a positive verdict is returned from having the provided predicate applied to it. If the verdict is `false` then we do not give up immediately but rather recurse up the parental tree searching the container of the current container and applying the same logic. |
+| `resolveBest(Container, string)` | `Entity` | This will do a best effort search starting for an entity with the given name. The search will start from the given container and perform a search within it, in the case no such entity is found there then it will recurse upwards, stopping when you reach the program-level. This also handles special cases such as dotted-paths, it can decode them and follow the trail to the intended entity. In the case that the container given is a `Program` then each name must either be solely a module name or a dotted-path beginning with one. In this mode nothing else is accepted, it effectively an absolute downwards (rather than potentially upwards search). |
+| `findContainerOfType(TypeInfo_Class, Statement)` | `Container` | Given a type-of `Container` and a starting `Statement` (AST node) this will swim upwards to try and find the first matching parent of which is of the given type (exactly, not kind-of). |
 
 Only the important methods here will be mentioned. Methods pertaining to
 certain single-item return and predicate generation will not. For those

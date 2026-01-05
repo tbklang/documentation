@@ -32,8 +32,8 @@ the provided type, and return a list of them.
 
 TODO: Method table (required methods to implement)
 
-| Method name                | Return type   | Description                                                                                                                       |
-|----------------------------|---------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| Method name | Return type | Description |
+|----|----|----|
 | `search( TypeInfo_Class )` | `Statement[]` | Searches for all objects of the given type and returns an array of them. Only if the given type is equal to or sub-of `Statement` |
 
 TODO: Add an example of it being used here please
@@ -47,9 +47,9 @@ return a `ref x` to it hence allowing us to replace it.
 `ref` stuff is ysed AT ALL, and hasn’t been for a long time anyways, so
 that comment needs to get updated
 
-| Method name                              | Return type | Description                                                                                                                                                         |
-|------------------------------------------|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `replace(     Statement,     Statement)` | `bool`      | Replace a given `Statement` (the first argument) with another `Statement` (the second argument), returns `true` if the replacement is successful, `false` otherwise |
+| Method name | Return type | Description |
+|----|----|----|
+| `replace(     Statement,     Statement)` | `bool` | Replace a given `Statement` (the first argument) with another `Statement` (the second argument), returns `true` if the replacement is successful, `false` otherwise |
 
 TODO: Add an example of it being used here please
 
@@ -87,15 +87,15 @@ constructed, then we can pass the changed program to the `TypeChecker`
 and it wouldn’t know any different. For all the type checker knows, this
 is just the original program.
 
-| Method name                                  | Return type | Description                                                                                                             |
-|----------------------------------------------|-------------|-------------------------------------------------------------------------------------------------------------------------|
-| `process(Container)`                         | `void`      | Processes the various types of meta statements in the provided `Container`                                              |
-| `doTypeAlias(     Container,     Statement)` | `void`      | Performs the replacement of type aliases such as `size_t`, `ssize_t`                                                    |
-| `typeRewrite(     MTypeRewritable)`          | `void`      | Updates any type fields in `TypedEntity`s (these are the only ones really implementing the `MTypeRewritable` interface) |
-| `getConcreteType(     string)`               | `string`    | Given an assumed type alias this will try resolve it to its concrete type                                               |
-| `isTypeAlias(string)`                        | `bool`      | Given an assumed type alias this checks if it is a type alias                                                           |
-| `isSystemType(string)`                       | `bool`      | Checks if the given type is a system alias (so, is it `size_t`/`ssize_t`)                                               |
-| `getSystemType(string)`                      | `string`    | Resolves `size_t`/`ssize_t` to their concrete types using the `CompilerConfig`                                          |
+| Method name | Return type | Description |
+|----|----|----|
+| `process(Container)` | `void` | Processes the various types of meta statements in the provided `Container` |
+| `doTypeAlias(     Container,     Statement)` | `void` | Performs the replacement of type aliases such as `size_t`, `ssize_t` |
+| `typeRewrite(     MTypeRewritable)` | `void` | Updates any type fields in `TypedEntity`s (these are the only ones really implementing the `MTypeRewritable` interface) |
+| `getConcreteType(     string)` | `string` | Given an assumed type alias this will try resolve it to its concrete type |
+| `isTypeAlias(string)` | `bool` | Given an assumed type alias this checks if it is a type alias |
+| `isSystemType(string)` | `bool` | Checks if the given type is a system alias (so, is it `size_t`/`ssize_t`) |
+| `getSystemType(string)` | `string` | Resolves `size_t`/`ssize_t` to their concrete types using the `CompilerConfig` |
 
 ### AST processing
 

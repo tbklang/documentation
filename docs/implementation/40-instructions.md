@@ -167,14 +167,15 @@ assert(s_out == "1 + 2");
 
 The `render()` implementation for binay operations uses `tryRender` on
 both of its operands as so:
-$tryRender(operand_{lhs})\space operator\space tryRender(operand_{rhs})$.
+$`tryRender(operand_{lhs})\space operator\space tryRender(operand_{rhs})`$.
 In this case those operands, the literal value instructions. also have
 implemented `render()`. The latter implemented it in such a manner so as
-to simply return the `LiteralValue`’s internal value itself, $1$ and $2$
-respectively.
+to simply return the `LiteralValue`’s internal value itself, $`1`$ and
+$`2`$ respectively.
 
-$$
+``` math
+
 1 + 2
-$$
+```
 
 Finally we end up with the render above.

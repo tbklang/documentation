@@ -80,7 +80,7 @@ int main()
 ```
 
 > Notice here that we import modules in the same directory just with
-> their name. It’s basically $module_{path} = module_{name}+".t"$.
+> their name. It’s basically $`module_{path} = module_{name}+".t"`$.
 > Directory structure is also taken into account, hence in order to
 > reference the module `c` we must import it as `niks.c` as that will
 > resolve to `niks/c.t` as the file path.

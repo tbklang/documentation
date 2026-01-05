@@ -1,10 +1,10 @@
 ## Lexical analysis
 
 Lexical analysis is the process of taking a program as an input string
-$A$ and splitting it into a list of $n$ sub-strings
-$A_{1},\,A_{2}\ldots A_{n}$ called tokens. The length $n$ of this list
-of dependent on several rules that determine how, when and where new
-tokens are built - this set of rules is called a *grammar*.
+$`A`$ and splitting it into a list of $`n`$ sub-strings
+$`A_{1},\,A_{2}\ldots A_{n}`$ called tokens. The length $`n`$ of this
+list of dependent on several rules that determine how, when and where
+new tokens are built - this set of rules is called a *grammar*.
 
 ### Grammar
 
@@ -31,17 +31,17 @@ The API is described in the table below and the file in question is in
 `source/tlang/compiler/lexer/core/lexer.d` which contains the
 `LexerInterface` described below:
 
-| Method name         | Return type | Description                                                                   |
-|---------------------|-------------|-------------------------------------------------------------------------------|
-| `getCurrentToken()` | `Token`     | Returns the `Token` at the current cursor position                            |
-| `nextToken()`       | `void`      | Moves the cursor forward once                                                 |
-| `previousToken()`   | `void`      | Moves the cursor backwards once                                               |
-| `setCursor(ulong)`  | `void`      | Set’s the cursor’s position to the given index                                |
-| `getCursor()`       | `ulong`     | Returns the cursor’s current position                                         |
-| `hasTokens()`       | `bool`      | Returns `true` if there are more tokens to be consumed, otherwise `false`     |
-| `getLine()`         | `ulong`     | Return’s the line number the lexer is at                                      |
-| `getColumn()`       | `ulong`     | Return’s the column number the lexer is at                                    |
-| `getTokens()`       | `Token[]`   | Exhausts the lexer’s token stream and returns all gathered tokens in an array |
+| Method name | Return type | Description |
+|----|----|----|
+| `getCurrentToken()` | `Token` | Returns the `Token` at the current cursor position |
+| `nextToken()` | `void` | Moves the cursor forward once |
+| `previousToken()` | `void` | Moves the cursor backwards once |
+| `setCursor(ulong)` | `void` | Set’s the cursor’s position to the given index |
+| `getCursor()` | `ulong` | Returns the cursor’s current position |
+| `hasTokens()` | `bool` | Returns `true` if there are more tokens to be consumed, otherwise `false` |
+| `getLine()` | `ulong` | Return’s the line number the lexer is at |
+| `getColumn()` | `ulong` | Return’s the column number the lexer is at |
+| `getTokens()` | `Token[]` | Exhausts the lexer’s token stream and returns all gathered tokens in an array |
 
 #### Character constants
 
@@ -105,27 +105,27 @@ across the lexer implementation and therefore are worth being aware of.
 You can find these all within the `tlang.compiler.lexer.core.lexer`
 module.
 
-| Method name                        | Return type | Description                                                                                           |
-|------------------------------------|-------------|-------------------------------------------------------------------------------------------------------|
-| `isOperator(char c)`               | `bool`      | Checks if the provided character is an operator, returning `true` if so                               |
-| `isSplitter(char c)`               | `bool`      | Checks if the provided character is a splitter, returning `true` if so                                |
-| `isNumericalEncoder_Size(char)`    | `bool`      | Checks if the provided character is a numerical size encoder                                          |
-| `isNumericalEncoder_Signage(char)` | `bool`      | Checks if the provided character is a numerical signage encoder                                       |
-| `isNumericalEncoder(char)`         | `bool`      | Checks if the provided character is either a numerical size encoder or signage encoder                |
-| `isValidEscape_String(char)`       | `bool`      | Checks if the given character is a valid escape character (something which would have followed a `\`) |
-| `isValidDotPrecede(char)`          | `bool`      | Given a character return whether it is valid entry for preceding a ‘.’.                               |
+| Method name | Return type | Description |
+|----|----|----|
+| `isOperator(char c)` | `bool` | Checks if the provided character is an operator, returning `true` if so |
+| `isSplitter(char c)` | `bool` | Checks if the provided character is a splitter, returning `true` if so |
+| `isNumericalEncoder_Size(char)` | `bool` | Checks if the provided character is a numerical size encoder |
+| `isNumericalEncoder_Signage(char)` | `bool` | Checks if the provided character is a numerical signage encoder |
+| `isNumericalEncoder(char)` | `bool` | Checks if the provided character is either a numerical size encoder or signage encoder |
+| `isValidEscape_String(char)` | `bool` | Checks if the given character is a valid escape character (something which would have followed a `\`) |
+| `isValidDotPrecede(char)` | `bool` | Given a character return whether it is valid entry for preceding a ‘.’. |
 
 #### the `Token`
 
 A `Token` represents, well, a token which is produced in following the
 grammar.
 
-| Method name                  | Return type | Description                                                                           |
-|------------------------------|-------------|---------------------------------------------------------------------------------------|
+| Method name | Return type | Description |
+|----|----|----|
 | `this(string, ulong, ulong)` | Constructor | Constructs a new `Token` with the given contents, followed by line and column numbers |
-| `opEquals(Object other)`     | `bool`      | Overrides the behaviour of `==` to allow for comparing `Token`(s) based on content    |
-| `getToken()`                 | `string`    | Returns the contents of this token                                                    |
-| `toString()`                 | `string`    | Returns a string representation of the token including its data and line information  |
+| `opEquals(Object other)` | `bool` | Overrides the behaviour of `==` to allow for comparing `Token`(s) based on content |
+| `getToken()` | `string` | Returns the contents of this token |
+| `toString()` | `string` | Returns a string representation of the token including its data and line information |
 
 Below, as an example of the API, we show how you con compare tokens (if
 you ever needed to):
@@ -151,8 +151,8 @@ appearance):
 1.  `LexerInterface`
     - We take in the offending instance of the lexer used which
       generated this exception
-    - This is such that coordinate information (the $(x,y)$ source text
-      pointer can be added into error messages)
+    - This is such that coordinate information (the $`(x,y)`$ source
+      text pointer can be added into error messages)
 2.  `LexerError`
     - This is an **optional** parameter which defaults to
       `LexerError.OTHER`
@@ -201,15 +201,15 @@ implemented **however** it is planned.
 A quick overview of some of the fields which are used for tracking the
 state of the token building process:
 
-| Name           | Type      | Purpose                                                                    |
-|----------------|-----------|----------------------------------------------------------------------------|
-| `sourceCode`   | `string`  | the whole input program (as a string) to be tokenized                      |
-| `position`     | `ulong`   | holds the index to the current character in the string array `sourceCode`  |
-| `currentChar`  | `char`    | the current character at index-`position`                                  |
-| `tokens`       | `Token[]` | The list of the currently built tokens                                     |
-| `line`         | `ulong`   | Current line the tokenizer is on (with respect to the source code input)   |
-| `column`       | `ulong`   | Current column the tokenizer is on (with respect to the source code input) |
-| `currentToken` | `string`  | The token string that is currently being built-up, char-by-char            |
+| Name | Type | Purpose |
+|----|----|----|
+| `sourceCode` | `string` | the whole input program (as a string) to be tokenized |
+| `position` | `ulong` | holds the index to the current character in the string array `sourceCode` |
+| `currentChar` | `char` | the current character at index-`position` |
+| `tokens` | `Token[]` | The list of the currently built tokens |
+| `line` | `ulong` | Current line the tokenizer is on (with respect to the source code input) |
+| `column` | `ulong` | Current column the tokenizer is on (with respect to the source code input) |
+| `currentToken` | `string` | The token string that is currently being built-up, char-by-char |
 
 The implementation of the lexer, the `BasicLexer` class, is explained in
 detail in this section. The lexical analysis is done one-shot via the
@@ -293,12 +293,12 @@ position += 2;
 
 Helper functions relating to character and token availability.
 
-| Method name        | Return type | Description                                                                                                                                                                                                                                                                     |
-|--------------------|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `hasToken()`       | `bool`      | Returns `true` if there is a token currently built i.e. `currentToken.length != 0`, `false` otherwise.                                                                                                                                                                          |
-| `isBackward()`     | `bool`      | Returns `true` if we can move the character pointer backwards, `false` otherwise.                                                                                                                                                                                               |
-| `isForward()`      | `bool`      | Returns `true` if we can move the character pointer forward, `false` otherwise.                                                                                                                                                                                                 |
-| `isNumericalStr()` | `bool`      | This method is called in order to check if the build up, `currentToken`, is a valid numerical string. If the string is empty, then it returns `false`. If the string is non-empty and contains anything other than digits then it returns `false`, otherwise is returns `true`. |
+| Method name | Return type | Description |
+|----|----|----|
+| `hasToken()` | `bool` | Returns `true` if there is a token currently built i.e. `currentToken.length != 0`, `false` otherwise. |
+| `isBackward()` | `bool` | Returns `true` if we can move the character pointer backwards, `false` otherwise. |
+| `isForward()` | `bool` | Returns `true` if we can move the character pointer forward, `false` otherwise. |
+| `isNumericalStr()` | `bool` | This method is called in order to check if the build up, `currentToken`, is a valid numerical string. If the string is empty, then it returns `false`. If the string is non-empty and contains anything other than digits then it returns `false`, otherwise is returns `true`. |
 
 #### Grammar-wise
 
@@ -309,26 +309,26 @@ These methods follow a sort of methodology whereby they will return
 `true` if there are characters left in the buffer which can still be
 processed after return, or `false` if there are none left.
 
-| Method name       | Return type | Description                                                                               |
-|-------------------|-------------|-------------------------------------------------------------------------------------------|
-| `doIdentOrPath()` | `bool`      | Processes an ident with or without a dot-path                                             |
-| `doChar()`        | `bool`      | Tokenizes a character                                                                     |
-| `doString()`      | `bool`      | Tokenizes a string                                                                        |
-| `doComment()`     | `bool`      | Processes various different types of comments                                             |
-| `doEscapeCode()`  | `bool`      | Lex an escape code. If valid one id found, add it to the token, else throw Exception      |
-| `doNumber()`      | `bool`      | Lex a number, this method lexes a plain number, float or numerically encoded.             |
-| `doEncoder()`     | `bool`      | Lex a numerical encoder                                                                   |
-| `doFloat()`       | `bool`      | Lex a floating point, the initial part of the number is lexed by the `doNumber()` method. |
+| Method name | Return type | Description |
+|----|----|----|
+| `doIdentOrPath()` | `bool` | Processes an ident with or without a dot-path |
+| `doChar()` | `bool` | Tokenizes a character |
+| `doString()` | `bool` | Tokenizes a string |
+| `doComment()` | `bool` | Processes various different types of comments |
+| `doEscapeCode()` | `bool` | Lex an escape code. If valid one id found, add it to the token, else throw Exception |
+| `doNumber()` | `bool` | Lex a number, this method lexes a plain number, float or numerically encoded. |
+| `doEncoder()` | `bool` | Lex a numerical encoder |
+| `doFloat()` | `bool` | Lex a floating point, the initial part of the number is lexed by the `doNumber()` method. |
 
 #### Buffer management
 
 These are methods for managing the advancement of the lexing pointer,
-the position of $(x, y)$ coordinates (used for error reporting) and so
+the position of $`(x, y)`$ coordinates (used for error reporting) and so
 forth.
 
-| Method name                                              | Return type | Description                                                                                             |
-|----------------------------------------------------------|-------------|---------------------------------------------------------------------------------------------------------|
-| `flush()`                                                | `void`      | Flush the current token to the token buffer.                                                            |
-| `buildAdvance()`                                         | `bool`      | Consume the current char into the current token, returns `true` on non-empty buffer                     |
-| `improvedAdvance(int inc = 1, bool shouldFlush = false)` | `bool`      | Advances the source code pointer                                                                        |
-| `advanceLine()`                                          | `bool`      | Advance the position, line and current token, reset the column to 1. Returns `true` on non-empty buffer |
+| Method name | Return type | Description |
+|----|----|----|
+| `flush()` | `void` | Flush the current token to the token buffer. |
+| `buildAdvance()` | `bool` | Consume the current char into the current token, returns `true` on non-empty buffer |
+| `improvedAdvance(int inc = 1, bool shouldFlush = false)` | `bool` | Advances the source code pointer |
+| `advanceLine()` | `bool` | Advance the position, line and current token, reset the column to 1. Returns `true` on non-empty buffer |

@@ -56,9 +56,9 @@ This would result in a situation where we have the following production
 ### Enforcement
 
 Enforcement is the procedure of ensuring that a given `Value`-based
-instruction, $instr_{i}$, conforms to the target type or *“to-type”*,
-$type_{i}$. An optional flag can be passed such that if the
-$typeof(instr_{i}) \neq type_{i}$ that it can then attempt coercion as
+instruction, $`instr_{i}`$, conforms to the target type or *“to-type”*,
+$`type_{i}`$. An optional flag can be passed such that if the
+$`typeof(instr_{i}) \neq type_{i}`$ that it can then attempt coercion as
 to bring it to the equal type.
 
 The method by which this is done is:
@@ -76,20 +76,20 @@ the next two sections.
 #### Type equality
 
 In order to check strict equality the type enforcer will initially check
-the following condition. We label the `toType` as $t_{1}$ and the the
-type of `v2` as $typeof(v_{2})$ (otherwise referred to as $t_{2}$).
+the following condition. We label the `toType` as $`t_{1}`$ and the the
+type of `v2` as $`typeof(v_{2})`$ (otherwise referred to as $`t_{2}`$).
 
 The method `isSameType(Type t1, Type t2)` provides exact quality
-checking between the two given types in the form of $t_{1} = t_{2}$.
+checking between the two given types in the form of $`t_{1} = t_{2}`$.
 
 #### Coercion
 
-In the case of coercion an application of $coerce()$ is applied to the
-incoming instruction, as to produce an instruction $coerceInstr_{i}$, a
-`CastedValueInstruction`, which wraps the original instruction inside of
-it but allows for a type cast/conversion to the target type, therefore
-making the statement, $type_{i} = typeof(coerce(instr_{i}))$ (which is
-the same as $type_{i} = typeof(coerceInstr_{i})$), valid.
+In the case of coercion an application of $`coerce()`$ is applied to the
+incoming instruction, as to produce an instruction $`coerceInstr_{i}`$,
+a `CastedValueInstruction`, which wraps the original instruction inside
+of it but allows for a type cast/conversion to the target type,
+therefore making the statement, $`type_{i} = typeof(coerce(instr_{i}))`$
+(which is the same as $`type_{i} = typeof(coerceInstr_{i})`$), valid.
 
 TODO: Document this now
 
@@ -166,10 +166,10 @@ declaration.
 
 Below is a method table of the methods of concern:
 
-| Method                 | Description                                                                                   | Return       |
-|------------------------|-----------------------------------------------------------------------------------------------|--------------|
-| `touch(Variable)`      | Increments the count by 1 for the given variable, creates a mapping if one does not yet exist | `void`       |
-| `getUnusedVariables()` | Returns an array of all `Variable`s which have a reference count above `1`                    | `Variable[]` |
+| Method | Description | Return |
+|----|----|----|
+| `touch(Variable)` | Increments the count by 1 for the given variable, creates a mapping if one does not yet exist | `void` |
+| `getUnusedVariables()` | Returns an array of all `Variable`s which have a reference count above `1` | `Variable[]` |
 
 This aids us in implementing a single feature *unused variable
 detection*. It’s rather simple, reference counts are incremented by

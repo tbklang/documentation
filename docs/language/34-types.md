@@ -25,9 +25,9 @@ attributes:
 
 There are also some types aliases to be aware of:
 
-| Type      | Width                                   | Intended interpretation        |
-|-----------|-----------------------------------------|--------------------------------|
-| `size_t`  | Value of config entry `types:max_width` | unsigned                       |
+| Type | Width | Intended interpretation |
+|----|----|----|
+| `size_t` | Value of config entry `types:max_width` | unsigned |
 | `ssize_t` | Value of config entry `types:max_width` | signed byte (two’s complement) |
 
 #### Decimal
@@ -83,28 +83,28 @@ variable of type `T` that you *would infact* be able to assign such a
 value to said type `T`. That “type `T`” is what we have in the
 *Coercible-to* column:
 
-| Range                              | Coercible-to                                                       |
-|------------------------------------|--------------------------------------------------------------------|
-| `0` … `255`                        | `ubyte`, `ushort`, `uint`, `ulong`                                 |
-| `0` … `65_535`                     | `ushort`, `uint`, `ulong`                                          |
-| `0` … `4_294_967_295`              | `uint`, `ulong`                                                    |
-| `0` … `18_446_744_073_709_551_615` | `ulong`                                                            |
-| `0` … `127`                        | `byte`, `ubyte`, `short`, `ushort`, `int`, `uint`, `long`, `ulong` |
-| `0` … `32_7676`                    | `short`, `ushort`, `int`, `uint`, `long`, `ulong`                  |
-| `0` … `2_147_483_647`              | `int`, `uint`, `long`, `ulong`                                     |
-| `0` … `9_223_372_036_854_775_807`  | `long`, `ulong`                                                    |
+| Range | Coercible-to |
+|----|----|
+| `0` … `255` | `ubyte`, `ushort`, `uint`, `ulong` |
+| `0` … `65_535` | `ushort`, `uint`, `ulong` |
+| `0` … `4_294_967_295` | `uint`, `ulong` |
+| `0` … `18_446_744_073_709_551_615` | `ulong` |
+| `0` … `127` | `byte`, `ubyte`, `short`, `ushort`, `int`, `uint`, `long`, `ulong` |
+| `0` … `32_7676` | `short`, `ushort`, `int`, `uint`, `long`, `ulong` |
+| `0` … `2_147_483_647` | `int`, `uint`, `long`, `ulong` |
+| `0` … `9_223_372_036_854_775_807` | `long`, `ulong` |
 
 If the expression being assigned is not a literal but rather a composed
 expression such as a “negated literal” (a `UnaryOpExpression` with an
 operation of `-` and a embedded `LiteralValue`) then the following table
 applies:
 
-| Range                                                      | Coercible-to                   |
-|------------------------------------------------------------|--------------------------------|
-| `-128` … `127`                                             | `byte`, `short`, `int`, `long` |
-| `-32_768` … `32_767`                                       | `short`, `int`, `long`         |
-| `-2_147_483_648` … `2_147_483_647`                         | `int`, `long`                  |
-| `-9_223_372_036_854_775_808` … `9_223_372_036_854_775_807` | `long`                         |
+| Range | Coercible-to |
+|----|----|
+| `-128` … `127` | `byte`, `short`, `int`, `long` |
+| `-32_768` … `32_767` | `short`, `int`, `long` |
+| `-2_147_483_648` … `2_147_483_647` | `int`, `long` |
+| `-9_223_372_036_854_775_808` … `9_223_372_036_854_775_807` | `long` |
 
 1.  TODO: Sign/zero extension
     - TODO: Mention that this is something the code emitter will have to
