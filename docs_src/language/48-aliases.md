@@ -53,3 +53,16 @@ int main()
     return doIt;
 }
 ```
+
+### Aliases pointing to aliases
+
+Yes, you can infact do:
+
+```d
+module alias_to_alias;
+
+alias f = 1;
+alias d = f;
+```
+
+And it will recursively resolve.
