@@ -33,7 +33,7 @@ nav:
     - Modules: language/43-modules.md
     - Annotations: language/45-annotations.md
     - Mixins: language/47-mixins.md
-    - Aliases: langauge/48-aliases.md
+    - Aliases: language/48-aliases.md
     - Configuration: language/50-configuration.md
   - Implementation:
     - Introduction: implementation/30-introduction.md
