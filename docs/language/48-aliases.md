@@ -11,8 +11,6 @@ bound to it:
 alias doIt = doubler(i);
 ```
 
-int doubler(int i) { return i\*2; }
-
 Now whenever I reference the alias `doIt` (in any place where an
 expression may be used) it will be replaced *in-place* by `doubler(i)`.
 Therefore the following code:

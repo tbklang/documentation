@@ -9,12 +9,6 @@ Here I define an alias named `doIt` to have the expression `doubler(i)` bound to
 alias doIt = doubler(i);
 ```
 
-
-int doubler(int i)
-{
-    return i*2;
-}
-
 Now whenever I reference the alias `doIt` (in any place where an expression may be used)
 it will be replaced _in-place_ by `doubler(i)`. Therefore the following code:
 
