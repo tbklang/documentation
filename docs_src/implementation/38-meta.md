@@ -1,13 +1,11 @@
-## Meta processor
+## Meta
 
-The _meta processor_ is a mechanism that acts somewhat like a _shim_ (something you shove in-between two things) between the _parser_ and the _typechecker_. Therefore because the parser provides us with an AST tree rooted in a `Module` of which is then passed to the type checker it would imply that the place where the meta processor fits in is something that _consumes the AST tree_, applies manipulations to its nodes or completely replaces some, and then finally returns to let the type checker begin its process.
+There are quite a lot of aspects one may want to be able to support in a modern language and many of these have to do with manipulating the original source code itself. However, text transformations on source code can only go so far - what one really wants is the ability to manipulate the AST tree that was _parsed_ from said source code.
 
-Examples of things which require AST manipulation are:
+This is where the meta section comes in. There is not one single component for this but rather several mechanisms at hand that, when combined correctly, allow one to perform all sorts of transformations.
 
-1. Type aliases
-    * `size_t` and `ssize_t` need to be resolved to their concrete types
-2. Macros
-    * Macros such as `sizeof(<type>)` need to be replaced with a `NumberLiteral` with the value that is equal to the bit-width (in bytes) of the type `<type>`
+TODO: `sizet` etc.
+    These types will need to be handled somehow, probably in `getType()` in the type checker
 
 ### Meta API
 
@@ -17,13 +15,19 @@ There are some core interfaces which various `Statement`(s) (parser nodes) can i
 
 Anything which implements this has the ability to search for objects of the provided type, and return a list of them.
 
-TODO: Method table (required methods to implement)
-
 |   Method name            | Return type   | Description                                                                           |
 |--------------------------|---------------|---------------------------------------------------------------------------------------|
 | `search(
 TypeInfo_Class
 )`   | `Statement[]` | Searches for all objects of the given type and returns an array of them. Only if the given type is equal to or sub-of `Statement` |
+
+Sometimes one needs to be able to find all AST nodes of a given type, for example, I may have an `Expression` AST node such as:
+
+```
+1 + 2 + func()
+```
+
+And maybe I would like to find all AST nodes _therein_ that are type-compatible with the `IntegerLiteral` type - meaning I would be able to extract all the integer literals present in that expression, namely $1$ and $2$.
 
 TODO: Add an example of it being used here please
 
