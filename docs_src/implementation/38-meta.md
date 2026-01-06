@@ -84,7 +84,29 @@ if(funcCall_n == "sizeof")
     ...
 ```
 
+Now let's first create the AST node that I want to put in place of where the `sizeof(...)` `FunctionCall` AST node is currently:
 
+```d
+IntegerLiteral li = determineSizeOfLiteral(this.tc, n);
+```
+
+Next we want to do two things:
+
+1. Set `li`'s parent to `funcCall`'s parent
+    * This is to make it "act" the same
+2. Place `li` exactly where `funcCall` was _in_ `funcCall`'s parent
+    * This is pretty self-explanatory
+
+```d
+// Set to use the same parent as `funcCall`
+li.parentTo(funcCall_p);
+
+// Replace `funcCall` in `funcCall_p` with `li`
+auto funcCall_p_cl = cast(MStatementReplaceable)funcCall_p;
+funcCall_p_cl.replace(funcCall, li);
+```
+
+We have now performed the replacement.
 
 #### the `MTypeRewritable`
 
