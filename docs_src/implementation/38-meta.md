@@ -63,6 +63,29 @@ Anything which implements this has the ability to, given an object `x`, return a
 
 TODO: Add an example of it being used here please
 
+A real example from the source code is how the dependency generator replaces occurences of the `FunctionCall` AST node `sizeof(...)` with an `IntegerLiteral` containing some numeric number. The idea is that `sizeof(ubyte)` should be replaced with an `IntegerLiteral` containing the number $1$ (the number of bytes of the `ubyte` type).
+
+The implementation of this starts of with a `FunctionCall` node called `funcCall` and we then obtain the name of the function being called with `funcCall.getName()`, we do this to ensure that we are observing `sizeof(...)`:
+
+```d
+FunctionCall funcCall = cast(FunctionCall)exp;
+string funcCall_n = funcCall.getName();
+
+// store the parent of `funcCall`
+Container funcCall_p = funcCall.parentOf();
+
+/** 
+ * In the case we have a function named
+ * `sizeof()` then we want to replace
+ * it in place with a different expression
+ */
+if(funcCall_n == "sizeof")
+{
+    ...
+```
+
+
+
 #### the `MTypeRewritable`
 
 TODO: Description
