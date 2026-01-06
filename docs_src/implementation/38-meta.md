@@ -27,9 +27,27 @@ Sometimes one needs to be able to find all AST nodes of a given type, for exampl
 1 + 2 + func()
 ```
 
-And maybe I would like to find all AST nodes _therein_ that are type-compatible with the `IntegerLiteral` type - meaning I would be able to extract all the integer literals present in that expression, namely $1$ and $2$.
+And maybe I would like to find all AST nodes _therein_ that are type-compatible with the `IntegerLiteral` type - meaning I would be able to extract all the integer literals present in that expression, namely $1$ and $2$. Let's take a look at this example in code:
 
-TODO: Add an example of it being used here please
+```d
+// This is our main expression `1 + 2 + func()`
+Expression exp = ...
+
+// Cast to `MStatementSearchable` and only work
+// if it supports it
+if(cast(MStatementSearchable)exp)
+{
+    MStatementSearchable mss_exp = cast(MStatementSearchable)exp;
+    Statement[] s = mss_exp.search(IntegerLiteral.classinfo);
+    writeln(s);
+}
+```
+
+The output of `writeln(s)` would be, if all the AST types we care about (and intermediay ones) implement `MStatementSearchable`, something like:
+
+```
+[Integerliteral [val: 1], Integerliteral [val: 2]]
+```
 
 #### the `MStatementReplaceable`
 
