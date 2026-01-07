@@ -61,8 +61,6 @@ Anything which implements this has the ability to, given an object `x`, return a
     Statement,
     Statement)`  | `bool`        | Replace a given `Statement` (the first argument) with another `Statement` (the second argument), returns `true` if the replacement is successful, `false` otherwise |
 
-TODO: Add an example of it being used here please
-
 A real example from the source code is how the dependency generator replaces occurences of the `FunctionCall` AST node `sizeof(...)` with an `IntegerLiteral` containing some numeric number. The idea is that `sizeof(ubyte)` should be replaced with an `IntegerLiteral` containing the number $1$ (the number of bytes of the `ubyte` type).
 
 The implementation of this starts of with a `FunctionCall` node called `funcCall` and we then obtain the name of the function being called with `funcCall.getName()`, we do this to ensure that we are observing `sizeof(...)`:
