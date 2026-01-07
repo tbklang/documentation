@@ -125,8 +125,42 @@ Anything which implements this should be able to make a full deep clone of itsel
 |------------------|--------------|---------------------------------------------|
 | `clone()`        | `Statement`  | Returns the deeply cloned `Statement`       |
 
-TODO: Add an example of it being used here please
+A good example of where this is used is when processing _aliases_, specifically when they are referred to as _expressions_. Imagine that you have the following code:
 
+```{.d .numberLines}
+module usage_capture;
+
+alias doIt = doubler(i);
+
+int doubler(int i)
+{
+    return i*2;
+}
+
+int main()
+{
+    int i = 2;
+
+    return doIt;
+}
+```
+
+When the `doIt` alias is _referred to_ in `return doIt` the dependency generator will have to lookup the alias named `doIt`, obtain its expression (which is `doubler(i)`) and then make a clone of it, parent it to the same parent as the `doIt` AST node (which is a `VariableExpression` at present) and then _replace_ said AST node with the cloned node.
+
+Focusing just on the cloning part, this is what that code would look like (here `ad` is the looked-up `AliasDeclaration` named `"doIt"`):
+
+```d
+/**
+ * Obtain the expression, perform a clone
+ * and parent to `varExp_p`
+ */
+auto ad_expr = ad.getExpr();
+auto ad_expr_cl = cast(MCloneable)ad_expr;
+
+auto cloned = ad_expr_cl.clone(varExp_p);
+```
+
+It's really that simple.
 
 ### the `MetaProcessor`
 

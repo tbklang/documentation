@@ -136,16 +136,57 @@ TODO: Add an example of it being used here please
 
 #### the `MCloneable`
 
-**NOTE:** This one isn’t even used yet anywhere that I know of, hence do
-not document yet
-
-Anything which implements this can make a full deep clone of itself.
+Anything which implements this should be able to make a full deep clone
+of itself and then also, optionally, allow a new parent to be set.
 
 | Method name | Return type | Description                           |
 |-------------|-------------|---------------------------------------|
 | `clone()`   | `Statement` | Returns the deeply cloned `Statement` |
 
-TODO: Add an example of it being used here please
+A good example of where this is used is when processing *aliases*,
+specifically when they are referred to as *expressions*. Imagine that
+you have the following code:
+
+``` d
+module usage_capture;
+
+alias doIt = doubler(i);
+
+int doubler(int i)
+{
+    return i*2;
+}
+
+int main()
+{
+    int i = 2;
+
+    return doIt;
+}
+```
+
+When the `doIt` alias is *referred to* in `return doIt` the dependency
+generator will have to lookup the alias named `doIt`, obtain its
+expression (which is `doubler(i)`) and then make a clone of it, parent
+it to the same parent as the `doIt` AST node (which is a
+`VariableExpression` at present) and then *replace* said AST node with
+the cloned node.
+
+Focusing just on the cloning part, this is what that code would look
+like (here `ad` is the looked-up `AliasDeclaration` named `"doIt"`):
+
+``` d
+/**
+ * Obtain the expression, perform a clone
+ * and parent to `varExp_p`
+ */
+auto ad_expr = ad.getExpr();
+auto ad_expr_cl = cast(MCloneable)ad_expr;
+
+auto cloned = ad_expr_cl.clone(varExp_p);
+```
+
+It’s really that simple.
 
 ### the `MetaProcessor`
 
