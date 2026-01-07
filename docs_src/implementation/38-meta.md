@@ -119,9 +119,7 @@ TODO: Add an example of it being used here please
 
 #### the `MCloneable`
 
-**NOTE:** This one isn't even used yet anywhere that I know of, hence do not document yet
-
-Anything which implements this can make a full deep clone of itself.
+Anything which implements this should be able to make a full deep clone of itself and then also, optionally, allow a new parent to be set.
 
 |   Method name    | Return type  |     Description                             |
 |------------------|--------------|---------------------------------------------|
