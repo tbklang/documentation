@@ -1,22 +1,17 @@
-## Meta processor
+## Meta
 
-The *meta processor* is a mechanism that acts somewhat like a *shim*
-(something you shove in-between two things) between the *parser* and the
-*typechecker*. Therefore because the parser provides us with an AST tree
-rooted in a `Module` of which is then passed to the type checker it
-would imply that the place where the meta processor fits in is something
-that *consumes the AST tree*, applies manipulations to its nodes or
-completely replaces some, and then finally returns to let the type
-checker begin its process.
+There are quite a lot of aspects one may want to be able to support in a
+modern language and many of these have to do with manipulating the
+original source code itself. However, text transformations on source
+code can only go so far - what one really wants is the ability to
+manipulate the AST tree that was *parsed* from said source code.
 
-Examples of things which require AST manipulation are:
+This is where the meta section comes in. There is not one single
+component for this but rather several mechanisms at hand that, when
+combined correctly, allow one to perform all sorts of transformations.
 
-1.  Type aliases
-    - `size_t` and `ssize_t` need to be resolved to their concrete types
-2.  Macros
-    - Macros such as `sizeof(<type>)` need to be replaced with a
-      `NumberLiteral` with the value that is equal to the bit-width (in
-      bytes) of the type `<type>`
+TODO: `sizet` etc. These types will need to be handled somehow, probably
+in `getType()` in the type checker
 
 ### Meta API
 
@@ -30,28 +25,103 @@ in `source/tlang/compiler/symbols/mcro.d`.
 Anything which implements this has the ability to search for objects of
 the provided type, and return a list of them.
 
-TODO: Method table (required methods to implement)
-
 | Method name | Return type | Description |
 |----|----|----|
 | `search( TypeInfo_Class )` | `Statement[]` | Searches for all objects of the given type and returns an array of them. Only if the given type is equal to or sub-of `Statement` |
 
-TODO: Add an example of it being used here please
+Sometimes one needs to be able to find all AST nodes of a given type,
+for example, I may have an `Expression` AST node such as:
+
+    1 + 2 + func()
+
+And maybe I would like to find all AST nodes *therein* that are
+type-compatible with the `IntegerLiteral` type - meaning I would be able
+to extract all the integer literals present in that expression, namely
+$`1`$ and $`2`$. Let’s take a look at this example in code:
+
+``` d
+// This is our main expression `1 + 2 + func()`
+Expression exp = ...
+
+// Cast to `MStatementSearchable` and only work
+// if it supports it
+if(cast(MStatementSearchable)exp)
+{
+    MStatementSearchable mss_exp = cast(MStatementSearchable)exp;
+    Statement[] s = mss_exp.search(IntegerLiteral.classinfo);
+    writeln(s);
+}
+```
+
+The output of `writeln(s)` would be, if all the AST types we care about
+(and intermediay ones) implement `MStatementSearchable`, something like:
+
+    [Integerliteral [val: 1], Integerliteral [val: 2]]
 
 #### the `MStatementReplaceable`
 
-Anything which implements this has the ability to, given an object `x`,
-return a `ref x` to it hence allowing us to replace it.
+Anything which implements this has the ability to replace a given
+statement within itself with another statement.
 
-**FIXME:** This description is wrong and wrong in the code, no more
-`ref` stuff is ysed AT ALL, and hasn’t been for a long time anyways, so
-that comment needs to get updated
+Obviously this barrs one from replacing the statement `this` itself, in
+such a case attempt replacement via the parent (i.e. `this.parentOf()`).
 
 | Method name | Return type | Description |
 |----|----|----|
 | `replace(     Statement,     Statement)` | `bool` | Replace a given `Statement` (the first argument) with another `Statement` (the second argument), returns `true` if the replacement is successful, `false` otherwise |
 
-TODO: Add an example of it being used here please
+A real example from the source code is how the dependency generator
+replaces occurences of the `FunctionCall` AST node `sizeof(...)` with an
+`IntegerLiteral` containing some numeric number. The idea is that
+`sizeof(ubyte)` should be replaced with an `IntegerLiteral` containing
+the number $`1`$ (the number of bytes of the `ubyte` type).
+
+The implementation of this starts of with a `FunctionCall` node called
+`funcCall` and we then obtain the name of the function being called with
+`funcCall.getName()`, we do this to ensure that we are observing
+`sizeof(...)`:
+
+``` d
+FunctionCall funcCall = cast(FunctionCall)exp;
+string funcCall_n = funcCall.getName();
+
+// store the parent of `funcCall`
+Container funcCall_p = funcCall.parentOf();
+
+/** 
+ * In the case we have a function named
+ * `sizeof()` then we want to replace
+ * it in place with a different expression
+ */
+if(funcCall_n == "sizeof")
+{
+    ...
+```
+
+Now let’s first create the AST node that I want to put in place of where
+the `sizeof(...)` `FunctionCall` AST node is currently:
+
+``` d
+IntegerLiteral li = determineSizeOfLiteral(this.tc, n);
+```
+
+Next we want to do two things:
+
+1.  Set `li`’s parent to `funcCall`’s parent
+    - This is to make it “act” the same
+2.  Place `li` exactly where `funcCall` was *in* `funcCall`’s parent
+    - This is pretty self-explanatory
+
+``` d
+// Set to use the same parent as `funcCall`
+li.parentTo(funcCall_p);
+
+// Replace `funcCall` in `funcCall_p` with `li`
+auto funcCall_p_cl = cast(MStatementReplaceable)funcCall_p;
+funcCall_p_cl.replace(funcCall, li);
+```
+
+We have now performed the replacement.
 
 #### the `MTypeRewritable`
 
