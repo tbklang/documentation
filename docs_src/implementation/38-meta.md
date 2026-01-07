@@ -51,9 +51,9 @@ The output of `writeln(s)` would be, if all the AST types we care about (and int
 
 #### the `MStatementReplaceable`
 
-Anything which implements this has the ability to, given an object `x`, return a `ref x` to it hence allowing us to replace it.
+Anything which implements this has the ability to replace a given statement within itself with another statement.
 
-**FIXME:** This description is wrong and wrong in the code, no more `ref` stuff is ysed AT ALL, and hasn't been for a long time anyways, so that comment needs to get updated
+Obviously this barrs one from replacing the statement `this` itself, in such a case attempt replacement via the parent (i.e. `this.parentOf()`).
 
 |   Method name                   | Return type   | Description                                                                                     |
 |---------------------------------|---------------|-------------------------------------------------------------------------------------------------|
