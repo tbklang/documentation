@@ -28,3 +28,7 @@ Once you have finished making your changes in the files in `docs_src/`, please t
 This should produce an updated file in `docs/` with the same name as the one you edited in `docs_src/`, **commit BOTH files** please.
 
 Then you're done!
+
+## Dependencies
+
+Please see the [dependencies](deps) file.

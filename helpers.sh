@@ -7,7 +7,7 @@ function generateBook()
     pandoc -F pandoc-plot -M plot-configuration=pandoc-plot-book.conf -f markdown --top-level-division=part --number-sections --toc docs_src/00-bookindex.md docs_src/01-dedication.md docs_src/introduction/*.md docs_src/language/*.md docs_src/implementation/* \
     														 -s -t latex --highlight-style kate
     pandoc -F pandoc-plot -f markdown --top-level-division=part --number-sections --toc docs_src/00-bookindex.md docs_src/01-dedication.md docs_src/introduction/*.md docs_src/language/*.md docs_src/implementation/* \
-    														 -s -t latex --highlight-style kate  | pdflatex > /dev/null
+    														 -s -t latex --highlight-style kate  | pdflatex #> /dev/null
     mv texput.pdf book.pdf
 }
 
