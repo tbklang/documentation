@@ -22,7 +22,7 @@ Before we begin let's look at the rule for the type lookup:
     * Check to see if it is a kind-of `TypeAlias`, if so store it in `ta`
     * Then call `getType(ta.parentOf(), ta.getReferentType())` and recurse
 
-Note, that we need not worry about cycles in step **3** because they are impossible when we get to this point 
+Note, that we need not worry about cycles in step **3** because they are impossible when we get to this point as the dependency generator has already performed use-before-declare checks on the `TypeAlias` objects it encounters and if one occurred an error would have been thrown earlier on.
 
 ### Builtin types
 
