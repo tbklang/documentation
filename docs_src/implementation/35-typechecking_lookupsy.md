@@ -26,6 +26,78 @@ Note, that we need not worry about cycles in step **3** because they are impossi
 
 ### Builtin types
 
+The module `tlang.compiler.symbols.typing.builtins` contains a method for resolving built-in types:
+
+```
+public Type getBuiltInType(TypeChecker tc, Container container, string typeString)
+{
+    ...
+}
+```
+
+This contains a relatively simple lookup-table-like mechanism for mapping from the `typeString` to some concrete `Type`. Effectively what we have is a bunch of if-statements for handling this:
+
+```
+/* `int`, signed (2-complement) */
+if(cmp(typeString, "int") == 0)
+{
+    return new Integer("int", 4, true);
+}
+/* `uint` unsigned */
+else if(cmp(typeString, "uint") == 0)
+{
+    return new Integer("uint", 4, false);
+}
+
+...
+```
+
+In the case that no _built-in type_ can be found for `typeString` then `null` is returned.
+
+#### How the system types `size_t` and `ssize_t` work
+
+There is a special check within this module for these two types. They cannot, as one may think, be implemented as a standard _type alias_ (using `TypeAlias`) because what they map to is only determinable based on context that is not within the T language itself but rather something the compiler implementation can determine.
+
+That is - _"What is this systems largest word size?"_
+
+The first check is to see whether `typeString` refers to one of these _system types_:
+
+```d
+/* `size_t` and `ssize_t` system types */
+else if(isSystemType(typeString))
+{
+    ...
+}
+```
+
+If that is the case we then get the corresponding _system type_ for `typeString`. We also pass in the compiler's configuration as that helps determine what these types should resolve to. From this we obtai
+a new type string, `ts_rmp`:
+
+```d
+// map it (`size_t`/`ssize_t`) to a typeString
+// containing a concrete type
+string ts_rmp = getSystemType(tc.getConfig(), typeString);
+```
+
+We then resolve `ts_rmp` via `getType(...)` and then return that:
+
+```d
+// recurse with concrete type
+return getBuiltInType(tc, container, ts_rmp);
+```
+
+TODO: We should move the stack-array checks, pointer checks etc. - **out** of here and into `getType()` as there isn't much "built-in" about those.
+
 TODO: Add a section on this
     TODO: Talk about builtins
     TODO: Talk about pointer type resolution (this should maybe be done in `getType()` rather as there isn't much "built-in" about this)
+
+### User-defined types
+
+### Tying it all together
+
+Bringing together what we know about both _built-in types_ and _user-defined types_ we can now take a look at the implementation of `getType(Container, string)`:
+
+```{d. .numberLines}
+
+```
