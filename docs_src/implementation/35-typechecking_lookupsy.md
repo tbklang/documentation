@@ -99,5 +99,37 @@ TODO: Add a section on this
 Bringing together what we know about both _built-in types_ and _user-defined types_ we can now take a look at the implementation of `getType(Container, string)`:
 
 ```{d. .numberLines}
+/* Check if the type is built-in */
+Type builtinType = getBuiltInType(this, c, typeString);
 
+/* If it isn't then check for a type (resolve it) */
+if(!builtinType)
+{
+    Entity foundEntity = resolver.resolveBest(c, typeString);
+
+    /* Not found */
+    if(foundEntity is null)
+    {
+        return null;
+    }
+
+    Type foundType = cast(Type)foundEntity;
+
+    /* If it exists but it isn't a type */
+    if(foundType is null)
+    {
+        expect(typeString, "is not a type but rather a", foundEntity);
+    }
+
+    /* In case of a type alias, recurse */
+    if(cast(TypeAlias)foundType)
+    {
+        TypeAlias ta = cast(TypeAlias)foundType;
+        return getType(ta.parentOf(), ta.getReferentType());
+    }
+
+    return foundType;
+}
+
+return builtinType;
 ```
