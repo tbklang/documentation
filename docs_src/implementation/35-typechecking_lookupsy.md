@@ -86,13 +86,42 @@ We then resolve `ts_rmp` via `getType(...)` and then return that:
 return getBuiltInType(tc, container, ts_rmp);
 ```
 
-TODO: We should move the stack-array checks, pointer checks etc. - **out** of here and into `getType()` as there isn't much "built-in" about those.
-
-TODO: Add a section on this
-    TODO: Talk about builtins
-    TODO: Talk about pointer type resolution (this should maybe be done in `getType()` rather as there isn't much "built-in" about this)
-
 ### User-defined types
+
+When a _user-defined type_ is looked up we perform a very simple check via the `Resolver` for **any** entity named `typeString` which it can find by performing a search starting from the container `c`. If we do not find anything then we immediately return `null`:
+
+```d
+Entity foundEntity = resolver.resolveBest(c, typeString);
+
+/* Not found */
+if(foundEntity is null)
+{
+    return null;
+}
+```
+
+However, if we _do_ find an `Entity` then the next check is to see if the eneity referred to is a _type_, we do this by checking if a cast to `Type` would succeed, if not then we throw an exception:
+
+```d
+/* If it exists but it isn't a type */
+if(foundType is null)
+{
+    expect(typeString, "is not a type but rather a", foundEntity);
+}
+```
+
+If `foundType` is non-null then it means it has a `Type` in it. Now, before we can move on and just return the type to the user we must perform one more check; _"Is this type a **type alias**?"_:
+
+```d
+/* In case of a type alias, recurse */
+if(cast(TypeAlias)foundType)
+{
+    TypeAlias ta = cast(TypeAlias)foundType;
+    return getType(ta.parentOf(), ta.getReferentType());
+}
+```
+
+What we have done above is to obtain the _type alias_ as `ta` and then resolve its _referent type_. This is the type that the alias is defined to be "equal to". We perform this resolution like we would with any type, we use the container of the type alias's container but this time our `typeString` is `ta.getReferentType()`.
 
 ### Tying it all together
 
@@ -133,3 +162,6 @@ if(!builtinType)
 
 return builtinType;
 ```
+
+* TODO: We should move the stack-array checks, pointer checks etc. - **out** of here and into `getType()` as there isn't much "built-in" about those.
+* TODO: Talk about pointer type resolution (this should maybe be done in `getType()` rather as there isn't much "built-in" about this)
